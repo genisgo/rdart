@@ -1,7 +1,10 @@
 part of '../rdart_base.dart';
+
 class Rapplication extends Relement {
   Relement? home;
-  Rapplication({this.home}) {
+  DataTheme theme;
+  Rapplication({this.home, this.theme = Theme.defaultTheme}) {
+    _currentTheme = theme;
     create();
   }
 
