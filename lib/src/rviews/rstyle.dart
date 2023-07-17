@@ -1,4 +1,5 @@
 part of 'rview_bases.dart';
+
 abstract class Style {
   final int width;
   final int height;
@@ -38,7 +39,7 @@ class RStyle extends Style {
       super.padding = REdgetInset.zero,
       this.alignHorizontal = AligmentHorizontal.none,
       this.alignmentVertical = AlignmentVertical.none,
-      this.textSize =14,
+      this.textSize = 14,
       this.backgroundColor,
       this.textAlign,
       super.height = 0,
@@ -59,6 +60,7 @@ class RStyle extends Style {
       Color? backgroundColor,
       TextAlign? textAlign,
       int? height,
+
       ///[ratioWidth] make in % width *exemple* ratioWidth:true, width:100 (100%)
       int? width,
       bool? ratioHeight,
@@ -138,12 +140,10 @@ class RStyle extends Style {
       //BoxShadow
     }
 
-///TextStyle
+    ///TextStyle
     ///Alignement de text
-    if (textAlign != null) {
-      element.style.textAlign = textAlign!.value;
-      element.style.fontSize = textSize.toString();
-    }
+    if (textAlign != null) element.style.textAlign = textAlign!.value;
+     element.style.fontSize = "${textSize}px";
     return element;
   }
 }
@@ -161,12 +161,13 @@ class BoxShadow {
 
   /// La dispersion de lombre
   final int blur;
-
+  static const none = BoxShadow();
   const BoxShadow(
       {this.color = Colors.gray,
       this.horizontal = 1,
       this.vertical = 1,
       this.blur = 1});
+
   @override
   String toString() {
     return "${color.color} ${horizontal}px ${vertical}px ${blur}px";
