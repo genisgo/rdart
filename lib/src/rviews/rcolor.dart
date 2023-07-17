@@ -1,4 +1,4 @@
-part of '../rdart_base.dart';
+part of 'rview_bases.dart';
 class Color {
   final String color;
   const Color(this.color);

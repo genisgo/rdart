@@ -1,5 +1,4 @@
-part of '../rdart_base.dart';
-
+part of 'rview_bases.dart';
 class Rapplication extends Relement {
   Relement? home;
   DataTheme theme;

@@ -1,5 +1,4 @@
-part of '../rdart_base.dart';
-
+part of 'rview_bases.dart';
 abstract class Relement {
   static int registrerElementID = 0;
   const Relement();

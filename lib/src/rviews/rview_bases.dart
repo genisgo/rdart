@@ -1,16 +1,17 @@
 import 'dart:async';
 import 'dart:html';
 
-import 'themes/data_themes.dart';
-part "relements/r.element.dart";
-part 'relements/rcolor.dart';
-part 'relements/border.dart';
-part 'relements/r.decoration.dart';
-part 'relements/rstyle.dart';
-part 'relements/edge.dart';
-part "relements/r.app.dart";
-part 'relements/button.dart';
-part 'relements/enum.dart';
+import '../../themes.dart';
+import '../themes/data_themes.dart';
+part 'r.element.dart';
+part 'rcolor.dart';
+part 'border.dart';
+part 'r.decoration.dart';
+part 'rstyle.dart';
+part 'edge.dart';
+part 'r.app.dart';
+part 'button.dart';
+part 'enum.dart';
 
 ///CurrentTheme qui doit etres initialiser dans [Rapplication]
 late DataTheme _currentTheme;

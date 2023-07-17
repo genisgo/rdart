@@ -1,6 +1,5 @@
 // This is used for implemented repert
-part of '../rdart_base.dart';
-
+part of 'rview_bases.dart';
 abstract class EdgInset {
   final int top;
   final int left;

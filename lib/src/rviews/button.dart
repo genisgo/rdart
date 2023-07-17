@@ -1,5 +1,4 @@
-part of '../rdart_base.dart';
-
+part of 'rview_bases.dart';
 class RButton extends Relement {
   RStyle? style;
   bool disable;

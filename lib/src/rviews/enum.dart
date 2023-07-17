@@ -1,5 +1,4 @@
-part of '../rdart_base.dart';
-
+part of 'rview_bases.dart';
 //Border style
 enum BorderStyle {
   none,

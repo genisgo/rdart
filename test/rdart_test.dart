@@ -1,4 +1,4 @@
-import 'package:rdart/rdart.dart';
+import 'package:rdart/rviews.dart';
 import 'package:test/test.dart';
 
 void main() {
