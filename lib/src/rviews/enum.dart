@@ -1,4 +1,4 @@
-part of "bases.dart";
+part of '../rdart_base.dart';
 
 //Border style
 enum BorderStyle {
@@ -12,7 +12,13 @@ enum BorderStyle {
   groove,
   inset
 }
-
+enum ClassName{
+  tabBtn,
+  tabBar,
+  tabPage,
+  page
+  ;
+}
 enum AligmentHorizontal {
   ///alignement a droite
   right("flex-end"),

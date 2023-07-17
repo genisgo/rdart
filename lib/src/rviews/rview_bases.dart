@@ -135,13 +135,13 @@ class AppBar extends Relement {
   final String text;
   final RelementCallBack? onPress;
 
-  Color backgroundColor;
+  Color? backgroundColor;
   AppBar(
       {this.title,
       this.text = "",
       this.backup,
       this.actions = const [],
-      this.backgroundColor = Colors.primaryColor,
+      this.backgroundColor,
       this.heigth = 45,
       this.onPress});
 
@@ -156,7 +156,8 @@ class AppBar extends Relement {
       ..style.padding = "4px 0px 0px 0px"
       ..style.display = "inline-flex"
       ..style.boxShadow = "1px 1px 10px grey"
-      ..style.backgroundColor = backgroundColor.color;
+      ..style.backgroundColor = backgroundColor?.color ??
+          _currentTheme.appBarStyle.backgroundColor?.color;
     if (onPress != null) {
       div.onClick.listen((event) {
         onPress!(this);

@@ -1,5 +1,6 @@
 // This is used for implemented repert
-part of "bases.dart";
+part of '../rdart_base.dart';
+
 abstract class EdgInset {
   final int top;
   final int left;
@@ -13,7 +14,6 @@ abstract class EdgInset {
 class REdgetInset extends EdgInset {
   static const zero = REdgetInset();
   const REdgetInset({super.top, super.bottom, super.left, super.right});
-
-  static REdgetInset all(int value) =>
-      REdgetInset(top: value, bottom: value, left: value, right: value);
+  const REdgetInset.all(int value)
+      : super(top: value, bottom: value, left: value, right: value);
 }

@@ -1,5 +1,4 @@
-part of 'bases.dart';
-
+part of '../rdart_base.dart';
 class Rborder {
   final BorderSide side;
   final Raduis raduis;

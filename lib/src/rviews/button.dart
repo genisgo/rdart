@@ -1,4 +1,4 @@
-part of "bases.dart";
+part of '../rdart_base.dart';
 
 class RButton extends Relement {
   RStyle? style;
@@ -7,8 +7,7 @@ class RButton extends Relement {
   Function(Relement relement)? onHover;
   Function(Relement relement)? onPress;
   RButton(
-      {
-      this.onPress, 
+      {this.onPress,
       this.style,
       this.onHover,
       required this.child,
@@ -17,8 +16,8 @@ class RButton extends Relement {
   @override
   Element create() {
     ///Insertion de titre
-    
-    element.children.add( child.create());
+
+    element.children.add(child.create());
 
     ///ajout de nom de classe
     element.id = "btn_defaut";
@@ -41,20 +40,23 @@ class RButton extends Relement {
     ///add de style
     if (style != null) {
       ///Add default size
-      style!.width == 0 ? style!.width = 100 : null;
-      style!.height == 0 ? style!.height = 45 : null;
+      if (style?.width == 0) style = style?.copyWith(width: 100);
+      if (style?.height == 0) style = style?.copyWith(height: 45);
 
       ///Add default decoration
+      final defaultDecoaration = Decoration(
+          backgroundColor:
+              _currentTheme.buttonTheme.defaultStyle.backgroundColor,
+          shadow: BoxShadow(blur: 3, horizontal: 1, vertical: 1),
+          border: Rborder(raduis: Raduis.all(8)));
+
+      ///if decoration is Undefined
       if (style!.decoration == null) {
-        style!.decoration = Decoration(
-            backgroundColor: Default.primaryColor,
-            shadow: BoxShadow(blur: 3,horizontal: 1,vertical: 1),
-            border: Rborder(raduis: Raduis.all(8)));
+        style = style?.copyWith(decoration: defaultDecoaration);
       }
-      
     }
-    element =
-        (style ?? Default.buttonStyle).createStyle(element) as ButtonElement;
+    element = (style ?? _currentTheme.buttonTheme.defaultStyle)
+        .createStyle(element) as ButtonElement;
 
     return element;
   }

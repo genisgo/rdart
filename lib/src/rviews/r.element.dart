@@ -1,4 +1,4 @@
-part of 'bases.dart';
+part of '../rdart_base.dart';
 
 abstract class Relement {
   static int registrerElementID = 0;
