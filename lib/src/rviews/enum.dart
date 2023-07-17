@@ -18,7 +18,7 @@ enum ClassName{
   page
   ;
 }
-enum AligmentHorizontal {
+enum AlignHorizontal {
   ///alignement a droite
   right("flex-end"),
 
@@ -36,11 +36,11 @@ enum AligmentHorizontal {
   //Desactiver
   none("unset");
 
-  const AligmentHorizontal(this.value);
+  const AlignHorizontal(this.value);
   final String value;
 }
 
-enum AlignmentVertical {
+enum AlignVertical {
   ///alignement a haut
   top("start"),
 
@@ -58,7 +58,7 @@ enum AlignmentVertical {
   //Desactiver
   none("unset");
 
-  const AlignmentVertical(this.value);
+  const AlignVertical(this.value);
   final String value;
 }
 

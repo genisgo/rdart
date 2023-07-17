@@ -133,6 +133,7 @@ class AppBar extends Relement {
   final Relement? backup;
   final int heigth;
   final List<Relement> actions;
+  final AlignVertical alginVertical;
   final String text;
   final BoxShadow boxShadow;
   final RelementCallBack? onPress;
@@ -140,6 +141,7 @@ class AppBar extends Relement {
   Color? backgroundColor;
   AppBar(
       {this.title,
+      this.alginVertical = AlignVertical.center,
       this.text = "",
       this.boxShadow = const BoxShadow(),
       this.backup,
@@ -158,6 +160,7 @@ class AppBar extends Relement {
       ..style.width = "100%"
       ..style.padding = "4px 0px 0px 0px"
       ..style.display = "inline-flex"
+      ..style.alignContent = "center"
       ..style.boxShadow = boxShadow.toString()
       ..style.backgroundColor = backgroundColor?.color ??
           _currentTheme.appBarStyle.backgroundColor?.color;
@@ -171,7 +174,7 @@ class AppBar extends Relement {
       div.children.add(Element.div()
         ..id = "backup"
         ..style.display = "inline-flex"
-        ..style.alignItems = "center"
+        ..style.alignItems = alginVertical.value
         ..style.padding = "10px"
         ..children.add(backup!.create())
         ..style.width = "10%");
@@ -269,12 +272,12 @@ enum Ricons {
 
 class Row extends Relement {
   List<Relement> children;
-  AligmentHorizontal mainAxisAlignment;
-  AlignmentVertical crossAxisAlignment;
+  AlignHorizontal mainAxisAlignment;
+  AlignVertical crossAxisAlignment;
   Row(
       {this.children = const [],
-      this.crossAxisAlignment = AlignmentVertical.top,
-      this.mainAxisAlignment = AligmentHorizontal.left});
+      this.crossAxisAlignment = AlignVertical.top,
+      this.mainAxisAlignment = AlignHorizontal.left});
   final _div = Element.div();
   @override
   Element create() {
@@ -304,17 +307,17 @@ class Column extends Relement {
   ///Le mainAxisAlignment est l'alignement qui definis la disposition des
   ///elements de façon horizontale par defaut les element sondisposer a gauche
   ///la valeur par defaut est une list vide *const []*
-  AligmentHorizontal mainAxisAlignment;
+  AlignHorizontal mainAxisAlignment;
   bool mainAxisExpand;
 
   /// [crossAxisAlignment] est l'alignement verticale des elements par defaut
   /// sa valeur est [AlignmentVertical.top]
-  AlignmentVertical crossAxisAlignment;
+  AlignVertical crossAxisAlignment;
   Column(
       {this.children = const [],
       this.mainAxisExpand = false,
-      this.crossAxisAlignment = AlignmentVertical.top,
-      this.mainAxisAlignment = AligmentHorizontal.left});
+      this.crossAxisAlignment = AlignVertical.top,
+      this.mainAxisAlignment = AlignHorizontal.left});
   final _div = Element.div();
   @override
   Element create() {

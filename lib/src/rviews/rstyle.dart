@@ -28,8 +28,8 @@ abstract class Style {
 class RStyle extends Style {
   final bool modeRatio;
   final Decoration? decoration;
-  final AligmentHorizontal alignHorizontal;
-  final AlignmentVertical alignmentVertical;
+  final AlignHorizontal alignHorizontal;
+  final AlignVertical alignmentVertical;
   final TextAlign? textAlign;
   final int textSize;
   final Color? backgroundColor;
@@ -37,8 +37,8 @@ class RStyle extends Style {
       {this.modeRatio = true,
       super.margin = REdgetInset.zero,
       super.padding = REdgetInset.zero,
-      this.alignHorizontal = AligmentHorizontal.none,
-      this.alignmentVertical = AlignmentVertical.none,
+      this.alignHorizontal = AlignHorizontal.none,
+      this.alignmentVertical = AlignVertical.none,
       this.textSize = 14,
       this.backgroundColor,
       this.textAlign,
@@ -55,8 +55,8 @@ class RStyle extends Style {
       {bool? modeRatio,
       REdgetInset? margin,
       REdgetInset? padding,
-      AligmentHorizontal? alignHorizontal,
-      AlignmentVertical? alignmentVertical,
+      AlignHorizontal? alignHorizontal,
+      AlignVertical? alignmentVertical,
       Color? backgroundColor,
       TextAlign? textAlign,
       int? height,
