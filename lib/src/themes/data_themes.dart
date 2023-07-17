@@ -1,4 +1,4 @@
-import 'package:rdart/rdart.dart';
+import 'package:rdart/rviews.dart';
 
 abstract class DataTheme {
   final RStyle appBarStyle;
