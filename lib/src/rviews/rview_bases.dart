@@ -79,11 +79,11 @@ class Page extends Relement {
 class Container extends Relement {
   ///Definit la hauteur, si [width] est definis la hauter est en pixel (px)
   ///Lors ce que vous souhaitez une responsive utiliser [style] et definissez les dimensions
-  int width;
+  int? width;
 
   ///Definit la hauteur, si [height] est definis la hauter est en pixel (px)
   ///Lors ce que vous souhaitez une responsive utiliser [style] et definissez les dimensions
-  int height;
+  int? height;
 
   ///utiliez pour mettre un enfant (un est autre Relement)
   Relement? child;
@@ -94,8 +94,8 @@ class Container extends Relement {
   Container({
     this.child,
     this.style,
-    this.width = 0,
-    this.height = 0,
+    this.width ,
+    this.height,
   });
   var _div = Element.div();
   @override
@@ -109,8 +109,8 @@ class Container extends Relement {
       _div = style!.createStyle(_div);
     } else {
       _div
-        ..style.width = "${width}px"
-        ..style.height = "${height}px";
+        ..style.width = width==null?null:"${width}px"
+        ..style.height = width==null?null:"${height}px";
     }
     _div
       ..className = "container"
@@ -430,14 +430,19 @@ class TextField extends Relement {
 
 class Divider extends Relement {
   double height;
+  double? width;
   Color color;
-  Divider({this.height = 1, this.color = Colors.gray});
-  Element _div = Element.div();
+  Divider({this.height = 1, this.color = Colors.gray, this.width});
+  final Element _div = Element.div();
   @override
   Element create() {
-    return _div
+     _div
+     ..id="divider"
       ..style.backgroundColor = color.color
+      ..style.width= width==null?"-webkit-fill-available":"${width}px"
       ..style.height = "${height}px";
+
+      return _div; 
   }
 
   @override

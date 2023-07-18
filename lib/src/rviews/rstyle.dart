@@ -1,10 +1,12 @@
 part of 'rview_bases.dart';
 
 abstract class Style {
-  final int width;
-  final int height;
+  final double width;
+  final double height;
   final bool expandHeight;
   final bool expandWidth;
+  final double? maxHeight;
+  final double? maxWidth;
   final EdgInset margin;
   final EdgInset padding;
 
@@ -16,6 +18,8 @@ abstract class Style {
   const Style(
       {this.height = 1,
       this.width = 1,
+      this.maxHeight,
+      this.maxWidth,
       this.margin = REdgetInset.zero,
       this.padding = REdgetInset.zero,
       this.ratioHeight = false,
@@ -50,7 +54,9 @@ class RStyle extends Style {
       super.ratioWidth = false,
       this.decoration,
       super.expandHeight = false,
-      super.expandWidth = false});
+      super.expandWidth = false,
+      super.maxHeight,
+      super.maxWidth});
   RStyle copyWith(
       {bool? modeRatio,
       REdgetInset? margin,
@@ -59,10 +65,10 @@ class RStyle extends Style {
       AlignVertical? alignmentVertical,
       Color? backgroundColor,
       TextAlign? textAlign,
-      int? height,
+      double? height,
 
       ///[ratioWidth] make in % width *exemple* ratioWidth:true, width:100 (100%)
-      int? width,
+      double? width,
       bool? ratioHeight,
       bool? ratioWidth,
       Decoration? decoration,
@@ -115,6 +121,9 @@ class RStyle extends Style {
     if (expandHeight) element.style.height = "inherit";
     if (expandWidth) element.style.width = "inherit";
 
+    if (maxHeight != null) element.style.maxHeight = "${maxHeight}px";
+    if (maxHeight != null) element.style.maxWidth = "${maxWidth}px";
+
     if (decoration != null) {
       ///backgroundColor for decoration
       if (decoration!.backgroundColor != null) {
@@ -143,7 +152,7 @@ class RStyle extends Style {
     ///TextStyle
     ///Alignement de text
     if (textAlign != null) element.style.textAlign = textAlign!.value;
-     element.style.fontSize = "${textSize}px";
+    element.style.fontSize = "${textSize}px";
     return element;
   }
 }

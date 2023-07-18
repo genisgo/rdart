@@ -54,7 +54,7 @@ _setDefaultTabPage(){
 
 class TabBar extends Rview {
   List<Tab> tabs;
-  int? height;
+  double? height;
   Relement? titre;
   Relement? flexContent;
   Color selectorColor;
@@ -149,8 +149,8 @@ class Tab extends Relement {
   Function(Tab)? _onActive;
   bool _isActive = false;
   Color _selectorColor = Colors.white;
-  int? width;
-  int? height;
+  double? width;
+  double? height;
   Tab({
     required this.child,
     this.color,
