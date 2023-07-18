@@ -442,5 +442,5 @@ class Divider extends Relement {
 
   @override
   // TODO: implement getElement
-  Element get getElement => throw UnimplementedError();
+  Element get getElement =>_div;
 }
