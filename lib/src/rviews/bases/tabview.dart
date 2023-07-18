@@ -5,7 +5,7 @@ class TabView extends Rview {
   TabView({required this.tabBar, required this.tabPage});
 
   Container currentPage = Container(
-      child: Text("Accun contenu"),
+      child: Text("non page"),
       style: RStyle(
         width: 100,ratioHeight: true,ratioWidth: true,
         height: 100,
@@ -60,13 +60,18 @@ class TabBar extends Rview {
   Color selectorColor;
   Function(int indx)? onTabSelected;
   int defaultTabIndex;
-  Color backgroundColor;
+  int elevation; 
+  Color? backgroundColor;
+  Color shadowColor; 
   TabBar(
       {required this.tabs,
+      this.elevation=4,
       this.height,
-      this.backgroundColor = Colors.primaryColor,
+      this.shadowColor=Colors.grays,
+      this.backgroundColor ,
       this.defaultTabIndex = 0,
-      this.selectorColor = Colors.White,
+      this.selectorColor = Colors.white,
+
       this.titre,
       this.flexContent});
   @override
@@ -76,7 +81,7 @@ class TabBar extends Rview {
             height: height ?? 0,
             ratioWidth: true,
             decoration: Decoration(
-              shadow: BoxShadow(blur: 5),
+              shadow: BoxShadow(blur: elevation,vertical:0 ),
               backgroundColor: backgroundColor,
             ),
             width: 100,
@@ -90,17 +95,24 @@ class TabBar extends Rview {
   @override
   void onInitialized() {
     _setIdTabBar();
+    _initializColor();
     _selectionTab();
     setDefaultActiveTab(defaultTabIndex);
   }
 
+//colors initialisation
+void _initializColor(){
+  for (var element in tabs) {
+    element.color ??=backgroundColor;
+    element.getStyle().createStyle(element.getElement);
+   }
+}
 //
   void _selectionTab() {
     for (var index = 0; index < tabs.length; index++) {
       tabs[index].getElement.id = "${getElement.id} $index";
-      tabs[index].color = backgroundColor;
       tabs[index]._selectorColor = selectorColor;
-
+      //tabs[index].color = selectorColor;
       tabs[index]._onActive = (tab) {
         if (onTabSelected != null) onTabSelected!(index);
         tabs
@@ -132,7 +144,7 @@ class TabBar extends Rview {
 ///Class Tab is items for TabBarView
 class Tab extends Relement {
   Relement child;
-  Color color;
+  Color? color;
   REdgetInset padding ;
   Function(Tab)? _onActive;
   bool _isActive = false;
@@ -141,7 +153,7 @@ class Tab extends Relement {
   int? height;
   Tab({
     required this.child,
-    this.color = Colors.primaryColor,
+    this.color,
     this.padding =REdgetInset.zero,
     this.height,
     this.width,
@@ -162,7 +174,7 @@ class Tab extends Relement {
           border: _isActive
               ? Rborder(
                   bottom: BorderSide(
-                      color: _selectorColor, side: 4, style: BorderStyle.solid),
+                      color: _selectorColor, side: 2, style: BorderStyle.solid),
                 )
               : Rborder.all()),
     );

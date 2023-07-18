@@ -12,6 +12,7 @@ part 'edge.dart';
 part 'r.app.dart';
 part 'button.dart';
 part 'enum.dart';
+part 'bases/tabview.dart';
 
 ///CurrentTheme qui doit etres initialiser dans [Rapplication]
 late DataTheme _currentTheme;
@@ -424,4 +425,22 @@ class TextField extends Relement {
 
   @override
   Element get getElement => _div;
+}
+//divider
+
+class Divider extends Relement {
+  double height;
+  Color color;
+  Divider({this.height = 1, this.color = Colors.gray});
+  Element _div = Element.div();
+  @override
+  Element create() {
+    return _div
+      ..style.backgroundColor = color.color
+      ..style.height = "${height}px";
+  }
+
+  @override
+  // TODO: implement getElement
+  Element get getElement => throw UnimplementedError();
 }
