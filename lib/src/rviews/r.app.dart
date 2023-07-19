@@ -1,4 +1,5 @@
 part of 'rview_bases.dart';
+
 class Rapplication extends Relement {
   Relement? home;
   DataTheme theme;
@@ -8,8 +9,14 @@ class Rapplication extends Relement {
   }
 
   Element? element = querySelector("body");
+
   @override
   Element create() {
+    //Add default fontFamily
+    element?.style.fontFamily =
+        "-apple-system,system-ui,BlinkMacSystemFont,'Segoe UI',"
+        "Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif,"
+        "'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol',sans-serif";
     element!.children.add(home!.create());
     return element!;
   }

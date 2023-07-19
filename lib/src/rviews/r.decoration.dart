@@ -6,8 +6,8 @@ class Decoration {
   const Decoration(
       {this.border = Rborder.none, this.backgroundColor, this.shadow});
 
-  Decoration copyWith(
-      Color? backgroundColor, Rborder? border, BoxShadow? shadow) {
+  Decoration copyWith({
+      Color? backgroundColor, Rborder? border, BoxShadow? shadow}) {
     return Decoration(
         backgroundColor: backgroundColor ?? this.backgroundColor,
         border: border ?? this.border,

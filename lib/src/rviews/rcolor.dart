@@ -5,6 +5,7 @@ class Color {
 }
 
 class Colors extends Color {
+  static const transparent =Color("#00000000");
   static const none =Color("");
   static const White = Color("White");
   static const Black = Color("Black");

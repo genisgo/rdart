@@ -1,10 +1,31 @@
 part of 'rview_bases.dart';
 
-extension Dimenssion on int {
-  get px => "${this}px";
-  get pr => "$this%";
-}
+///set extension ajoute extension px et pr sur toute les int? e
+extension Dimenssion on int? {
+  
+ String? get px => _getStringValue();
+  String? get pr => "$this%";
+//
+String? _getStringValue(){
+  if(this !=null) return"${this}px";
+  return null;
+  }
+  
+  }
 
+//FontText
+enum FontWeight{
+  t200("200"),
+  t300("300"),
+  t400("400"),
+  t500("500"),
+  t700("600"),
+  t800("300"),
+  bold("bold");
+  
+  const FontWeight(this.value);
+  final String value;
+}
 abstract class Style {
   final double width;
   final double height;
@@ -12,6 +33,7 @@ abstract class Style {
   final bool expandWidth;
   final double? maxHeight;
   final double? maxWidth;
+  final FontWeight? fontWeight;
   final EdgInset margin;
   final EdgInset padding;
 
@@ -30,6 +52,7 @@ abstract class Style {
       this.ratioHeight = false,
       this.ratioWidth = false,
       this.expandHeight = false,
+      this.fontWeight,
       this.expandWidth = false});
   Element createStyle(Element e);
 }
@@ -52,7 +75,7 @@ class RStyle extends Style {
       this.backgroundColor,
       this.textAlign,
       super.height = 0,
-
+      super.fontWeight,
       ///[ratioWidth] make in % width *exemple* ratioWidth:true, width:100 (100%)
       super.width = 0,
       super.ratioHeight = false,
@@ -80,6 +103,8 @@ class RStyle extends Style {
       bool? expandHeight,
       bool? expandWidth,
       double? maxWidth,
+      FontWeight? fontWeight,
+
       double? maxHeight}) {
     return RStyle(
         alignmentVertical: alignmentVertical ?? this.alignmentVertical,
@@ -90,6 +115,7 @@ class RStyle extends Style {
         expandWidth: expandWidth ?? this.expandWidth,
         height: height ?? this.height,
         margin: margin ?? this.margin,
+        fontWeight: fontWeight??this.fontWeight,
         maxHeight: maxHeight ?? this.maxHeight,
         maxWidth: maxWidth ?? this.maxWidth,
         modeRatio: modeRatio ?? this.modeRatio,
@@ -162,7 +188,8 @@ class RStyle extends Style {
     ///TextStyle
     ///Alignement de text
     if (textAlign != null) element.style.textAlign = textAlign!.value;
-    element.style.fontSize = "${textSize}px";
+    element.style.fontSize = textSize.px;
+    element.style.fontWeight=fontWeight?.value;
     return element;
   }
 }
@@ -180,7 +207,7 @@ class BoxShadow {
 
   /// La dispersion de lombre
   final int blur;
-  static const none = BoxShadow();
+  static const none = BoxShadow(blur: 0,horizontal: 0,vertical: 0);
   const BoxShadow(
       {this.color = Colors.gray,
       this.horizontal = 1,

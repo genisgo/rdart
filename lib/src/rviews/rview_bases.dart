@@ -109,7 +109,6 @@ class Container extends Relement {
     if (style != null) {
       if (height != 0) style = style!.copyWith(height: height);
       if (width != 0) style = style!.copyWith(width: width);
-print(" max ${style!.maxWidth }");
       ///create the new style
       _div = style!.createStyle(_div);
       
@@ -187,6 +186,7 @@ class AppBar extends Relement {
       div.children.add(Element.div()
         ..style.width = "40%"
         ..style.padding = "10px"
+        ..style.display="inline-flex"
         ..children.add(title!.create())
         ..id = "titre");
     }
