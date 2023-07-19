@@ -94,27 +94,30 @@ class Container extends Relement {
   Container({
     this.child,
     this.style,
-    this.width ,
+    this.width,
     this.height,
   });
   var _div = Element.div();
   @override
   Element create() {
     ///if style is defind and [ height] , [width] is defind
-    if (style != null) {
-      if (height != 0) style = style!.copyWith(height: height);
-      if (width != 0) style = style!.copyWith(width: width);
-
-      ///create the new style
-      _div = style!.createStyle(_div);
-    } else {
-      _div
-        ..style.width = width==null?null:"${width}px"
-        ..style.height = width==null?null:"${height}px";
-    }
+    ///
     _div
       ..className = "container"
       ..style.display = "flex";
+
+    if (style != null) {
+      if (height != 0) style = style!.copyWith(height: height);
+      if (width != 0) style = style!.copyWith(width: width);
+print(" max ${style!.maxWidth }");
+      ///create the new style
+      _div = style!.createStyle(_div);
+      
+    } else {
+      _div
+        ..style.width = width == null ? null : "${width}px"
+        ..style.height = width == null ? null : "${height}px";
+    }
 
     if (child != null) {
       _div.children.add(child!.create());
@@ -326,7 +329,7 @@ class Column extends Relement {
       ..className = "column"
       ..style.display = "flex"
       ..style.flexDirection = "column";
-      
+
     _div.children.addAll(children.map((e) => e.create()));
     return RStyle(
             alignHorizontal: mainAxisAlignment,
@@ -432,23 +435,23 @@ class Divider extends Relement {
   double height;
   double? width;
   Color color;
-  static int  _idgenerate =0;
-  Divider({this.height = 1, this.color = Colors.gray, this.width}){
+  static int _idgenerate = 0;
+  Divider({this.height = 1, this.color = Colors.gray, this.width}) {
     _idgenerate++;
   }
   final Element _div = Element.div();
   @override
   Element create() {
-     _div
-     ..id="divider$_idgenerate"
+    _div
+      ..id = "divider$_idgenerate"
       ..style.backgroundColor = color.color
-      ..style.width= width==null?"-webkit-fill-available":"${width}px"
+      ..style.width = width == null ? "-webkit-fill-available" : "${width}px"
       ..style.height = "${height}px";
 
-      return _div; 
+    return _div;
   }
 
   @override
   // TODO: implement getElement
-  Element get getElement =>_div;
+  Element get getElement => _div;
 }

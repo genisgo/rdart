@@ -38,7 +38,7 @@ class RButton extends Relement {
     mouseEventAnimation(element);
     //Set default theme
     style ??= _currentTheme.buttonTheme.defaultStyle;
-    
+
     ///add de style
     element = style?.createStyle(element) as ButtonElement;
 

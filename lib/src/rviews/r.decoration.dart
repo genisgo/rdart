@@ -2,7 +2,7 @@ part of 'rview_bases.dart';
 class Decoration {
   final Color? backgroundColor;
   final Rborder border;
-  final BoxShadow? shadow;
+  final BoxShadow? shadow; 
   const Decoration(
       {this.border = Rborder.none, this.backgroundColor, this.shadow});
 

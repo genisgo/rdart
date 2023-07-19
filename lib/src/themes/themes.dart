@@ -40,25 +40,23 @@ class ButtonTheme extends ButtonDataTheme {
       padding: REdgetInset.all(10),
       decoration: Decoration(
         backgroundColor: Theme.defaultColor,
-        border: Rborder.all(raduis: Raduis.all(8), side: BorderSide()),
+        border: Rborder.all(raduis: Raduis.all(4), side: BorderSide()),
       ));
 
   static const _errorButtonStyle = RStyle(
-      width: 100,
-      height: 45,
+    height: 45,width: 100,
+      padding: REdgetInset.all(10),
       decoration: Decoration(
-          backgroundColor: Colors.white,
-          shadow: BoxShadow(blur: 3, horizontal: 1, vertical: 1),
-          border: Rborder(
-              raduis: Raduis.all(8), side: BorderSide(color: Colors.red))));
+        backgroundColor: Colors.danger,
+        border: Rborder.all(raduis: Raduis.all(4), side: BorderSide()),
+      ));
   static const _successButtonStyle = RStyle(
-      width: 100,
-      height: 45,
+    height: 45,width: 100,
+      padding: REdgetInset.all(10),
       decoration: Decoration(
-          backgroundColor: Colors.white,
-          shadow: BoxShadow(blur: 3, horizontal: 1, vertical: 1),
-          border: Rborder(
-              raduis: Raduis.all(8), side: BorderSide(color: Colors.green))));
+        backgroundColor: Colors.success,
+        border: Rborder.all(raduis: Raduis.all(4), side: BorderSide()),
+      ));
   static const _disbalbeButtonStyle = RStyle(
       width: 100,
       height: 45,

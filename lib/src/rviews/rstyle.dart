@@ -1,8 +1,10 @@
 part of 'rview_bases.dart';
- extension  Dimenssion on int{
-  get px =>"${this}px";
-  get pr =>"$this%";
+
+extension Dimenssion on int {
+  get px => "${this}px";
+  get pr => "$this%";
 }
+
 abstract class Style {
   final double width;
   final double height;
@@ -76,7 +78,9 @@ class RStyle extends Style {
       bool? ratioWidth,
       Decoration? decoration,
       bool? expandHeight,
-      bool? expandWidth}) {
+      bool? expandWidth,
+      double? maxWidth,
+      double? maxHeight}) {
     return RStyle(
         alignmentVertical: alignmentVertical ?? this.alignmentVertical,
         alignHorizontal: alignHorizontal ?? this.alignHorizontal,
@@ -86,6 +90,8 @@ class RStyle extends Style {
         expandWidth: expandWidth ?? this.expandWidth,
         height: height ?? this.height,
         margin: margin ?? this.margin,
+        maxHeight: maxHeight ?? this.maxHeight,
+        maxWidth: maxWidth ?? this.maxWidth,
         modeRatio: modeRatio ?? this.modeRatio,
         padding: padding ?? this.padding,
         ratioHeight: ratioHeight ?? this.ratioHeight,
@@ -125,7 +131,8 @@ class RStyle extends Style {
     if (expandWidth) element.style.width = "inherit";
 
     if (maxHeight != null) element.style.maxHeight = "${maxHeight}px";
-    if (maxHeight != null) element.style.maxWidth = "${maxWidth}px";
+    
+    if (maxWidth != null) element.style.maxWidth = "${maxWidth}px";
 
     if (decoration != null) {
       ///backgroundColor for decoration
