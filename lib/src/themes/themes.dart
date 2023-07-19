@@ -17,7 +17,7 @@ class Theme extends DataTheme {
       super.primaryColor = Theme.defaultColor,
       super.textFieldTheme = TextFeildTheme.defaultTextFieldTheme,
       super.defaultPadding = Theme.padding,
-      super.buttonTheme = DefaultButtonTheme.defaultButtonTheme,
+      super.buttonTheme = ButtonTheme.defaultButtonTheme,
       super.backgroundColor = Theme.defaultBackgroundColor});
 }
 
@@ -33,15 +33,15 @@ class TextTheme extends TextDataTheme {
 }
 
 ///ButtonStyle
-class DefaultButtonTheme extends ButtonDataTheme {
-  static const ButtonDataTheme defaultButtonTheme = DefaultButtonTheme();
+class ButtonTheme extends ButtonDataTheme {
+  static const ButtonDataTheme defaultButtonTheme = ButtonTheme();
   static const _buttonDefaultStyle = RStyle(
-      width: 100,
-      height: 45,
+    height: 45,width: 100,
+      padding: REdgetInset.all(10),
       decoration: Decoration(
-          backgroundColor: Colors.white,
-          shadow: BoxShadow(blur: 3, horizontal: 1, vertical: 1),
-          border: Rborder(raduis: Raduis.all(8))));
+        backgroundColor: Theme.defaultColor,
+        border: Rborder.all(raduis: Raduis.all(8), side: BorderSide()),
+      ));
 
   static const _errorButtonStyle = RStyle(
       width: 100,
@@ -67,11 +67,11 @@ class DefaultButtonTheme extends ButtonDataTheme {
           shadow: BoxShadow(blur: 3, horizontal: 1, vertical: 1),
           border: Rborder(
               raduis: Raduis.all(8), side: BorderSide(color: Colors.green))));
-  const DefaultButtonTheme(
+  const ButtonTheme(
       {super.suscessButton = _successButtonStyle,
-      super.errorButton = DefaultButtonTheme._errorButtonStyle,
-      super.disableButton = DefaultButtonTheme._disbalbeButtonStyle,
-      super.defaultStyle = DefaultButtonTheme._buttonDefaultStyle});
+      super.errorButton = ButtonTheme._errorButtonStyle,
+      super.disableButton = ButtonTheme._disbalbeButtonStyle,
+      super.defaultStyle = ButtonTheme._buttonDefaultStyle});
 }
 
 ///TextFieldDataTheme

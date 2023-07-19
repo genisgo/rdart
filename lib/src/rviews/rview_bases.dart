@@ -79,11 +79,11 @@ class Page extends Relement {
 class Container extends Relement {
   ///Definit la hauteur, si [width] est definis la hauter est en pixel (px)
   ///Lors ce que vous souhaitez une responsive utiliser [style] et definissez les dimensions
-  int? width;
+  double? width;
 
   ///Definit la hauteur, si [height] est definis la hauter est en pixel (px)
   ///Lors ce que vous souhaitez une responsive utiliser [style] et definissez les dimensions
-  int? height;
+  double? height;
 
   ///utiliez pour mettre un enfant (un est autre Relement)
   Relement? child;
@@ -326,7 +326,7 @@ class Column extends Relement {
       ..className = "column"
       ..style.display = "flex"
       ..style.flexDirection = "column";
-
+      
     _div.children.addAll(children.map((e) => e.create()));
     return RStyle(
             alignHorizontal: mainAxisAlignment,
@@ -432,12 +432,15 @@ class Divider extends Relement {
   double height;
   double? width;
   Color color;
-  Divider({this.height = 1, this.color = Colors.gray, this.width});
+  static int  _idgenerate =0;
+  Divider({this.height = 1, this.color = Colors.gray, this.width}){
+    _idgenerate++;
+  }
   final Element _div = Element.div();
   @override
   Element create() {
      _div
-     ..id="divider"
+     ..id="divider$_idgenerate"
       ..style.backgroundColor = color.color
       ..style.width= width==null?"-webkit-fill-available":"${width}px"
       ..style.height = "${height}px";

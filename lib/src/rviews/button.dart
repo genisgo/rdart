@@ -1,4 +1,5 @@
 part of 'rview_bases.dart';
+
 class RButton extends Relement {
   RStyle? style;
   bool disable;
@@ -35,27 +36,11 @@ class RButton extends Relement {
       });
     }
     mouseEventAnimation(element);
-
+    //Set default theme
+    style ??= _currentTheme.buttonTheme.defaultStyle;
+    
     ///add de style
-    if (style != null) {
-      ///Add default size
-      if (style?.width == 0) style = style?.copyWith(width: 100);
-      if (style?.height == 0) style = style?.copyWith(height: 45);
-
-      ///Add default decoration
-      final defaultDecoaration = Decoration(
-          backgroundColor:
-              _currentTheme.buttonTheme.defaultStyle.backgroundColor,
-          shadow: BoxShadow(blur: 3, horizontal: 1, vertical: 1),
-          border: Rborder(raduis: Raduis.all(8)));
-
-      ///if decoration is Undefined
-      if (style!.decoration == null) {
-        style = style?.copyWith(decoration: defaultDecoaration);
-      }
-    }
-    element = (style ?? _currentTheme.buttonTheme.defaultStyle)
-        .createStyle(element) as ButtonElement;
+    element = style?.createStyle(element) as ButtonElement;
 
     return element;
   }

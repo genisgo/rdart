@@ -1,5 +1,8 @@
 part of 'rview_bases.dart';
-
+ extension  Dimenssion on int{
+  get px =>"${this}px";
+  get pr =>"$this%";
+}
 abstract class Style {
   final double width;
   final double height;
