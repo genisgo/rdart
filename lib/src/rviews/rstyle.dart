@@ -2,19 +2,17 @@ part of 'rview_bases.dart';
 
 ///set extension ajoute extension px et pr sur toute les int? e
 extension Dimenssion on int? {
-  
- String? get px => _getStringValue();
+  String? get px => _getStringValue();
   String? get pr => "$this%";
 //
-String? _getStringValue(){
-  if(this !=null) return"${this}px";
-  return null;
+  String? _getStringValue() {
+    if (this != null) return "${this}px";
+    return null;
   }
-  
-  }
+}
 
 //FontText
-enum FontWeight{
+enum FontWeight {
   t200("200"),
   t300("300"),
   t400("400"),
@@ -22,10 +20,11 @@ enum FontWeight{
   t700("600"),
   t800("300"),
   bold("bold");
-  
+
   const FontWeight(this.value);
   final String value;
 }
+
 abstract class Style {
   final double width;
   final double height;
@@ -76,6 +75,7 @@ class RStyle extends Style {
       this.textAlign,
       super.height = 0,
       super.fontWeight,
+
       ///[ratioWidth] make in % width *exemple* ratioWidth:true, width:100 (100%)
       super.width = 0,
       super.ratioHeight = false,
@@ -104,7 +104,6 @@ class RStyle extends Style {
       bool? expandWidth,
       double? maxWidth,
       FontWeight? fontWeight,
-
       double? maxHeight}) {
     return RStyle(
         alignmentVertical: alignmentVertical ?? this.alignmentVertical,
@@ -115,7 +114,7 @@ class RStyle extends Style {
         expandWidth: expandWidth ?? this.expandWidth,
         height: height ?? this.height,
         margin: margin ?? this.margin,
-        fontWeight: fontWeight??this.fontWeight,
+        fontWeight: fontWeight ?? this.fontWeight,
         maxHeight: maxHeight ?? this.maxHeight,
         maxWidth: maxWidth ?? this.maxWidth,
         modeRatio: modeRatio ?? this.modeRatio,
@@ -157,15 +156,10 @@ class RStyle extends Style {
     if (expandWidth) element.style.width = "inherit";
 
     if (maxHeight != null) element.style.maxHeight = "${maxHeight}px";
-    
+
     if (maxWidth != null) element.style.maxWidth = "${maxWidth}px";
 
     if (decoration != null) {
-      ///backgroundColor for decoration
-      if (decoration!.backgroundColor != null) {
-        element.style.backgroundColor = decoration!.backgroundColor!.color;
-      }
-
       ///Set Border in shadow
       element
         ..style.borderRadius = decoration!.border.raduis.toString()
@@ -189,7 +183,7 @@ class RStyle extends Style {
     ///Alignement de text
     if (textAlign != null) element.style.textAlign = textAlign!.value;
     element.style.fontSize = textSize.px;
-    element.style.fontWeight=fontWeight?.value;
+    element.style.fontWeight = fontWeight?.value;
     return element;
   }
 }
@@ -207,7 +201,7 @@ class BoxShadow {
 
   /// La dispersion de lombre
   final int blur;
-  static const none = BoxShadow(blur: 0,horizontal: 0,vertical: 0);
+  static const none = BoxShadow(blur: 0, horizontal: 0, vertical: 0);
   const BoxShadow(
       {this.color = Colors.gray,
       this.horizontal = 1,

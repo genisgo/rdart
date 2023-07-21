@@ -1,4 +1,5 @@
 part of 'rview_bases.dart';
+
 class Rborder {
   final BorderSide side;
   final Raduis raduis;

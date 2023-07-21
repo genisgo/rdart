@@ -2,12 +2,11 @@ import 'package:rdart/rviews.dart';
 import 'package:test/test.dart';
 
 void main() {
-  int? x ;
-  print(x?.px);
+  int x =0;
+  print(x.px);
   group('A group of tests', () {
-   
 
-    setUp(() {
+ setUp(() {
       // Additional setup goes here.
     });
 

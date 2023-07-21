@@ -36,32 +36,35 @@ class TextTheme extends TextDataTheme {
 class ButtonTheme extends ButtonDataTheme {
   static const ButtonDataTheme defaultButtonTheme = ButtonTheme();
   static const _buttonDefaultStyle = RStyle(
-    height: 45,width: 100,
+      height: 45,
+      width: 100,
       padding: REdgetInset.all(10),
+      backgroundColor: Theme.defaultColor,
       decoration: Decoration(
-        backgroundColor: Theme.defaultColor,
         border: Rborder.all(raduis: Raduis.all(4), side: BorderSide()),
       ));
 
   static const _errorButtonStyle = RStyle(
-    height: 45,width: 100,
+      height: 45,
+      width: 100,
       padding: REdgetInset.all(10),
+      backgroundColor: Colors.danger,
       decoration: Decoration(
-        backgroundColor: Colors.danger,
         border: Rborder.all(raduis: Raduis.all(4), side: BorderSide()),
       ));
   static const _successButtonStyle = RStyle(
-    height: 45,width: 100,
+      height: 45,
+      width: 100,
       padding: REdgetInset.all(10),
+      backgroundColor: Colors.success,
       decoration: Decoration(
-        backgroundColor: Colors.success,
         border: Rborder.all(raduis: Raduis.all(4), side: BorderSide()),
       ));
   static const _disbalbeButtonStyle = RStyle(
       width: 100,
       height: 45,
+      backgroundColor: Colors.white,
       decoration: Decoration(
-          backgroundColor: Colors.white,
           shadow: BoxShadow(blur: 3, horizontal: 1, vertical: 1),
           border: Rborder(
               raduis: Raduis.all(8), side: BorderSide(color: Colors.green))));

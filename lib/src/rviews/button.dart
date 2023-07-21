@@ -3,6 +3,9 @@ part of 'rview_bases.dart';
 class RButton extends Relement {
   RStyle? style;
   bool disable;
+  Color? onMouseEnterColor;
+  Color? onMouseDownColor;
+
   Relement child;
   Function(Relement relement)? onHover;
   Function(Relement relement)? onPress;
@@ -10,6 +13,8 @@ class RButton extends Relement {
       {this.onPress,
       this.style,
       this.onHover,
+      this.onMouseDownColor,
+      this.onMouseEnterColor,
       required this.child,
       this.disable = false});
   var element = ButtonElement();
@@ -17,11 +22,25 @@ class RButton extends Relement {
   Element create() {
     ///Insertion de titre
 
-    element.children.add(child.create());
+    ///Crete child
+    child.create();
+    
+    /// set animation for child
+    child.getElement.onMouseEnter.listen((event) {
+      element.style.backgroundColor = onMouseEnterColor?.color;
+    });
+    element.children.add(child.getElement);
 
     ///ajout de nom de classe
     element.id = "btn_defaut";
     element.className = "rbtn";
+    //Set default theme
+    style ??= _currentTheme.buttonTheme.defaultStyle;
+    _onMouserEnterAnimation();
+
+    element.onMouseOut.listen((event) {
+      element.style.backgroundColor = style?.backgroundColor?.color;
+    });
 
     ///Ajout des evenements
     if (onHover != null) {
@@ -36,13 +55,19 @@ class RButton extends Relement {
       });
     }
     mouseEventAnimation(element);
-    //Set default theme
-    style ??= _currentTheme.buttonTheme.defaultStyle;
 
     ///add de style
     element = style?.createStyle(element) as ButtonElement;
 
     return element;
+  }
+
+  void _onMouserEnterAnimation() {
+    element.onMouseEnter.listen((event) {
+      if (onMouseEnterColor != null) {
+        element.style.backgroundColor = onMouseEnterColor?.color;
+      }
+    });
   }
 
   @override
