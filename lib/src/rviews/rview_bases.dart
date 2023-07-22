@@ -12,6 +12,8 @@ part 'edge.dart';
 part 'r.app.dart';
 part 'button.dart';
 part 'enum.dart';
+part '../router/r.router.dart';
+part '../router/router.dart';
 part 'bases/tabview.dart';
 
 ///CurrentTheme qui doit etres initialiser dans [Rapplication]
@@ -109,9 +111,9 @@ class Container extends Relement {
     if (style != null) {
       if (height != 0) style = style!.copyWith(height: height);
       if (width != 0) style = style!.copyWith(width: width);
+
       ///create the new style
       _div = style!.createStyle(_div);
-      
     } else {
       _div
         ..style.width = width == null ? null : "${width}px"
@@ -186,7 +188,7 @@ class AppBar extends Relement {
       div.children.add(Element.div()
         ..style.width = "40%"
         ..style.padding = "10px"
-        ..style.display="inline-flex"
+        ..style.display = "inline-flex"
         ..children.add(title!.create())
         ..id = "titre");
     }
