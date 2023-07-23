@@ -3,13 +3,11 @@ part of '../rviews/rview_bases.dart';
 class Rrouter extends Router {
   Rrouter({required super.routes, super.home}) {
     _setDefaultRoute();
-
-    if (_home != null) super.routes.add(_home!);
   }
 
   final Element _app = querySelector("body")!;
   Route? _currentRoute;
-  List<Route> _lastRoute = [];
+  final List<Route> _lastRoute = [];
 
   @override
   Route currentRoute() {
@@ -56,8 +54,8 @@ class Rrouter extends Router {
   @override
   _setDefaultRoute() {
     ///Insertion of home page is first page
-    if (_home != null) _lastRoute.insert(0, _home!);
-    _currentRoute = _lastRoute.first;
+    if (_home != null) _lastRoute.add(_home!);
+    if (_lastRoute.isNotEmpty) _currentRoute = _lastRoute.first;
   }
 }
 

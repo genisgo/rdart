@@ -169,6 +169,10 @@ class AppBar extends Relement {
       ..style.boxShadow = boxShadow.toString()
       ..style.backgroundColor = backgroundColor?.color ??
           _currentTheme.appBarStyle.backgroundColor?.color;
+
+          //initilized childreen
+          div.children.clear(); 
+          
     if (onPress != null) {
       div.onClick.listen((event) {
         onPress!(this);

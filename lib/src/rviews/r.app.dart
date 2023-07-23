@@ -10,7 +10,15 @@ class Rapplication extends Relement {
   Rapplication(
       {this.home, this.theme = Theme.defaultTheme, required this.router}) {
     _currentTheme = theme;
+    //set default value if router Home null
+    if (router._home == null) {
+      router._home = Rroute(url: "home", child: () => home!);
+      router.routes.add(router._home!);
+      router._setDefaultRoute();
+    }
+
     routerNavigation = router;
+
     create();
   }
 
