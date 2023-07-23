@@ -5,7 +5,7 @@ class RButton extends Relement {
   bool disable;
   Color? onMouseEnterColor;
   Color? onMouseDownColor;
-
+  
   Relement child;
   Function(Relement relement)? onHover;
   Function(Relement relement)? onPress;
@@ -24,7 +24,7 @@ class RButton extends Relement {
 
     ///Crete child
     child.create();
-    
+
     /// set animation for child
     child.getElement.onMouseEnter.listen((event) {
       element.style.backgroundColor = onMouseEnterColor?.color;

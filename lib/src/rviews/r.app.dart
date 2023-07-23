@@ -1,12 +1,12 @@
 part of 'rview_bases.dart';
 
 ///test Router
-Rrouter routerNavigation = Rrouter(routes: []);
+Router routerNavigation = Rrouter(routes: []);
 
 class Rapplication extends Relement {
-  Relement? home;
-  DataTheme theme;
-  Rrouter router;
+  final Relement? home;
+  final DataTheme theme;
+  final Router router;
   Rapplication(
       {this.home, this.theme = Theme.defaultTheme, required this.router}) {
     _currentTheme = theme;
