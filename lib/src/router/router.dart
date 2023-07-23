@@ -20,7 +20,7 @@ abstract class Router {
 abstract class Route {
   String url;
   String? name;
-  Relement Function() child;
+  Relement Function() page;
 
-  Route({required this.url, this.name, required this.child});
+  Route({required this.url, this.name, required this.page});
 }

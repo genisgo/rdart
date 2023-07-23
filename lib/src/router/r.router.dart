@@ -41,9 +41,18 @@ class Rrouter extends Router {
     var route = routes
         .singleWhere((element) => element.url == url || element.name == name);
     _app.children.clear();
-    _app.children.add(route.child().create());
+    _app.children.add(route.page().create());
     _currentRoute = route;
+    window.onBeforeUnload.listen((event) {
+      Uri url = Uri.parse(window.location.href);
+    var query =url.queryParametersAll;
+    print(query["url"]);
+     });
+    window.location.assign("/?url=$name");
     _lastRoute.add(_currentRoute!);
+     
+  
+   
   }
 
   @override
@@ -61,5 +70,5 @@ class Rrouter extends Router {
 
 //route
 class Rroute extends Route {
-  Rroute({required super.url, super.name, required super.child});
+  Rroute({required super.url, super.name, required super.page});
 }
