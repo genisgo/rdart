@@ -1,12 +1,16 @@
 part of '../rviews/rview_bases.dart';
 
 class Rrouter extends Router {
+
   Rrouter({required super.routes, super.home}) {
+
     _setDefaultRoute();
   }
 
   final Element _app = querySelector("body")!;
+
   Route? _currentRoute;
+
   final List<Route> _lastRoute = [];
 
   @override
@@ -23,9 +27,13 @@ class Rrouter extends Router {
   @override
   pop() {
     int previousIndex = _lastRoute.indexOf(currentRoute()) - 1;
+
     print(previousIndex);
+
     if (previousIndex >= 0) {
+
       var last = _lastRoute.elementAt(0);
+
       print(last.url);
 
       _setRoute(url: last.url);
@@ -33,8 +41,11 @@ class Rrouter extends Router {
   }
 
   @override
-  push(String url) {
+  push(String url) 
+  {
+    
     _setRoute(url: url);
+    
   }
 
   void _setRoute({String url = "", String name = ""}) {
@@ -43,16 +54,8 @@ class Rrouter extends Router {
     _app.children.clear();
     _app.children.add(route.page().create());
     _currentRoute = route;
-    window.onBeforeUnload.listen((event) {
-      Uri url = Uri.parse(window.location.href);
-    var query =url.queryParametersAll;
-    print(query["url"]);
-     });
-    window.location.assign("/?url=$name");
+
     _lastRoute.add(_currentRoute!);
-     
-  
-   
   }
 
   @override

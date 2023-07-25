@@ -1,9 +1,17 @@
 part of '../rview_bases.dart';
 
 class TabView extends Rview {
+  ///Une [tabBar] constitue l'entête de [TabView] et il est contitué
+  ///de [Tab] chaque Tab declarer doit avoir une [tabPage] correspondante
+  ///sinon cela crée une Erreur d'affichage
   TabBar tabBar;
+
+  ///De meme pour [tabPage] le nombre d'élément doit être strictement egale
+  ///au nombre de [Tab] de [tabBar]
   List<Relement> tabPage;
-  TabView({required this.tabBar, required this.tabPage});
+
+  TabView({required this.tabBar, required this.tabPage})
+      : assert((tabBar.tabs.length == tabPage.length));
 
   Container currentPage = Container(
       child: Text("non page"),
@@ -44,8 +52,6 @@ class TabView extends Rview {
 
   _setOnselectCallBack() {
     tabBar.onTabSelected = (indx) {
-      print("page $indx");
-
       currentPage.getElement.children.clear();
       currentPage.child = tabPage[indx];
       currentPage.create();
@@ -106,6 +112,7 @@ class TabBar extends Rview {
   void _initializColor() {
     for (var element in tabs) {
       element.color ??= backgroundColor;
+      element.height ??= height;
       element.getStyle().createStyle(element.getElement);
     }
   }
@@ -166,11 +173,11 @@ class Tab extends Relement {
 
   RStyle getStyle() {
     return RStyle(
-      ratioWidth: true,
+      ratioWidth: width == null ? true : false,
       width: width ?? 100,
       height: height ?? 100,
       padding: padding,
-      ratioHeight: true,
+      ratioHeight: height == null ? true : false,
       backgroundColor: color,
       decoration: Decoration(
           border: _isActive
@@ -189,6 +196,9 @@ class Tab extends Relement {
         onPress: (relement) {
           _isActive = true;
           if (_onActive != null) _onActive!(this);
+
+          ///Cree un style lors ce qu'un onglet a été selctionner
+          ///un candre blanc a bas s'affiche
           getStyle().createStyle(_relement.getElement);
         },
         style: getStyle());

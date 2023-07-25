@@ -5,7 +5,7 @@ class RButton extends Relement {
   bool disable;
   Color? onMouseEnterColor;
   Color? onMouseDownColor;
-  
+
   Relement child;
   Function(Relement relement)? onHover;
   Function(Relement relement)? onPress;
@@ -20,15 +20,24 @@ class RButton extends Relement {
   var element = ButtonElement();
   @override
   Element create() {
-    ///Insertion de titre
-
     ///Crete child
     child.create();
 
-    /// set animation for child
-    child.getElement.onMouseEnter.listen((event) {
-      element.style.backgroundColor = onMouseEnterColor?.color;
-    });
+    /// set animation for child on [onMouseEnter] event.
+    if (onMouseEnterColor != null) {
+      print("isnonte null");
+      child.getElement.onMouseEnter.listen((event) {
+        element.style.backgroundColor = onMouseEnterColor?.color;
+      });
+    }
+
+    ///ajoute un listerner d'evenement de tipe quiter le button
+    if (onMouseDownColor != null) {
+      child.getElement.onMouseOut.listen((event) {
+        element.style.backgroundColor = style?.backgroundColor?.color;
+      });
+    }
+
     element.children.add(child.getElement);
 
     ///ajout de nom de classe
@@ -36,11 +45,10 @@ class RButton extends Relement {
     element.className = "rbtn";
     //Set default theme
     style ??= _currentTheme.buttonTheme.defaultStyle;
-    _onMouserEnterAnimation();
-
-    element.onMouseOut.listen((event) {
-      element.style.backgroundColor = style?.backgroundColor?.color;
-    });
+    //Add event if [onMouseEnterColor] is not null 
+    if (onMouseEnterColor != null || onMouseDownColor != null) {
+      _onMouserEnterAnimation();
+    }
 
     ///Ajout des evenements
     if (onHover != null) {
@@ -67,6 +75,10 @@ class RButton extends Relement {
       if (onMouseEnterColor != null) {
         element.style.backgroundColor = onMouseEnterColor?.color;
       }
+    });
+
+    element.onMouseOut.listen((event) {
+      element.style.backgroundColor = style?.backgroundColor?.color;
     });
   }
 

@@ -4,15 +4,22 @@ part of 'rview_bases.dart';
 Router routerNavigation = Rrouter(routes: []);
 
 class Rapplication extends Relement {
+
   final Relement? home;
+
   final DataTheme theme;
+
   final Router router;
+
   Rapplication(
       {this.home, this.theme = Theme.defaultTheme, required this.router}) {
+        
     _currentTheme = theme;
-    //set default value if router Home null
+
     if (router._home == null) {
-      router._home = Rroute(url: "home", child: () => home!);
+
+      router._home = Rroute(url: "home", page: () => home!);
+
       router.routes.add(router._home!);
       router._setDefaultRoute();
     }
