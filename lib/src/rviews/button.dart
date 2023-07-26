@@ -43,9 +43,11 @@ class RButton extends Relement {
     ///ajout de nom de classe
     element.id = "btn_defaut";
     element.className = "rbtn";
-    //Set default theme
+
+    ///Set default theme
     style ??= _currentTheme.buttonTheme.defaultStyle;
-    //Add event if [onMouseEnterColor] is not null 
+
+    ///Add event if [onMouseEnterColor] is not null or [onMouseDownColor] is not null
     if (onMouseEnterColor != null || onMouseDownColor != null) {
       _onMouserEnterAnimation();
     }

@@ -14,7 +14,7 @@ part 'enum.dart';
 part '../router/r.router.dart';
 part '../router/router.dart';
 part 'bases/tabview.dart';
-
+part 'bases/listview.dart';
 ///CurrentTheme qui doit etres initialiser dans [Rapplication]
 late DataTheme _currentTheme;
 
@@ -169,9 +169,9 @@ class AppBar extends Relement {
       ..style.backgroundColor = backgroundColor?.color ??
           _currentTheme.appBarStyle.backgroundColor?.color;
 
-          //initilized childreen
-          div.children.clear(); 
-          
+    //initilized childreen
+    div.children.clear();
+
     if (onPress != null) {
       div.onClick.listen((event) {
         onPress!(this);
@@ -454,6 +454,42 @@ class Divider extends Relement {
       ..style.height = "${height}px";
 
     return _div;
+  }
+
+  @override
+  // TODO: implement getElement
+  Element get getElement => _div;
+}
+
+class SizeBox extends Relement {
+  int? height;
+  int? width;
+  bool modeRatio;
+  AlignHorizontal alignHorizontal;
+  AlignVertical alignVertical;
+  final Relement? child;
+  static int _idgenerate = 0;
+  SizeBox(
+      {this.height,
+      this.width,
+      this.child,
+      this.modeRatio = false,
+      this.alignHorizontal = AlignHorizontal.center,
+      this.alignVertical = AlignVertical.center}) {
+    _idgenerate++;
+  }
+  final Element _div = Element.div();
+  @override
+  Element create() {
+    if (child != null) _div.children.add(child!.create());
+
+    return _div
+      ..id = "sizebox$_idgenerate"
+      ..style.justifyContent = alignHorizontal.value
+      ..style.alignItems = alignVertical.value
+      ..style.display ="flex"
+      ..style.width = width.px
+      ..style.height = height.px;
   }
 
   @override

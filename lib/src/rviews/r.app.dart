@@ -4,7 +4,6 @@ part of 'rview_bases.dart';
 Router routerNavigation = Rrouter(routes: []);
 
 class Rapplication extends Relement {
-
   final Relement? home;
 
   final DataTheme theme;
@@ -13,11 +12,9 @@ class Rapplication extends Relement {
 
   Rapplication(
       {this.home, this.theme = Theme.defaultTheme, required this.router}) {
-        
     _currentTheme = theme;
 
     if (router._home == null) {
-
       router._home = Rroute(url: "home", page: () => home!);
 
       router.routes.add(router._home!);
@@ -26,7 +23,8 @@ class Rapplication extends Relement {
 
     routerNavigation = router;
 
-    create();
+      create();
+      
   }
 
   Element? element = querySelector("body");
