@@ -5,7 +5,7 @@ abstract class DataTheme {
   final TextDataTheme textTheme;
   final ButtonDataTheme buttonTheme;
   final Color primaryColor;
-  final int defaultPadding;
+  final double defaultPadding;
   final Color backgroundColor;
   final TextFieldDataTheme textFieldTheme;
 
@@ -32,7 +32,7 @@ abstract class ButtonDataTheme {
 }
 
 abstract class TextFieldDataTheme {
-  final int defaultPadding;
+  final double defaultPadding;
   final RStyle style;
   const TextFieldDataTheme({required this.defaultPadding, required this.style});
 }
