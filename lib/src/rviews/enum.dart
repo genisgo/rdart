@@ -1,4 +1,5 @@
 part of 'rview_bases.dart';
+
 //Border style
 enum BorderStyle {
   none,
@@ -11,13 +12,14 @@ enum BorderStyle {
   groove,
   inset
 }
-enum ClassName{
+
+enum ClassName {
   tabBtn,
   tabBar,
   tabPage,
-  page
-  ;
+  page;
 }
+
 enum AlignHorizontal {
   ///alignement a droite
   right("flex-end"),
@@ -87,4 +89,19 @@ enum TextAlign {
   ///
   const TextAlign(this.value);
   final String value;
+}
+
+///Direction orientation
+enum Direction { horizontale, verticale }
+
+///OverFlow mode
+enum OverFlow {
+  ///Affiche le contenu et masque les partie qui debord,
+  clip,
+
+  ///Active une bar de scroll
+  scroll,
+
+  ///Les le choix part defaut selon la disposition des elements
+  auto
 }

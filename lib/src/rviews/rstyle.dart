@@ -35,6 +35,7 @@ abstract class Style {
   final FontWeight? fontWeight;
   final EdgInset margin;
   final EdgInset padding;
+  final OverFlow overFlow;
 
   ///[ratioWidth] make in % width *exemple* ratioWidth:true, width:100 (100%)
   final bool ratioWidth;
@@ -51,6 +52,7 @@ abstract class Style {
       this.ratioHeight = false,
       this.ratioWidth = false,
       this.expandHeight = false,
+      this.overFlow = OverFlow.visible,
       this.fontWeight,
       this.expandWidth = false});
   Element createStyle(Element e);
@@ -73,6 +75,7 @@ class RStyle extends Style {
       this.textSize = 14,
       this.backgroundColor,
       this.textAlign,
+      super.overFlow = OverFlow.visible,
       super.height = 0,
       super.fontWeight,
 
@@ -94,6 +97,7 @@ class RStyle extends Style {
       Color? backgroundColor,
       TextAlign? textAlign,
       double? height,
+      OverFlow? overFlow,
 
       ///[ratioWidth] make in % width *exemple* ratioWidth:true, width:100 (100%)
       double? width,
@@ -122,6 +126,7 @@ class RStyle extends Style {
         ratioHeight: ratioHeight ?? this.ratioHeight,
         ratioWidth: ratioWidth ?? this.ratioWidth,
         textAlign: textAlign ?? this.textAlign,
+        overFlow: overFlow ?? this.overFlow,
         width: width ?? this.width);
   }
 
@@ -184,6 +189,9 @@ class RStyle extends Style {
     if (textAlign != null) element.style.textAlign = textAlign!.value;
     element.style.fontSize = textSize.px;
     element.style.fontWeight = fontWeight?.value;
+
+    ///Set overflow or active scroll bar .
+    element.style.overflow = overFlow.name;
     return element;
   }
 }

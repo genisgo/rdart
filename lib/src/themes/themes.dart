@@ -9,7 +9,7 @@ class Theme extends DataTheme {
   );
   static const Color defaultColor = Colors.blue;
   static const Color defaultBackgroundColor = Colors.white;
-  static const int padding = 10;
+  static const double padding = 10;
   static const TextDataTheme defaultTextTheme = TextTheme();
   const Theme(
       {super.appBarStyle = Theme.defaultAppbar,
