@@ -23,8 +23,7 @@ class Rapplication extends Relement {
 
     routerNavigation = router;
 
-      create();
-      
+    create();
   }
 
   Element? element = querySelector("body");
@@ -32,10 +31,14 @@ class Rapplication extends Relement {
   @override
   Element create() {
     //Add default fontFamily
-    element?.style.fontFamily =
-        "-apple-system,system-ui,BlinkMacSystemFont,'Segoe UI',"
-        "Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif,"
-        "'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol',sans-serif";
+
+    element?.style
+      ?..fontFamily = "-apple-system,system-ui,BlinkMacSystemFont,'Segoe UI',"
+          "Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif,"
+          "'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol',sans-serif"
+      ..height = "100%"
+      ..width = "100%";
+
     element!.children.add(home!.create());
     return element!;
   }
