@@ -96,6 +96,12 @@ enum Direction { horizontale, verticale }
 
 ///OverFlow mode
 enum OverFlow {
+  ///affiche les tout le contenu même si cela debord
+  visible,
+
+  ///rendre invisible
+  hidden,
+
   ///Affiche le contenu et masque les partie qui debord,
   clip,
 

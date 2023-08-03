@@ -321,6 +321,7 @@ class Column extends Relement {
   ///la valeur par defaut est une list vide *const []*
   AlignHorizontal mainAxisAlignment;
   bool mainAxisExpand;
+  bool crossAxisExpand;
 
   /// [crossAxisAlignment] est l'alignement verticale des elements par defaut
   /// sa valeur est [AlignmentVertical.top]
@@ -328,6 +329,7 @@ class Column extends Relement {
   Column(
       {this.children = const [],
       this.mainAxisExpand = false,
+      this.crossAxisExpand = true,
       this.crossAxisAlignment = AlignVertical.top,
       this.mainAxisAlignment = AlignHorizontal.left});
   final _div = Element.div();
@@ -341,7 +343,7 @@ class Column extends Relement {
     _div.children.addAll(children.map((e) => e.create()));
     return RStyle(
             alignHorizontal: mainAxisAlignment,
-            expandWidth: true,
+            expandWidth: crossAxisExpand,
             expandHeight: mainAxisExpand,
             backgroundColor: Colors.none,
             alignmentVertical: crossAxisAlignment)
@@ -505,16 +507,16 @@ class SingleScrollView extends Relement {
   Direction orientation;
   SingleScrollView(
       {required this.child, this.orientation = Direction.verticale});
-  final  _div = Element.div();
+  final _div = Element.div();
   @override
   Element create() {
     _div.id = "scroll";
     if (child != null) {
-      child!.create(); 
-     
+      child!.create();
     }
+
     _div.children.add(child!.getElement);
-    _div.style.overflow="scroll";
+    _div.style.overflow = "scroll";
 
     return _div;
   }
