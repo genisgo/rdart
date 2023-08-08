@@ -17,7 +17,7 @@ part '../router/r.router.dart';
 part '../router/router.dart';
 part 'bases/tabview.dart';
 part 'bases/listview.dart';
-
+part 'bases/combobox.dart';
 ///CurrentTheme qui doit etres initialiser dans [Rapplication]
 late DataTheme _currentTheme;
 
@@ -502,26 +502,3 @@ class SizeBox extends Relement {
   Element get getElement => _div;
 }
 
-class SingleScrollView extends Relement {
-  Relement? child;
-  Direction orientation;
-  SingleScrollView(
-      {required this.child, this.orientation = Direction.verticale});
-  final _div = Element.div();
-  @override
-  Element create() {
-    _div.id = "scroll";
-    if (child != null) {
-      child!.create();
-    }
-
-    _div.children.add(child!.getElement);
-    _div.style.overflow = "scroll";
-
-    return _div;
-  }
-
-  @override
-  // TODO: implement getElement
-  Element get getElement => _div;
-}
