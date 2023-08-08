@@ -5,7 +5,7 @@ class ComboItem<T> extends Relement {
   T value;
   ComboItem({required this.title, required this.value});
 
-  var _option = Element.option();
+  final _option = Element.option();
   @override
   Element create() {
     _option.children.add(title.create());
