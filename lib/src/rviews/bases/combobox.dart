@@ -5,36 +5,38 @@ class ComboItem<T> extends Relement {
   T value;
   ComboItem({required this.title, required this.value});
 
-  final _option = Element.option();
+  final _option = OptionElement();
   @override
   Element create() {
     _option.children.add(title.create());
-    _option.attributes.addAll({"value": "$value"});
+    _option.value = "$value";
+    _option.children.add(title.create());
 
     return _option;
   }
 
   @override
   // TODO: implement getElement
-  Element get getElement => _option;
+  OptionElement get getElement => _option;
 }
 
 class ComboBox<T> extends Relement {
   List<ComboItem<T>> items;
   Direction orientation;
   ComboBox({required this.items, this.orientation = Direction.verticale});
-  final _select = Element.select();
+  final _select = SelectElement();
   @override
   Element create() {
     //Item
-    for (var item in items) {
-      _select.children.add(item.create());
-    }
-
+    _select.options
+        .addAll(items.map((e) => e.create() as OptionElement).toList());
+    _select.removeEventListener("change", (event) {
+      print(_select.selectedIndex);
+    });
     return _select;
   }
 
   @override
   // TODO: implement getElement
-  Element get getElement => _select;
+  SelectElement get getElement => _select;
 }
