@@ -9,9 +9,13 @@ class Rapplication extends Relement {
   final DataTheme theme;
 
   final Router router;
+  final bool bootstrap;
 
   Rapplication(
-      {this.home, this.theme = Theme.defaultTheme, required this.router}) {
+      {this.home,
+      this.theme = Theme.defaultTheme,
+      required this.router,
+      this.bootstrap = true}) {
     _currentTheme = theme;
 
     if (router._home == null) {
@@ -24,6 +28,7 @@ class Rapplication extends Relement {
     routerNavigation = router;
 
     create();
+    if (bootstrap) activeBootStrap();
   }
 
   Element? element = querySelector("body");
@@ -46,4 +51,19 @@ class Rapplication extends Relement {
   @override
   // TODO: implement getElement
   Element get getElement => element!;
+
+  void activeBootStrap() {
+
+    document.head?.children.addAll([
+      ScriptElement()
+      ..crossOrigin="anonymous"
+      ..integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      ..src = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js",
+      LinkElement()
+      ..crossOrigin="anonymous"
+        ..href = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" 
+        ..rel = "stylesheet"
+        ..integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+    ]);
+  }
 }

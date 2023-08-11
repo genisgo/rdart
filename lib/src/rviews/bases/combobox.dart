@@ -7,7 +7,7 @@ class ComboItem<T> extends Relement {
 
   final _option = OptionElement();
   @override
-  Element create() {
+  OptionElement create() {
     _option.children.add(title.create());
     _option.value = "$value";
     _option.children.add(title.create());
@@ -23,16 +23,26 @@ class ComboItem<T> extends Relement {
 class ComboBox<T> extends Relement {
   List<ComboItem<T>> items;
   Direction orientation;
-  ComboBox({required this.items, this.orientation = Direction.verticale});
+  Function(ComboItem item, int index)? onSelected;
+  ComboBox(
+      {required this.items,
+      this.orientation = Direction.verticale,
+      this.onSelected});
   final _select = SelectElement();
   @override
-  Element create() {
+  SelectElement create() {
     //Item
-    _select.options
-        .addAll(items.map((e) => e.create() as OptionElement).toList());
-    _select.removeEventListener("change", (event) {
-      print(_select.selectedIndex);
-    });
+    for (var element in items) {
+      element.create();
+      _select.children.add(element.getElement);
+    }
+
+    if (onSelected != null && items.isNotEmpty) {
+      _select.addEventListener("change", (event) {
+        int selectIndex = _select.selectedIndex??0;
+        onSelected!(items[selectIndex], selectIndex);
+      });
+    }
     return _select;
   }
 
