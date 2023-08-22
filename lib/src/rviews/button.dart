@@ -1,16 +1,19 @@
 part of 'rview_bases.dart';
 
+enum BtnType { button, menu, reset, submit }
+
 class RButton extends Relement {
   RStyle? style;
   bool disable;
   Color? onMouseEnterColor;
   Color? onMouseDownColor;
-
+  BtnType? type;
   Relement child;
   Function(Relement relement)? onHover;
   Function(Relement relement)? onPress;
   RButton(
       {this.onPress,
+      this.type,
       this.style,
       this.onHover,
       this.onMouseDownColor,
@@ -25,7 +28,6 @@ class RButton extends Relement {
 
     /// set animation for child on [onMouseEnter] event.
     if (onMouseEnterColor != null) {
-      print("isnonte null");
       child.getElement.onMouseEnter.listen((event) {
         element.style.backgroundColor = onMouseEnterColor?.color;
       });
@@ -42,15 +44,18 @@ class RButton extends Relement {
 
     ///ajout de nom de classe
     element.id = "btn_defaut";
-    element.className = "rbtn";
+
+    element.className = "btn";
+
+    if (type != null) element.type = type!.name;
 
     ///Set default theme
     style ??= _currentTheme.buttonTheme.defaultStyle;
 
     ///Add event if [onMouseEnterColor] is not null or [onMouseDownColor] is not null
-    if (onMouseEnterColor != null || onMouseDownColor != null) {
-      _onMouserEnterAnimation();
-    }
+    // if (onMouseEnterColor != null || onMouseDownColor != null) {
+    //   _onMouserEnterAnimation();
+    // }
 
     ///Ajout des evenements
     if (onHover != null) {
@@ -64,7 +69,7 @@ class RButton extends Relement {
         onPress!(this);
       });
     }
-    mouseEventAnimation(element);
+   // mouseEventAnimation(element);
 
     ///add de style
     element = style?.createStyle(element) as ButtonElement;
@@ -72,30 +77,30 @@ class RButton extends Relement {
     return element;
   }
 
-  void _onMouserEnterAnimation() {
-    element.onMouseEnter.listen((event) {
-      if (onMouseEnterColor != null) {
-        element.style.backgroundColor = onMouseEnterColor?.color;
-      }
-    });
+  // void _onMouserEnterAnimation() {
+  //   element.onMouseEnter.listen((event) {
+  //     if (onMouseEnterColor != null) {
+  //       element.style.backgroundColor = onMouseEnterColor?.color;
+  //     }
+  //   });
 
-    element.onMouseOut.listen((event) {
-      element.style.backgroundColor = style?.backgroundColor?.color;
-    });
-  }
+  //   element.onMouseOut.listen((event) {
+  //     element.style.backgroundColor = style?.backgroundColor?.color;
+  //   });
+  // }
 
   @override
   // TODO: implement getElement
   Element get getElement => element;
 
-  void mouseEventAnimation(Element element) {
-    element.onMouseDown.listen((event) {
-      element.style.opacity = "0.9";
-    });
-    element.onMouseUp.listen((event) {
-      element.style.opacity = "1";
-    });
-  }
+  // void mouseEventAnimation(Element element) {
+  //   element.onMouseDown.listen((event) {
+  //     element.style.opacity = "0.9";
+  //   });
+  //   element.onMouseUp.listen((event) {
+  //     element.style.opacity = "1";
+  //   });
+  // }
 }
 
 void main(List<String> args) {}

@@ -39,7 +39,7 @@ class ComboBox<T> extends Relement {
 
     if (onSelected != null && items.isNotEmpty) {
       _select.addEventListener("change", (event) {
-        int selectIndex = _select.selectedIndex??0;
+        int selectIndex = _select.selectedIndex ?? 0;
         onSelected!(items[selectIndex], selectIndex);
       });
     }

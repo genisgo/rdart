@@ -26,16 +26,16 @@ enum FontWeight {
 }
 
 abstract class Style {
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   final bool expandHeight;
   final bool expandWidth;
   final double? maxHeight;
   final double? maxWidth;
   final FontWeight? fontWeight;
-  final EdgInset margin;
-  final EdgInset padding;
-  final OverFlow overFlow;
+  final EdgInset? margin;
+  final EdgInset? padding;
+  final OverFlow? overFlow;
 
   ///[ratioWidth] make in % width *exemple* ratioWidth:true, width:100 (100%)
   final bool ratioWidth;
@@ -43,16 +43,16 @@ abstract class Style {
   ///[ratioWidth] make in % *exemple* ratioHeight:true, height:100 (100%)
   final bool ratioHeight;
   const Style(
-      {this.height = 1,
-      this.width = 1,
+      {this.height,
+      this.width,
       this.maxHeight,
       this.maxWidth,
-      this.margin = REdgetInset.zero,
-      this.padding = REdgetInset.zero,
+      this.margin,
+      this.padding,
       this.ratioHeight = false,
       this.ratioWidth = false,
       this.expandHeight = false,
-      this.overFlow = OverFlow.visible,
+      this.overFlow,
       this.fontWeight,
       this.expandWidth = false});
   Element createStyle(Element e);
@@ -61,26 +61,28 @@ abstract class Style {
 class RStyle extends Style {
   final bool modeRatio;
   final Decoration? decoration;
-  final AlignHorizontal alignHorizontal;
-  final AlignVertical alignmentVertical;
+  final AlignHorizontal? alignHorizontal;
+  final AlignVertical? alignmentVertical;
   final TextAlign? textAlign;
-  final int textSize;
+  final int? textSize;
+  final List<Bootstrap> bootstrap;
   final Color? backgroundColor;
   const RStyle(
       {this.modeRatio = true,
-      super.margin = REdgetInset.zero,
-      super.padding = REdgetInset.zero,
-      this.alignHorizontal = AlignHorizontal.none,
-      this.alignmentVertical = AlignVertical.none,
-      this.textSize = 14,
+      this.bootstrap = const [],
+      super.margin,
+      super.padding,
+      this.alignHorizontal ,
+      this.alignmentVertical,
+      this.textSize,
       this.backgroundColor,
       this.textAlign,
-      super.overFlow = OverFlow.visible,
-      super.height = 0,
+      super.overFlow,
+      super.height,
       super.fontWeight,
 
       ///[ratioWidth] make in % width *exemple* ratioWidth:true, width:100 (100%)
-      super.width = 0,
+      super.width,
       super.ratioHeight = false,
       super.ratioWidth = false,
       this.decoration,
@@ -98,6 +100,7 @@ class RStyle extends Style {
       TextAlign? textAlign,
       double? height,
       OverFlow? overFlow,
+      List<Bootstrap>? bootstrap,
 
       ///[ratioWidth] make in % width *exemple* ratioWidth:true, width:100 (100%)
       double? width,
@@ -127,21 +130,30 @@ class RStyle extends Style {
         ratioWidth: ratioWidth ?? this.ratioWidth,
         textAlign: textAlign ?? this.textAlign,
         overFlow: overFlow ?? this.overFlow,
-        width: width ?? this.width);
+        width: width ?? this.width,
+        bootstrap: bootstrap ?? this.bootstrap);
   }
 
   @override
   Element createStyle(element) {
-    if (margin != REdgetInset.zero) {
+    if (margin != null) {
       element
-        ..style.marginTop = "${margin.top}px"
-        ..style.marginBottom = "${margin.bottom}px"
-        ..style.marginLeft = "${margin.left}px"
-        ..style.marginRight = "${margin.right}px";
+        ..style.marginTop = "${margin?.top}px"
+        ..style.marginBottom = "${margin?.bottom}px"
+        ..style.marginLeft = "${margin?.left}px"
+        ..style.marginRight = "${margin?.right}px";
+    }
+
+    ///BootStrap active
+    if (bootstrap.isNotEmpty) {
+      String bootclass = " ${bootstrap.map((e) => e.cname).join(" ")}";
+      print(bootclass);
+
+      element.className += bootclass;
     }
 
     element
-      ..style.width = width != 0
+      ..style.width = width != null
           ? ratioWidth
               ? "$width%"
               : "${width}px"
@@ -151,12 +163,13 @@ class RStyle extends Style {
               ? "$height%"
               : "${height}px"
           : ""
-      ..style.justifyContent = alignHorizontal.value
-      ..style.alignItems = alignmentVertical.value
-      ..style.backgroundColor = backgroundColor?.color ?? ""
-      ..style.padding =
-          "${padding.top}px ${padding.right}px ${padding.bottom}px ${padding.left}px";
-
+      ..style.justifyContent = alignHorizontal?.value ?? ""
+      ..style.alignItems = alignmentVertical?.value ?? ""
+      ..style.backgroundColor = backgroundColor?.color ?? "";
+    if (padding != null) {
+      element.style.padding =
+          "${padding?.top}px ${padding?.right}px ${padding?.bottom}px ${padding?.left}px";
+    }
     if (expandHeight) element.style.height = "inherit";
     if (expandWidth) element.style.width = "inherit";
 
@@ -191,7 +204,8 @@ class RStyle extends Style {
     element.style.fontWeight = fontWeight?.value;
 
     ///Set overflow or active scroll bar .
-    element.style.overflow = overFlow.name;
+    element.style.overflow = overFlow?.name;
+
     return element;
   }
 }

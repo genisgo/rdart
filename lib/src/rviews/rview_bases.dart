@@ -17,6 +17,8 @@ part '../router/router.dart';
 part 'bases/tabview.dart';
 part 'bases/listview.dart';
 part 'bases/combobox.dart';
+part 'bootstrap.dart';
+
 ///CurrentTheme qui doit etres initialiser dans [Rapplication]
 late DataTheme _currentTheme;
 
@@ -105,13 +107,12 @@ class Container extends Relement {
   Element create() {
     ///if style is defind and [ height] , [width] is defind
     ///
-    _div
-      ..className = "container"
-      ..style.display = "flex";
+    _div.className = "container";
 
     if (style != null) {
       if (height != 0) style = style!.copyWith(height: height);
       if (width != 0) style = style!.copyWith(width: width);
+      print(style?.bootstrap.length);
 
       ///create the new style
       _div = style!.createStyle(_div);
@@ -228,15 +229,23 @@ class Text extends Relement {
   Color color;
   RStyle? style;
   final int size;
-  Text(this.text, {this.color = Colors.Black, this.size = 14, this.style});
+  final bool singleBootStrap;
+  Text(this.text,
+      {this.color = Colors.Black,
+      this.size = 14,
+      this.style,
+      this.singleBootStrap = false});
   //Div element
   final divele = Element.div();
   @override
   Element create() {
-    divele
-      ..innerText = text
-      ..style.color = color.color
-      ..style.fontSize = "${size}px";
+    divele.innerText = text;
+
+    if (!singleBootStrap) {
+      divele
+        ..style.color = color.color
+        ..style.fontSize = "${size}px";
+    }
     return style?.createStyle(divele) ?? divele;
   }
 
@@ -292,10 +301,7 @@ class Row extends Relement {
   final _div = Element.div();
   @override
   Element create() {
-    _div
-      ..className = "row"
-      ..style.display = "flex"
-      ..style.float = "left";
+    _div.className = "row";
     _div.children.addAll(children.map((e) => e.create()));
     return RStyle(
             alignHorizontal: mainAxisAlignment,
@@ -321,6 +327,8 @@ class Column extends Relement {
   AlignHorizontal mainAxisAlignment;
   bool mainAxisExpand;
   bool crossAxisExpand;
+  List<Bootstrap> bootstrap;
+  bool singleBootStrap;
 
   /// [crossAxisAlignment] est l'alignement verticale des elements par defaut
   /// sa valeur est [AlignmentVertical.top]
@@ -329,24 +337,31 @@ class Column extends Relement {
       {this.children = const [],
       this.mainAxisExpand = false,
       this.crossAxisExpand = true,
+      this.bootstrap = const [],
+      this.singleBootStrap = true,
       this.crossAxisAlignment = AlignVertical.top,
       this.mainAxisAlignment = AlignHorizontal.left});
   final _div = Element.div();
   @override
   Element create() {
-    _div
-      ..className = "column"
-      ..style.display = "flex"
-      ..style.flexDirection = "column";
+    if (!singleBootStrap) {
+      _div
+        ..className = "column"
+        ..style.display = "flex"
+        ..style.flexDirection = "column";
+    }
 
     _div.children.addAll(children.map((e) => e.create()));
-    return RStyle(
-            alignHorizontal: mainAxisAlignment,
-            expandWidth: crossAxisExpand,
-            expandHeight: mainAxisExpand,
-            backgroundColor: Colors.none,
-            alignmentVertical: crossAxisAlignment)
-        .createStyle(_div);
+    return singleBootStrap
+        ? RStyle(bootstrap: bootstrap).createStyle(_div)
+        : RStyle(
+                bootstrap: bootstrap,
+                alignHorizontal: mainAxisAlignment,
+                expandWidth: crossAxisExpand,
+                expandHeight: mainAxisExpand,
+                backgroundColor: Colors.none,
+                alignmentVertical: crossAxisAlignment)
+            .createStyle(_div);
   }
 
   @override
@@ -500,4 +515,3 @@ class SizeBox extends Relement {
   // TODO: implement getElement
   Element get getElement => _div;
 }
-
