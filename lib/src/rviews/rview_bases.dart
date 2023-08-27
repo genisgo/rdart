@@ -3,6 +3,7 @@ import 'dart:html';
 import 'dart:typed_data';
 import '../../themes.dart';
 import '../themes/data_themes.dart';
+import '../../bootstrap.dart';
 part 'r.element.dart';
 part 'rcolor.dart';
 part 'border.dart';
@@ -17,7 +18,6 @@ part '../router/router.dart';
 part 'bases/tabview.dart';
 part 'bases/listview.dart';
 part 'bases/combobox.dart';
-part 'bootstrap.dart';
 
 ///CurrentTheme qui doit etres initialiser dans [Rapplication]
 late DataTheme _currentTheme;

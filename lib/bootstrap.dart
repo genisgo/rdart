@@ -1,3 +1,3 @@
 library bootstrap;
 
-export 'bootstrap/bootstrap.dart';
+export 'src/bootstrap/bootstrap.dart';
