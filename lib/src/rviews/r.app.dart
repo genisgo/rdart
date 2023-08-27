@@ -36,7 +36,6 @@ class Rapplication extends Relement {
   @override
   Element create() {
     //Add default fontFamily
-
     element?.style
       ?..fontFamily = "-apple-system,system-ui,BlinkMacSystemFont,'Segoe UI',"
           "Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif,"
@@ -53,17 +52,20 @@ class Rapplication extends Relement {
   Element get getElement => element!;
 
   void activeBootStrap() {
-
     document.head?.children.addAll([
       ScriptElement()
-      ..crossOrigin="anonymous"
-      ..integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-      ..src = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js",
+        ..crossOrigin = "anonymous"
+        ..integrity =
+            "sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        ..src =
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js",
       LinkElement()
-      ..crossOrigin="anonymous"
-        ..href = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" 
+        ..crossOrigin = "anonymous"
+        ..href =
+            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
         ..rel = "stylesheet"
-        ..integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+        ..integrity =
+            "sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9",
     ]);
   }
 }

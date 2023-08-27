@@ -294,18 +294,24 @@ class Row extends Relement {
   List<Relement> children;
   AlignHorizontal mainAxisAlignment;
   AlignVertical crossAxisAlignment;
+  List<Bootstrap> bootstrap;
+  final bool singleBootStrap;
   Row(
       {this.children = const [],
+      this.singleBootStrap = false,
+      this.bootstrap = const [],
       this.crossAxisAlignment = AlignVertical.top,
       this.mainAxisAlignment = AlignHorizontal.left});
   final _div = Element.div();
   @override
   Element create() {
     _div.className = "row";
+
     _div.children.addAll(children.map((e) => e.create()));
     return RStyle(
             alignHorizontal: mainAxisAlignment,
             alignmentVertical: crossAxisAlignment,
+            bootstrap: bootstrap,
             expandWidth: true)
         .createStyle(_div);
   }
