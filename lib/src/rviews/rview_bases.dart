@@ -96,6 +96,9 @@ class Container extends Relement {
   ///Utiliser pour definir les styles et decoration. [style] Permet par exemple la bordure, la couleur
   /* Exemple RStyle(margin: REdgetInset.all(10) */
   RStyle? style;
+
+  ///DataSet
+  Map<String, String>? dataset;
   Container({
     this.child,
     this.style,
@@ -236,7 +239,7 @@ class Text extends Relement {
       this.style,
       this.singleBootStrap = false});
   //Div element
-  final divele = Element.div();
+  final divele = Element.p();
   @override
   Element create() {
     divele.innerText = text;
@@ -520,4 +523,42 @@ class SizeBox extends Relement {
   @override
   // TODO: implement getElement
   Element get getElement => _div;
+}
+
+class BsElement extends BootStrapComponent {
+  final Relement? child;
+
+  /// Permet d'utiliser[BsElement] comme parent de [child]
+  /// ceci implique que tout les [attributes],[bootstraps],
+  /// et [dataset] sont appliquer directement au [BsElement]
+  final bool userParent;
+  BsElement({
+    required this.child,
+    this.userParent = false,
+    required List<Bootstrap> bootstrap,
+    required Map<String, String> dataset,
+    Map<String, String> attributes = const {},
+  }) : super(bootstrap, dataset, attributes);
+  var _div = Element.div();
+  @override
+  Element create() {
+    if (child != null) {
+      if (userParent) {
+        _div.children.add(child!.create());
+      } else {
+        _div = child!.create();
+      }
+    }
+    bootstrap();
+    return _div;
+  }
+
+  @override
+  Element get getElement => _div;
+  @override
+  bootstrap() {
+    _div.className += " ${bootstraps.join(" ")}";
+    _div.dataset = dataset;
+    _div.attributes.addAll(attributes);
+  }
 }

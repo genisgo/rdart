@@ -5,6 +5,7 @@ enum BtnType { button, menu, reset, submit }
 class RButton extends Relement {
   RStyle? style;
   bool disable;
+  bool singleBootStrap;
   Color? onMouseEnterColor;
   Color? onMouseDownColor;
   BtnType? type;
@@ -14,6 +15,7 @@ class RButton extends Relement {
   RButton(
       {this.onPress,
       this.type,
+      this.singleBootStrap = false,
       this.style,
       this.onHover,
       this.onMouseDownColor,
@@ -25,27 +27,28 @@ class RButton extends Relement {
   Element create() {
     ///Crete child
     child.create();
+    if (!singleBootStrap) {
+      /// set animation for child on [onMouseEnter] event.
+      if (onMouseEnterColor != null) {
+        child.getElement.onMouseEnter.listen((event) {
+          element.style.backgroundColor = onMouseEnterColor?.color;
+        });
+      }
 
-    /// set animation for child on [onMouseEnter] event.
-    if (onMouseEnterColor != null) {
-      child.getElement.onMouseEnter.listen((event) {
-        element.style.backgroundColor = onMouseEnterColor?.color;
-      });
-    }
+      ///ajoute un listerner d'evenement de tipe quiter le button
+      if (onMouseDownColor != null) {
+        child.getElement.onMouseOut.listen((event) {
+          element.style.backgroundColor = style?.backgroundColor?.color;
+        });
+      }
 
-    ///ajoute un listerner d'evenement de tipe quiter le button
-    if (onMouseDownColor != null) {
-      child.getElement.onMouseOut.listen((event) {
-        element.style.backgroundColor = style?.backgroundColor?.color;
-      });
+      ///ajout de nom de classe
+      element.id = "btn_defaut";
+
+      element.className = "btn";
     }
 
     element.children.add(child.getElement);
-
-    ///ajout de nom de classe
-    element.id = "btn_defaut";
-
-    element.className = "btn";
 
     if (type != null) element.type = type!.name;
 
@@ -69,7 +72,7 @@ class RButton extends Relement {
         onPress!(this);
       });
     }
-   // mouseEventAnimation(element);
+    // mouseEventAnimation(element);
 
     ///add de style
     element = style?.createStyle(element) as ButtonElement;
