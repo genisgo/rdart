@@ -562,3 +562,27 @@ class BsElement extends BootStrapComponent {
     _div.attributes.addAll(attributes);
   }
 }
+
+class Link extends Relement {
+  String link;
+  String label;
+  Function()? click;
+  Link({required this.click, this.link = "#", this.label = ""});
+  final _a = Element.a();
+  @override
+  Element create() 
+  {
+    _a.innerHtml = label;
+    _a.attributes.addAll({"href": link});
+    _a.onClick.listen((event) 
+    {
+      click?.call();
+    }
+    );
+    return _a;
+  }
+
+  @override
+  // TODO: implement getElement
+  Element get getElement => _a;
+}

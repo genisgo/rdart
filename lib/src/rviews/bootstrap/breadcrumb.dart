@@ -30,16 +30,20 @@ class Bsbreadcrumb extends Relement {
 }
 
 class BsbreadcrumbItem extends Relement {
-  Relement child;
+  Link link;
   bool active;
-  BsbreadcrumbItem({required this.child, this.active = false});
+  BsbreadcrumbItem({
+    required this.link,
+    this.active = false,
+  });
   var li = Element.li();
   @override
   Element create() {
     li.className = Bbreadcrumb.breadcrumbItem.cname;
-    
+
     if (active) li.className += " ${Bbreadcrumb.active.cname}";
-    li.children.add(child.create());
+
+    li.children.add(link.create());
 
     return li;
   }
@@ -48,3 +52,5 @@ class BsbreadcrumbItem extends Relement {
   // TODO: implement getElement
   Element get getElement => li;
 }
+
+
