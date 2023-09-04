@@ -527,18 +527,20 @@ class SizeBox extends Relement {
 
 class BsElement extends BootStrapComponent {
   final Relement? child;
+  bool noUseChildClassName;
 
   /// Permet d'utiliser[BsElement] comme parent de [child]
   /// ceci implique que tout les [attributes],[bootstraps],
   /// et [dataset] sont appliquer directement au [BsElement]
   final bool userParent;
-  BsElement({
-    required this.child,
-    this.userParent = false,
-    required List<Bootstrap> bootstrap,
-    required Map<String, String> dataset,
-    Map<String, String> attributes = const {},
-  }) : super(bootstrap, dataset, attributes);
+  BsElement(
+      {required this.child,
+      this.userParent = false,
+      required List<Bootstrap> bootstrap,
+      required Map<String, String> dataset,
+      Map<String, String> attributes = const {},
+      this.noUseChildClassName = false})
+      : super(bootstrap, dataset, attributes);
   var _div = Element.div();
   @override
   Element create() {
@@ -566,19 +568,34 @@ class BsElement extends BootStrapComponent {
 class Link extends Relement {
   String link;
   String label;
+  Relement? child;
+  bool active;
+  List<Bootstrap> bootstrap;
   Function()? click;
-  Link({required this.click, this.link = "#", this.label = ""});
+  Link(
+      {this.click,
+      this.active = true,
+      this.link = "#",
+      this.label = "",
+      this.child,
+      this.bootstrap = const []});
   final _a = Element.a();
   @override
-  Element create() 
-  {
-    _a.innerHtml = label;
-    _a.attributes.addAll({"href": link});
-    _a.onClick.listen((event) 
-    {
-      click?.call();
+  Element create() {
+    if (child != null) {
+      _a.children.add(child!.create());
+    } else {
+      _a.innerHtml = label;
     }
-    );
+    // active
+    //Set bootstrap
+    _a.className = bootstrap.join(" ");
+
+    _a.attributes.addAll({"href": link});
+    //onPress
+    _a.onClick.listen((event) {
+      click?.call();
+    });
     return _a;
   }
 

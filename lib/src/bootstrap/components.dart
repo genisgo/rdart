@@ -57,27 +57,41 @@ class Btn extends Bootstrap {
   }
 }
 
+///Generale constante
+final balert = BAlert.alert;
+
+///Use generale constante [balert.danger] or [ BAlert.alert]
+///Example :
+///```dart
+/// bootstrap: [
+///   //generale constante
+///   balert.danger
+///   //class use
+///   BAlert.alert,
+///   if (dismissible) BAlert.disimissible,
+///   ],
+///```
 class BAlert extends Bootstrap {
   const BAlert._(super.cname);
   static const alert = BAlert._("alert");
 
-  static const primary = BAlert._("alert-primary");
+  Bootstrap get primary => BAlert._("alert-primary");
 
-  static const success = BAlert._("alert-success");
+  Bootstrap get success => BAlert._("alert-success");
 
-  static const danger = BAlert._("alert-danger");
+  Bootstrap get danger => BAlert._("alert-danger");
 
-  static const warning = BAlert._("alert-warning");
+  Bootstrap get warning => BAlert._("alert-warning");
 
-  static const info = BAlert._("alert-info");
+  Bootstrap get info => BAlert._("alert-info");
 
-  static const light = BAlert._("alert-light");
+  Bootstrap get light => BAlert._("alert-light");
 
-  static const dark = BAlert._("alert-dark");
+  Bootstrap get dark => BAlert._("alert-dark");
 
-  static const link = BAlert._("alert-link");
+  Bootstrap get link => BAlert._("alert-link");
 
-  static const heading = BAlert._("alert-heading");
+  Bootstrap get heading => BAlert._("alert-heading");
 
 /***
 Be sure you’ve loaded the alert plugin, or the compiled Bootstrap JavaScript.
@@ -89,15 +103,49 @@ To animate alerts when dismissing them, be sure to add the .fade and .show class
       BAlert._("alert-dismissible alert-dismissible fade show");
 }
 
+///Generale constante
+final bbage = Bbage.bage;
+
 class Bbage extends Bootstrap {
   const Bbage._(super.cname);
   static const bage = Bbage._("bage");
 }
 
-///Breadcrumb
+///Generale constante
+final bbreadcrumb = Bbreadcrumb.bbreadcrumb;
+
+///Breadcrumb use generale constante [bbreadcrumb] or [Bbreadcrumb.bbreadcrumb]
+///Example :
+///```dart
+/// bbreadcrumb.breadcrumbItem
+///```
 class Bbreadcrumb extends Bootstrap {
   const Bbreadcrumb._(super.cname);
-  static const breadcrumb = Bbreadcrumb._("breadcrumb");
-  static const breadcrumbItem = Bbreadcrumb._("breadcrumb-item");
-  static const active = Bbreadcrumb._("active");
+  static const Bbreadcrumb bbreadcrumb = Bbreadcrumb._("breadcrumb");
+  Bootstrap get breadcrumb => Bbreadcrumb._("breadcrumb");
+  Bootstrap get breadcrumbItem => Bbreadcrumb._("breadcrumb-item");
+  Bootstrap get active => Bbreadcrumb._("active");
+}
+
+///Card constante
+final bcard = Bcard.card;
+
+///Use to creat card a generale constante [bcard] or
+///[Bcard.card]
+class Bcard extends Bootstrap {
+  Bcard._(super.cname);
+
+  static Bcard get card => Bcard._("card");
+  Bootstrap get title => Bcard._("card-title");
+  Bootstrap get body => Bcard._("card-body");
+  Bootstrap get text => Bcard._("card-text");
+  Bootstrap get link => Bcard._("card-link");
+  Bootstrap get subtitl => Bcard._("card-subtitl");
+  Bootstrap get header => Bcard._("card-header");
+  Bootstrap get footer => Bcard._("card-footer");
+  Bootstrap get image => Bcard._("card-img");
+  Bootstrap get imageTop => Bcard._("card-img-top");
+  Bootstrap get imageBottom => Bcard._("card-img-top");
+  Bootstrap get imageOverlay => Bcard._("card-img-overlay");
+
 }

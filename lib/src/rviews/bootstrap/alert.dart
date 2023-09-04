@@ -5,11 +5,11 @@ class BsAlert extends Rview {
   List<Bootstrap> bootstrap;
   Relement? get child => _child;
   bool dismissible;
-  BAlert type;
+  BAlert? type;
   BsAlert(
       {Relement? child,
       this.dismissible = false,
-      this.type = BAlert.info,
+      this.type,
       this.bootstrap = const []})
       : _child = child;
   @override
@@ -18,8 +18,9 @@ class BsAlert extends Rview {
         child: Column(
             singleBootStrap: true,
             children: [if (child != null) child!, if (dismissible) closeBtn()]),
-        bootstrap: [
-          type,
+        bootstrap: 
+        [
+          type ?? balert.info,
           BAlert.alert,
           if (dismissible) BAlert.disimissible,
           ...bootstrap

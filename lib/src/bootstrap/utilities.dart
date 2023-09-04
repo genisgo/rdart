@@ -1,5 +1,52 @@
 part of 'bootstrap.dart';
 
+class Icolor<T> {
+  final String icname;
+  final int insertIndex;
+
+  Icolor._({required this.icname, this.insertIndex = 1});
+  T get primary {
+    return _defaultAddScreen("primary", icname, insertIndex) as T;
+  }
+
+  T get secondary {
+    return _defaultAddScreen("secondary", icname, insertIndex) as T;
+  }
+
+  T get success {
+    return _defaultAddScreen("success", icname, insertIndex) as T;
+  }
+
+  T get danger {
+    return _defaultAddScreen("danger", icname, insertIndex) as T;
+  }
+
+  T get warning {
+    return _defaultAddScreen("warning", icname, insertIndex) as T;
+  }
+
+  T get info {
+    return _defaultAddScreen("info", icname, insertIndex) as T;
+  }
+
+  T get light {
+    return _defaultAddScreen("light", icname, insertIndex) as T;
+  }
+
+  T get dark {
+    return _defaultAddScreen("dark", icname, insertIndex) as T;
+  }
+
+  ///Opacity
+  Bootstrap opacity(Opacity opacity) {
+    return _defaultAddScreen("opacity-${opacity.value}", icname);
+  }
+
+  Bootstrap opacityHover(Opacity opacity) {
+    return _defaultAddScreen("opacity-${opacity.value}-hover", icname);
+  }
+}
+
 ///Colors
 class Bcolor extends Bootstrap {
   const Bcolor._(super.cname);
@@ -54,18 +101,18 @@ class Bpadding extends Bootstrap {
   static const pauto = Bpadding._("p-auto");
 
   Bootstrap get y {
-    return Bpadding._(cname!.replaceAll("p", "py"));
+    return Bpadding._(cname.replaceAll("p", "py"));
   }
 
-  Bootstrap get x => Bpadding._(cname!.replaceAll("p", "px"));
+  Bootstrap get x => Bpadding._(cname.replaceAll("p", "px"));
 
-  Bootstrap get s => Bpadding._(cname!.replaceAll("p", "ps"));
+  Bootstrap get s => Bpadding._(cname.replaceAll("p", "ps"));
 
-  Bootstrap get t => Bpadding._(cname!.replaceAll("p", "pt"));
+  Bootstrap get t => Bpadding._(cname.replaceAll("p", "pt"));
 
-  Bootstrap get b => Bpadding._(cname!.replaceAll("p", "pb"));
+  Bootstrap get b => Bpadding._(cname.replaceAll("p", "pb"));
 
-  Bootstrap get e => Bpadding._(cname!.replaceAll("p", "pe"));
+  Bootstrap get e => Bpadding._(cname.replaceAll("p", "pe"));
 }
 
 ///Margin
@@ -80,17 +127,17 @@ class Bmargin extends Bootstrap {
   static const m5 = Bmargin._("m-5");
   static const mauto = Bmargin._("m-auto");
 
-  Bootstrap get y => Bmargin._(cname!.replaceAll("m", "my"));
+  Bootstrap get y => Bmargin._(cname.replaceAll("m", "my"));
 
-  Bootstrap get x => Bmargin._(cname!.replaceAll("m", "mx"));
+  Bootstrap get x => Bmargin._(cname.replaceAll("m", "mx"));
 
-  Bootstrap get s => Bmargin._(cname!.replaceAll("m", "ms"));
+  Bootstrap get s => Bmargin._(cname.replaceAll("m", "ms"));
 
-  Bootstrap get t => Bmargin._(cname!.replaceAll("m", "mt"));
+  Bootstrap get t => Bmargin._(cname.replaceAll("m", "mt"));
 
-  Bootstrap get b => Bmargin._(cname!.replaceAll("m", "mb"));
+  Bootstrap get b => Bmargin._(cname.replaceAll("m", "mb"));
 
-  Bootstrap get e => Bmargin._(cname!.replaceAll("m", "me"));
+  Bootstrap get e => Bmargin._(cname.replaceAll("m", "me"));
 }
 
 //Grid
@@ -167,7 +214,7 @@ class Bborder extends Bootstrap {
   String _addDisposition(String disposition) {
     String endClass = "";
     var regex = RegExp(r"(\w{0,}-\d$)");
-    var macher = regex.allMatches(cname!);
+    var macher = regex.allMatches(cname);
     if (macher.isEmpty) {
       endClass = "$cname-$disposition";
     } else {
@@ -242,7 +289,7 @@ class _TextAlign extends Bootstrap implements Bscreen {
 
   @override
   Bootstrap _addScreen(param) {
-    var spleted = cname!.split("-");
+    var spleted = cname.split("-");
     spleted.insert(1, param);
     return Brow._(spleted.toSet().join("-"));
   }
@@ -340,7 +387,7 @@ base class Bdisplay extends Bootstrap implements Bscreen {
 
   @override
   Bootstrap _addScreen(param) {
-    return _defaultAddScreen(param, cname!);
+    return _defaultAddScreen(param, cname);
   }
 
   @override
@@ -380,7 +427,7 @@ class BFlex extends Bootstrap implements Bscreen {
 
   @override
   Bootstrap _addScreen(param) {
-    return _defaultAddScreen(param, cname!);
+    return _defaultAddScreen(param, cname);
   }
 
   @override
@@ -415,7 +462,7 @@ class BAlignItem extends Bootstrap implements Bscreen {
 
   @override
   Bootstrap _addScreen(param) {
-    return _defaultAddScreen(param, cname!, 2);
+    return _defaultAddScreen(param, cname, 2);
   }
 
   @override
@@ -450,7 +497,7 @@ class BAlignSelf extends Bootstrap implements Bscreen {
 
   @override
   Bootstrap _addScreen(param) {
-    return _defaultAddScreen(param, cname!, 2);
+    return _defaultAddScreen(param, cname, 2);
   }
 
   @override
@@ -485,7 +532,7 @@ class BJustifyContent extends Bootstrap implements Bscreen {
 
   @override
   Bootstrap _addScreen(param) {
-    return _defaultAddScreen(param, cname!, 2);
+    return _defaultAddScreen(param, cname, 2);
   }
 
   @override
@@ -521,7 +568,7 @@ class BAlinContent extends Bootstrap implements Bscreen {
 
   @override
   Bootstrap _addScreen(param) {
-    return _defaultAddScreen(param, cname!, 2);
+    return _defaultAddScreen(param, cname, 2);
   }
 
   @override
@@ -660,4 +707,100 @@ class Bvisibility {
   ///getter values
   Bootstrap get visible => _BootStrapDefaultImp("visibility");
   Bootstrap get invisible => _BootStrapDefaultImp("invisible");
+}
+
+///General constante
+final blink = Blink.link.colors;
+
+final bunderlineLink = Blink.underline.colors;
+
+///Link
+class Blink extends Bootstrap {
+  const Blink._(super.cname);
+  static const link = Blink._("link");
+  static const underline = BUnderlineLink._("link-underline");
+
+  // static const primary = Blink._("link-primary");
+  // static const secondary = Blink._("link-secondary");
+
+  // static const success = Blink._("link-success");
+
+  // static const warning = Blink._("link-warning");
+
+  // static const info = Blink._("link-info");
+
+  // static const light = Blink._("link-light");
+  // static const dark = Blink._("link-dark");
+  // static const body = Blink._("link-body-emphasis");
+  // static const underlines = Blink._("link-underline");
+  Icolor<Bootstrap> get colors => Icolor<Bootstrap>._(
+        icname: cname,
+      );
+}
+
+base class BUnderlineLink extends Bootstrap {
+  const BUnderlineLink._(super.cname);
+  static const underline = BUnderlineLink._("link-underline");
+  Icolor<Bootstrap> get colors => Icolor._(icname: cname, insertIndex: 2);
+}
+
+///Generale constante
+final bpointer = BpointerEvent.pointer;
+
+///Pointer Event Interactions
+///Utility classes that change how users interact
+/// with contents of a website.
+class BpointerEvent extends Bootstrap {
+  const BpointerEvent._(super.cname);
+  //Text
+  static const pointer = BpointerEvent._("");
+
+  ///Change the way in which the content
+  /// is selected when the user interacts with it.
+  Bootstrap get selectAuto => BpointerEvent._("user-select-auto");
+  Bootstrap get selectNone => BpointerEvent._("user-select-none");
+  Bootstrap get selectAll => BpointerEvent._("user-select-all");
+
+  ///Bootstrap provides .pe-none and .pe-auto
+  ///classes to prevent or add element interactions.
+  Bootstrap get none => BpointerEvent._("pe-none");
+}
+
+///General constatent use
+final bfitbox = BfitBox._("");
+
+///Object fit
+class BfitBox extends Bootstrap implements Bscreen {
+  const BfitBox._(super.cname);
+  static BfitBox get contain => BfitBox._("object-fit-contain");
+  static BfitBox get cover => BfitBox._("object-fit-cover");
+  static BfitBox get fill => BfitBox._("object-fit-fill");
+  static BfitBox get scale => BfitBox._("object-fit-scale");
+  static BfitBox get none => BfitBox._("object-fit-none");
+
+  @override
+  Bootstrap _addScreen(param) {
+    // TODO: implement _addScreen
+    throw UnimplementedError();
+  }
+
+  @override
+  // TODO: implement lg
+  Bootstrap get lg => _defaultAddScreen("lg", cname, 2);
+
+  @override
+  // TODO: implement md
+  Bootstrap get md => _defaultAddScreen("md", cname, 2);
+
+  @override
+  // TODO: implement sm
+  Bootstrap get sm => _defaultAddScreen("sm", cname, 2);
+
+  @override
+  // TODO: implement xl
+  Bootstrap get xl => _defaultAddScreen("xl", cname, 2);
+
+  @override
+  // TODO: implement xxl
+  Bootstrap get xxl => _defaultAddScreen("xxl", cname, 2);
 }
