@@ -10,7 +10,7 @@ class Bsbreadcrumb extends Relement {
   Element create() {
     //set Divider
     if (divider != null) {
-      nav.style.setProperty("--bs-breadcrumb-divider:", divider);
+      nav.style.setProperty("--bs-breadcrumb-divider", "'$divider'");
     }
     //nav
     nav.attributes.addAll({"aria-label": bbreadcrumb.cname});
@@ -39,21 +39,23 @@ class BsbreadcrumbItem extends Relement {
   var li = Element.li();
   @override
   Element create() {
-    li.className = bbreadcrumb.cname;
+    li.className = bbreadcrumb.breadcrumbItem.cname;
 
-    if (active) {
+    ///react link
+    link.create();
+    if (!active) {
       li.className += " ${bbreadcrumb.active}";
     } else {
       var disable = [
         bpointer.none,
-        bunderlineLink.light,
       ].join(" ");
 
-      link.bootstrap.add(blink.secondary);
+      link.getElement.className +=
+          " ${blink.secondary} ${bunderlineLink.light}";
       li.className += " $disable";
     }
 
-    li.children.add(link.create());
+    li.children.add(link.getElement);
 
     return li;
   }
