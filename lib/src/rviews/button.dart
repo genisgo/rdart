@@ -9,7 +9,7 @@ class RButton extends Relement {
   Color? onMouseEnterColor;
   Color? onMouseDownColor;
   BtnType? type;
-  Relement child;
+  Relement? child;
   Function(Relement relement)? onHover;
   Function(Relement relement)? onPress;
   RButton(
@@ -20,24 +20,24 @@ class RButton extends Relement {
       this.onHover,
       this.onMouseDownColor,
       this.onMouseEnterColor,
-      required this.child,
+      this.child,
       this.disable = false});
   var element = ButtonElement();
   @override
   Element create() {
     ///Crete child
-    child.create();
+    child?.create();
     if (!singleBootStrap) {
       /// set animation for child on [onMouseEnter] event.
       if (onMouseEnterColor != null) {
-        child.getElement.onMouseEnter.listen((event) {
+        child?.getElement.onMouseEnter.listen((event) {
           element.style.backgroundColor = onMouseEnterColor?.color;
         });
       }
 
       ///ajoute un listerner d'evenement de tipe quiter le button
       if (onMouseDownColor != null) {
-        child.getElement.onMouseOut.listen((event) {
+        child?.getElement.onMouseOut.listen((event) {
           element.style.backgroundColor = style?.backgroundColor?.color;
         });
       }
@@ -48,7 +48,7 @@ class RButton extends Relement {
       element.className = "btn";
     }
 
-    element.children.add(child.getElement);
+    if (child != null) element.children.add(child!.getElement);
 
     if (type != null) element.type = type!.name;
 

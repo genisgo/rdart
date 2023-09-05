@@ -7,3 +7,4 @@ part 'accordion.dart';
 part 'alert.dart';
 part 'breadcrumb.dart';
 part 'card.dart';
+part 'carousel.dart';

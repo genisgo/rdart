@@ -1,6 +1,13 @@
 part of 'bootstrap.dart';
 
 ///Click the accordions below to expand/collapse the accordion content.
+///Example:
+///```dart
+///Column( singleBootStrap: true,
+///   bootstrap: [
+///     Baccordion.header,
+///   ]);
+///```
 class Baccordion extends Bootstrap {
   const Baccordion._(super.cname);
   static const accordion = Baccordion._("accordion");
@@ -98,7 +105,7 @@ Be sure you’ve loaded the alert plugin, or the compiled Bootstrap JavaScript.
 Add a close button and the .alert-dismissible class, which adds extra padding to the right of the alert and positions the close button.
 On the close button, add the data-bs-dismiss="alert" attribute, which triggers the JavaScript functionality. Be sure to use the <button> element with it for proper behavior across all devices.
 To animate alerts when dismissing them, be sure to add the .fade and .show classes.
- ***/
+ */
   static const Bootstrap disimissible =
       BAlert._("alert-dismissible alert-dismissible fade show");
 }
@@ -128,10 +135,23 @@ class Bbreadcrumb extends Bootstrap {
 }
 
 ///Card constante
+///```dart
+/// Container(bootstrap: [bcard.header], child: header),
+///```
 final bcard = Bcard.card;
 
 ///Use to creat card a generale constante [bcard] or
-///[Bcard.card]
+///[Bcard.card] Example:
+///```dart
+/// child: Column(children: [
+///   if (header != null)
+///     Container(bootstrap: [bcard.header], child: header),
+///   if (body != null)
+///     Container(bootstrap: [bcard.body,  child: body),
+///   if (footer != null)
+///     Row(bootstrap: [bcard.footer] children: [Text("footer")])
+/// ]),
+///```
 class Bcard extends Bootstrap {
   Bcard._(super.cname);
 
@@ -147,5 +167,24 @@ class Bcard extends Bootstrap {
   Bootstrap get imageTop => Bcard._("card-img-top");
   Bootstrap get imageBottom => Bcard._("card-img-top");
   Bootstrap get imageOverlay => Bcard._("card-img-overlay");
+}
 
+///Generale constante
+const bcarousel = Bcarousel.carousel;
+
+///Carousel slid
+class Bcarousel extends Bootstrap {
+  const Bcarousel._(super.cname);
+  static const carousel = Bcarousel._("cname");
+  Bootstrap get item => Bcarousel._("carousel-item");
+  Bootstrap get active => Bcarousel._("active");
+  Bootstrap get slide => Bcarousel._("slide");
+  Bootstrap get fade => Bcarousel._("carousel-fade");
+  Bootstrap get inner => Bcarousel._("carousel-inner");
+  Bootstrap get controlPrev => Bcarousel._("carousel-control-prev");
+  Bootstrap get controlNext => Bcarousel._("carousel-control-next");
+  Bootstrap get controlPrevIcon => Bcarousel._("carousel-control-prev-icon");
+  Bootstrap get controlNextIcon => Bcarousel._("carousel-control-next-icon");
+  Bootstrap get caption => Bcarousel._("carousel-caption");
+  Bootstrap get indicators => Bcarousel._("carousel-indicators");
 }
