@@ -1,7 +1,4 @@
-import 'dart:html';
-
-import 'package:rdart/bootstrap.dart';
-import 'package:rdart/rviews.dart';
+part of 'bs.components.dart';
 
 enum CarouselMode {
   slide,
@@ -14,6 +11,7 @@ class BsCarousel extends Rview {
   BsCarouselIndicators? indicators;
   BsCarouselControler? controler;
   CarouselMode mode;
+  List<Bootstrap> bootstrap;
   final List<BsCarouselItem> items;
   final bool autoPlay;
 
@@ -23,7 +21,8 @@ class BsCarousel extends Rview {
       this.id,
       this.autoPlay = false,
       this.controler,
-      this.mode = CarouselMode.slide}) {
+      this.mode = CarouselMode.slide,
+      this.bootstrap = const []}) {
     _idgenerate++;
     //initialisation
     id ??= "carousel$_idgenerate";
@@ -36,14 +35,18 @@ class BsCarousel extends Rview {
     return BsElement(
         userParent: true,
         child: Column(
-            children: [
-              indicators!,
-              ...items,
-            ],
+            children: items,
             singleBootStrap: true,
             bootstrap: [bcarousel.inner]),
-        bootstrap: [bcarousel, if (mode == CarouselMode.fade) bcarousel.fade],
-        dataset: {if (autoPlay) "bs-ride": "carousel"});
+        bootstrap: [
+          bcarousel,
+          bcarousel.slide,
+          if (mode == CarouselMode.fade) bcarousel.fade,
+          ...bootstrap
+        ],
+        dataset: {
+          if (autoPlay) "bs-ride": "carousel"
+        });
   }
 
   @override
@@ -52,13 +55,28 @@ class BsCarousel extends Rview {
     indicators?.parent = this;
     //set parent in controller
     controler?.targetID = id!;
+    //add indicator
+    indicators?.create();
+    getElement.children.add(indicators!.getElement);
     //Add CarouselController
-    getElement.children.add(controler!.controler);
+    getElement.children.add(controler!.controler(_CarouselControlerType.prev));
+    getElement.children.add(controler!.controler(_CarouselControlerType.next));
+    //set carousel id
+    getElement.id = id!;
+//     var fcarousel = new bootstrap.Carousel(document.querySelector("#carousel1"),{
+//   interval: 2000,
+//   touch: false
+// })
+    if (autoPlay) {
+      var gcar = Caroucel(getElement, {});
+      gcar.cycle();
+    }
     super.onInitialized();
   }
 }
 
 class BsCarouselIndicators extends Rview {
+  BsCarousel? _parent;
   @override
   Relement build() {
     return BsElement(
@@ -69,22 +87,35 @@ class BsCarouselIndicators extends Rview {
 
   ///Call to carousel onInitialized method
   set parent(BsCarousel carousel) {
-    for (var i = 0; i < carousel.items.length; i++) {
-      getElement.children.add(indicatorItem(carousel, i));
+    _parent = carousel;
+  }
+
+  @override
+  void onInitialized() {
+    if (_parent != null) {
+      for (var i = 0; i < _parent!.items.length; i++) {
+        getElement.children.add(indicatorItem(_parent!, i));
+      }
     }
+    super.onInitialized();
   }
 
   Element indicatorItem(BsCarousel carousel, int index) {
     bool isfirst = index == 0;
-    return BsElement(child: RButton(type: BtnType.button), bootstrap: [
-      if (isfirst) bcarousel.active
-    ], dataset: {
-      "bs-target": "#${carousel.id}",
-      "bs-slide-to": "$index",
-      if (isfirst) "aria-current": "true",
-    }, attributes: {
-      "aria-label": "Slide $index"
-    }).create();
+    return BsElement(
+        child: RButton(
+            type: BtnType.button, singleBootStrap: true, style: RStyle()),
+        bootstrap: [
+          if (isfirst) bcarousel.active
+        ],
+        dataset: {
+          "bs-target": "#${carousel.id}",
+          "bs-slide-to": "$index",
+          if (isfirst) "aria-current": "true",
+        },
+        attributes: {
+          "aria-label": "Slide $index"
+        }).create();
   }
 }
 
@@ -95,13 +126,8 @@ class BsCarouselControler {
     _target = id;
   }
 
-  Element get controler {
-    var btn = RButton(child: Column(children: [])).create();
-    btn.children.addAll([
-      controlerItem(type: _CarouselControlerType.prev),
-      controlerItem(type: _CarouselControlerType.next)
-    ]);
-    return btn;
+  Element controler(_CarouselControlerType type) {
+    return controlerItem(type: type);
   }
 
   Element controlerItem({final type = _CarouselControlerType.next}) {
@@ -126,7 +152,8 @@ class BsCarouselControler {
     spanLabel.innerText = isNext ? "Next" : "Prev";
 
     var controlerElement = BsElement(
-        child: RButton(type: BtnType.button),
+        child: RButton(
+            type: BtnType.button, singleBootStrap: true, style: RStyle()),
         bootstrap: controBootstrap,
         dataset: {
           "bs-target": "#$_target",
@@ -155,7 +182,11 @@ class BsCarouselItem extends Rview {
   @override
   Relement build() {
     return BsElement(
-        child: Column(children: [child, if (capitation != null) capitation!]),
+        child: Column(children: [
+          child,
+          if (capitation != null)
+            BsElement(child: capitation!, bootstrap: [bcarousel.caption],)
+        ]),
         bootstrap: [bcarousel.item, if (active) bcarousel.active],
         dataset: {if (animationTime != null) "bs-interval": "$animationTime"});
   }

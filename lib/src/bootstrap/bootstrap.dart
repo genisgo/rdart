@@ -1,3 +1,5 @@
+import 'package:rdart/bootstrap.dart';
+
 part 'layout.dart';
 part 'utilities.dart';
 part 'components.dart';
@@ -5,7 +7,7 @@ part 'components.dart';
 abstract class Bootstrap {
   final String? _cname;
   const Bootstrap(this._cname);
-  
+
   String get cname => _cname!;
   @override
   String toString() {

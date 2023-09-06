@@ -559,7 +559,12 @@ class BsElement extends BootStrapComponent {
   Element get getElement => _div;
   @override
   bootstrap() {
-    _div.className += " ${bootstraps.join(" ")}";
+    if (noUseChildClassName) {
+      ///Delet all className on the child
+      _div.className = " ${bootstraps.join(" ")}";
+    } else {
+      _div.className += " ${bootstraps.join(" ")}";
+    }
     _div.dataset = dataset;
     _div.attributes.addAll(attributes);
   }

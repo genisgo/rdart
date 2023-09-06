@@ -175,7 +175,7 @@ const bcarousel = Bcarousel.carousel;
 ///Carousel slid
 class Bcarousel extends Bootstrap {
   const Bcarousel._(super.cname);
-  static const carousel = Bcarousel._("cname");
+  static const carousel = Bcarousel._("carousel");
   Bootstrap get item => Bcarousel._("carousel-item");
   Bootstrap get active => Bcarousel._("active");
   Bootstrap get slide => Bcarousel._("slide");

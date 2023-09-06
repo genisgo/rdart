@@ -766,9 +766,6 @@ class BpointerEvent extends Bootstrap {
   Bootstrap get none => BpointerEvent._("pe-none");
 }
 
-///General constatent use
-final bfitbox = BfitBox._("");
-
 ///Object fit
 class BfitBox extends Bootstrap implements Bscreen {
   const BfitBox._(super.cname);
