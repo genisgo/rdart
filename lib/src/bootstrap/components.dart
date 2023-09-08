@@ -172,7 +172,15 @@ class Bcard extends Bootstrap {
 ///Generale constante
 const bcarousel = Bcarousel.carousel;
 
-///Carousel slid
+///For use Carousel, use generale constant [bcarousel] or [Bcarousel.carousel]
+///Example:
+///```dart
+/////use [singleBootStrap]=true
+///Column(
+/// children: items,
+/// singleBootStrap: true,
+/// bootstrap: [bcarousel.inner])
+///```
 class Bcarousel extends Bootstrap {
   const Bcarousel._(super.cname);
   static const carousel = Bcarousel._("carousel");
@@ -187,4 +195,75 @@ class Bcarousel extends Bootstrap {
   Bootstrap get controlNextIcon => Bcarousel._("carousel-control-next-icon");
   Bootstrap get caption => Bcarousel._("carousel-caption");
   Bootstrap get indicators => Bcarousel._("carousel-indicators");
+}
+///Generale
+const bdropdown =Bdropdown.dropdown;
+
+///Dropdown button
+class Bdropdown extends Bootstrap {
+  const Bdropdown._(super.cname);
+
+  static const dropdown = Bdropdown._("dropdown");
+
+  Bootstrap get menu => Bdropdown._("dropdown-menu");
+
+  Bootstrap get item => Bdropdown._("dropdown-item");
+  
+  Bootstrap get toggle => Bdropdown._("dropdown-toggle");
+
+  Bootstrap get divider => Bdropdown._("dropdown-divider");
+
+  Bootstrap get split => Bdropdown._("dropdown-toggle-split");
+
+  ///Use with [menu]
+  Bootstrap get menuDark => Bdropdown._("dropdown-menu-dark");
+
+  Bootstrap get center => Bdropdown._("dropdown-center");
+
+  Bootstrap get dropup => Bdropdown._("dropup");
+
+  Bootstrap get dropend => Bdropdown._("dropend");
+
+  Bootstrap get dropstart => Bdropdown._("dropstart");
+  _DropdownMenuAlign get menAlignEnd => _DropdownMenuAlign("dropdown-menu-end");
+
+  _DropdownMenuAlign get menAlignStart =>
+      _DropdownMenuAlign("dropdown-menu-start");
+
+  ///You can also create non-interactive dropdown items with
+  ///[itemText].Feel free to style further.
+  Bootstrap get itemText => Bdropdown._("dropdown-item-text");
+  Bootstrap get itemActive => Bdropdown._("active");
+  Bootstrap get disabled => Bdropdown._("disabled");
+    Bootstrap get header => Bdropdown._("dropdown-header");
+
+}
+
+class _DropdownMenuAlign extends Bootstrap implements Bscreen {
+  const _DropdownMenuAlign(String cnames) : super(cnames);
+
+  @override
+  Bootstrap _addScreen(param) {
+    return _defaultAddScreen(param, cname);
+  }
+
+  @override
+  // TODO: implement lg
+  Bootstrap get lg => _addScreen("lg");
+
+  @override
+  // TODO: implement md
+  Bootstrap get md => _addScreen("md");
+
+  @override
+  // TODO: implement sm
+  Bootstrap get sm => _addScreen("sm");
+
+  @override
+  // TODO: implement xl
+  Bootstrap get xl => _addScreen("xl");
+
+  @override
+  // TODO: implement xxl
+  Bootstrap get xxl => _addScreen("xxl");
 }

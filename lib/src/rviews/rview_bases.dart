@@ -472,7 +472,7 @@ class Divider extends Relement {
   Divider({this.height = 1, this.color = Colors.gray, this.width}) {
     _idgenerate++;
   }
-  final Element _div = Element.div();
+  final Element _div = Element.hr();
   @override
   Element create() {
     _div
@@ -537,7 +537,7 @@ class BsElement extends BootStrapComponent {
       {required this.child,
       this.userParent = false,
       required List<Bootstrap> bootstrap,
-      required Map<String, String> dataset,
+       Map<String, String> dataset =const {},
       Map<String, String> attributes = const {},
       this.noUseChildClassName = false})
       : super(bootstrap, dataset, attributes);

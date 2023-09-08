@@ -5,6 +5,25 @@ enum CarouselMode {
   fade;
 }
 
+
+///Carousel use [bcarousel] or [Bcarousel.carousel]
+///Example :
+///```dart
+///BsCarousel(bootstrap: [
+///          bwidth.x75,
+///          bheight.x50,
+///       BAlignSelf.center,
+///  ], items: [
+///    BsCarouselItem(
+///        capitation: Text("Bonjour", color: Colors.White, size: 24),
+///        child: RImage(
+///          style: RStyle(bootstrap: [
+///            bwidth.x100,
+///            Bdisplay.block,]),
+///          url: "https://image.com",
+///        ), active: true)
+/// ])
+/// ```
 class BsCarousel extends Rview {
   static int _idgenerate = 0;
   String? id;
