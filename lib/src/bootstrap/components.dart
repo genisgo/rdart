@@ -196,8 +196,9 @@ class Bcarousel extends Bootstrap {
   Bootstrap get caption => Bcarousel._("carousel-caption");
   Bootstrap get indicators => Bcarousel._("carousel-indicators");
 }
+
 ///Generale
-const bdropdown =Bdropdown.dropdown;
+const bdropdown = Bdropdown.dropdown;
 
 ///Dropdown button
 class Bdropdown extends Bootstrap {
@@ -208,7 +209,7 @@ class Bdropdown extends Bootstrap {
   Bootstrap get menu => Bdropdown._("dropdown-menu");
 
   Bootstrap get item => Bdropdown._("dropdown-item");
-  
+
   Bootstrap get toggle => Bdropdown._("dropdown-toggle");
 
   Bootstrap get divider => Bdropdown._("dropdown-divider");
@@ -235,8 +236,7 @@ class Bdropdown extends Bootstrap {
   Bootstrap get itemText => Bdropdown._("dropdown-item-text");
   Bootstrap get itemActive => Bdropdown._("active");
   Bootstrap get disabled => Bdropdown._("disabled");
-    Bootstrap get header => Bdropdown._("dropdown-header");
-
+  Bootstrap get header => Bdropdown._("dropdown-header");
 }
 
 class _DropdownMenuAlign extends Bootstrap implements Bscreen {
@@ -266,4 +266,67 @@ class _DropdownMenuAlign extends Bootstrap implements Bscreen {
   @override
   // TODO: implement xxl
   Bootstrap get xxl => _addScreen("xxl");
+}
+
+///Generale constante
+const blist = BList.list;
+
+class BList extends Bootstrap {
+  const BList._(super.cname);
+
+  static const list = BList._("list-group");
+  Bootstrap get item => BListItem.item;
+  Bootstrap get itemAction => BList._("list-group-item-action");
+  Bootstrap get groupeFlush => BList._("list-groupe-flush");
+  Bootstrap get groupeNumber => BList._("list-groupe-numbered");
+  _BListGroupeHorizontal get horizontale => _BListGroupeHorizontal.horizontal;
+}
+
+///generale constante
+const blistItem = BListItem.item;
+
+///BlistItem
+class BListItem extends Bootstrap {
+  const BListItem._(super.cname);
+  static const item = BListItem._("list-groupe-item");
+  Icolor<BListItem> get colors => Icolor._(icname: cname, insertIndex: 2);
+  Bootstrap get action => BListItem._("$cname-action");
+  Bootstrap get disabled => BList._("disabled");
+  Bootstrap get active => BList._("active");
+}
+
+///General constant
+const blistHorizontal = _BListGroupeHorizontal.horizontal;
+
+///BlistHorizontal
+class _BListGroupeHorizontal extends Bootstrap implements Bscreen {
+  static const horizontal = _BListGroupeHorizontal._("list-group-horizontal");
+
+  const _BListGroupeHorizontal._(super.cname);
+
+  @override
+  // TODO: implement lg
+  Bootstrap get lg => _defaultAddScreen("lg", cname);
+
+  @override
+  // TODO: implement md
+  Bootstrap get md => _defaultAddScreen("md", cname);
+
+  @override
+  // TODO: implement sm
+  Bootstrap get sm => _defaultAddScreen("sm", cname);
+
+  @override
+  // TODO: implement xl
+  Bootstrap get xl => _defaultAddScreen("xl", cname);
+
+  @override
+  // TODO: implement xxl
+  Bootstrap get xxl => _defaultAddScreen("xxl", cname);
+
+  @override
+  Bootstrap _addScreen(param) {
+    // TODO: implement _addScreen
+    throw UnimplementedError();
+  }
 }

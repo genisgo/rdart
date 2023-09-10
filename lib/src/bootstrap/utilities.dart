@@ -65,12 +65,16 @@ class Bcolor extends Bootstrap {
   static const bgWhite = Bcolor._("bg-white");
   static const bgTransparent = Bcolor._("bg-transparent");
   //Background gradient
-  Bcolor get grandient {
+  Bootstrap get grandient {
     return Bcolor._("$cname bg-gradient");
   }
 
-  Bcolor get subtle {
+  Bootstrap get subtle {
     return Bcolor._("$cname-subtle");
+  }
+
+  Bootstrap get text {
+    return Bcolor._(cname.replaceAll("bg", "text"));
   }
 
   Bcolor opacity(Opacity value) {
