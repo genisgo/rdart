@@ -1,5 +1,4 @@
 import 'dart:html';
-import 'dart:math';
 import 'package:rdart/bootstrap.dart';
 import '../rview_bases.dart';
 import '../../bootstrap/js/bscard.dart';
@@ -10,3 +9,4 @@ part 'breadcrumb.dart';
 part 'card.dart';
 part 'carousel.dart';
 part 'dropdown.dart';
+part 'list.dart';

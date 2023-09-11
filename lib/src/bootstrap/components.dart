@@ -115,7 +115,7 @@ final bbage = Bbage.bage;
 
 class Bbage extends Bootstrap {
   const Bbage._(super.cname);
-  static const bage = Bbage._("bage");
+  static const bage = Bbage._("badge");
 }
 
 ///Generale constante
@@ -273,12 +273,11 @@ const blist = BList.list;
 
 class BList extends Bootstrap {
   const BList._(super.cname);
-
   static const list = BList._("list-group");
   Bootstrap get item => BListItem.item;
   Bootstrap get itemAction => BList._("list-group-item-action");
-  Bootstrap get groupeFlush => BList._("list-groupe-flush");
-  Bootstrap get groupeNumber => BList._("list-groupe-numbered");
+  Bootstrap get groupeFlush => BList._("list-group-flush");
+  Bootstrap get groupeNumber => BList._("list-group-numbered");
   _BListGroupeHorizontal get horizontale => _BListGroupeHorizontal.horizontal;
 }
 
@@ -288,7 +287,7 @@ const blistItem = BListItem.item;
 ///BlistItem
 class BListItem extends Bootstrap {
   const BListItem._(super.cname);
-  static const item = BListItem._("list-groupe-item");
+  static const item = BListItem._("list-group-item");
   Icolor<BListItem> get colors => Icolor._(icname: cname, insertIndex: 2);
   Bootstrap get action => BListItem._("$cname-action");
   Bootstrap get disabled => BList._("disabled");
@@ -306,27 +305,26 @@ class _BListGroupeHorizontal extends Bootstrap implements Bscreen {
 
   @override
   // TODO: implement lg
-  Bootstrap get lg => _defaultAddScreen("lg", cname);
+  Bootstrap get lg => _addScreen("lg");
 
   @override
   // TODO: implement md
-  Bootstrap get md => _defaultAddScreen("md", cname);
+  Bootstrap get md => _addScreen("md");
 
   @override
   // TODO: implement sm
-  Bootstrap get sm => _defaultAddScreen("sm", cname);
+  Bootstrap get sm => _addScreen("sm");
 
   @override
   // TODO: implement xl
-  Bootstrap get xl => _defaultAddScreen("xl", cname);
+  Bootstrap get xl => _addScreen("xl");
 
   @override
   // TODO: implement xxl
-  Bootstrap get xxl => _defaultAddScreen("xxl", cname);
+  Bootstrap get xxl => _addScreen("xxl");
 
   @override
   Bootstrap _addScreen(param) {
-    // TODO: implement _addScreen
-    throw UnimplementedError();
+  return _defaultAddScreen("xxl", cname,3);
   }
 }

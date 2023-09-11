@@ -96,7 +96,7 @@ class Container extends Relement {
   ///Utiliser pour definir les styles et decoration. [style] Permet par exemple la bordure, la couleur
   /* Exemple RStyle(margin: REdgetInset.all(10) */
   RStyle? style;
-
+  bool singleBootStrap ;
   ///DataSet
   Map<String, String>? dataset;
   Container({
@@ -104,14 +104,14 @@ class Container extends Relement {
     this.style,
     this.width,
     this.height,
+    this.singleBootStrap=false,
   });
   var _div = Element.div();
   @override
   Element create() {
     ///if style is defind and [ height] , [width] is defind
     ///
-    _div.className = "container";
-
+   if(!singleBootStrap) _div.className = "container";
     if (style != null) {
       if (height != 0) style = style!.copyWith(height: height);
       if (width != 0) style = style!.copyWith(width: width);
@@ -239,7 +239,7 @@ class Text extends Relement {
       this.style,
       this.singleBootStrap = false});
   //Div element
-  final divele = Element.p();
+  final divele = Element.div();
   @override
   Element create() {
     divele.innerText = text;
