@@ -278,7 +278,7 @@ class BList extends Bootstrap {
   Bootstrap get itemAction => BList._("list-group-item-action");
   Bootstrap get groupeFlush => BList._("list-group-flush");
   Bootstrap get groupeNumber => BList._("list-group-numbered");
-  _BListGroupeHorizontal get horizontale => _BListGroupeHorizontal.horizontal;
+  _BListGroupeHorizontal get horizontal => _BListGroupeHorizontal.horizontal;
 }
 
 ///generale constante
