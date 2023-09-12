@@ -42,6 +42,10 @@ class BsModalDialog extends Rview {
       if (scrollable) bmodal.dialogScrollable,
       if (center) bmodal.dialogCentered
     ];
+
+    ///Attribute if modal is [static] are true
+    const staticAttribut = {"bs-backdrop": "static", "bs-keyboard": "false"};
+
     return BsElement(
         userParent: true,
         child: BsElement(
@@ -56,7 +60,7 @@ class BsModalDialog extends Rview {
           "tabindex": "-1",
         },
         dataset: {
-          if (static) ...{"bs-backdrop": "static", "bs-keyboard": "false"},
+          if (static) ...staticAttribut
         });
   }
 
@@ -79,6 +83,27 @@ class BsModalControl extends Rview {
       "bs-target": "#$targetID",
       if (data != null) "bs-whatever": "$data"
     });
+  }
+}
+
+class BsModalController {
+  String targetID;
+  BsModalController({required this.targetID}) {
+    var modal = querySelector('#$targetID');
+
+    if (modal == null) {
+      print("Error no $targetID modal found");
+      return;
+    }
+    _controllModal = Modal(modal);
+  }
+  Modal? _controllModal;
+  show() {
+    _controllModal?.show();
+  }
+
+  hide() {
+    _controllModal?.hide();
   }
 }
 
@@ -111,11 +136,11 @@ class BsModalHeader extends Relement {
     }
     close?.create();
     //Set close btn attrib
-    close?.getElement.className += [Btn.close].join(" ");
+    close?.getElement.className += " ${[Btn.close].join(" ")}";
     close?.getElement.dataset.addAll({"bs-dismiss": "modal"});
     close?.getElement.attributes.addAll({"aria-label": "Close"});
     //Set title attrib
-    title.getElement.className = [bmodal.title, ...titleStye].join(" ");
+    title.getElement.className += " ${[bmodal.title, ...titleStye].join(" ")}";
     //div
     header.className += [bmodal.header, ...headerStye].join(" ");
     header.children
