@@ -10,3 +10,4 @@ part 'card.dart';
 part 'carousel.dart';
 part 'dropdown.dart';
 part 'list.dart';
+part 'modal.dart';

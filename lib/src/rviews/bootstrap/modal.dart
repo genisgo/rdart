@@ -1,7 +1,4 @@
-import 'dart:html';
-
-import 'package:rdart/bootstrap.dart';
-import 'package:rdart/rviews.dart';
+part of 'bs.components.dart';
 
 class BsModalDialog extends Rview {
   static int _idgenerate = 0;
@@ -40,20 +37,27 @@ class BsModalDialog extends Rview {
       if (footer != null) footer!
     ];
 
+    final dialogStyle = [
+      bmodal.dialog,
+      if (scrollable) bmodal.dialogScrollable,
+      if (center) bmodal.dialogCentered
+    ];
     return BsElement(
         userParent: true,
         child: BsElement(
+            userParent: true,
             child: Column(
                 children: modalContentElements,
                 singleBootStrap: true,
                 bootstrap: [bmodal.content]),
-            bootstrap: [
-              bmodal.dialog,
-              if (scrollable) bmodal.dialogScrollable,
-              if (center) bmodal.dialogCentered
-            ]),
+            bootstrap: dialogStyle),
         bootstrap: modalStyle,
-        attributes: {"tabindex": "-1"});
+        attributes: {
+          "tabindex": "-1",
+        },
+        dataset: {
+          if (static) ...{"bs-backdrop": "static", "bs-keyboard": "false"},
+        });
   }
 
   @override
@@ -99,7 +103,11 @@ class BsModalHeader extends Relement {
     title.create();
     //set default close button
     if (defaultClose && close == null) {
-      close = BsElement(child: RButton(singleBootStrap: true), bootstrap: []);
+      close = BsElement(
+        child: RButton(
+            singleBootStrap: true, type: BtnType.button, style: RStyle()),
+        bootstrap: [],
+      );
     }
     close?.create();
     //Set close btn attrib
