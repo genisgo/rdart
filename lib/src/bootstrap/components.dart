@@ -332,7 +332,7 @@ class _BListGroupeHorizontal extends Bootstrap implements Bscreen {
 ///Generale constant
 const bmodal = BModal.modal;
 
-class BModal extends Bootstrap {
+class BModal extends Bootstrap implements Bscreen {
   const BModal._(super.cname);
   static const modal = BModal._("modal");
   Bootstrap get dialog => BModal._("modal-dialog");
@@ -342,4 +342,59 @@ class BModal extends Bootstrap {
   Bootstrap get body => BModal._("modal-body");
   Bootstrap get dialogScrollable => BModal._("modal-dialog-scrollable");
   Bootstrap get dialogCentered => BModal._("modal-dialog-centered");
+  Bootstrap get footer => BModal._("modal-footer");
+  _BsModalScreen get fullscreen => _BsModalScreen.fullscreen;
+  @override
+  Bootstrap _addScreen(param) {
+    return _defaultAddScreen(param, cname);
+  }
+
+  @override
+  // TODO: implement lg
+  Bootstrap get lg => _addScreen("lg");
+
+  @override
+  // TODO: implement md
+  Bootstrap get md => _addScreen("md");
+  @override
+  // TODO: implement sm
+  Bootstrap get sm => _addScreen("sm");
+
+  @override
+  // TODO: implement xl
+  Bootstrap get xl => _addScreen("xl");
+
+  @override
+  // TODO: implement xxl
+  Bootstrap get xxl => _addScreen("xxl");
+}
+
+class _BsModalScreen extends Bootstrap implements Bscreen {
+  const _BsModalScreen(super.cname);
+  static const fullscreen = _BsModalScreen("modal-fullscreen");
+
+  @override
+  Bootstrap _addScreen(param) {
+    return _defaultAddScreen(param, cname);
+  }
+
+  @override
+  // TODO: implement lg
+  Bootstrap get lg => _addScreen("lg-down");
+
+  @override
+  // TODO: implement md
+  Bootstrap get md => _addScreen("md-down");
+
+  @override
+  // TODO: implement sm
+  Bootstrap get sm => _addScreen("sm-down");
+
+  @override
+  // TODO: implement xl
+  Bootstrap get xl => _addScreen("xl-down");
+
+  @override
+  // TODO: implement xxl
+  Bootstrap get xxl => _addScreen("xxl-down");
 }
