@@ -87,7 +87,7 @@ class BsCarousel extends Rview {
 //   touch: false
 // })
     if (autoPlay) {
-      var gcar = Caroucel(getElement, {});
+      var gcar = Carousel(getElement, {});
       gcar.cycle();
     }
     super.onInitialized();
