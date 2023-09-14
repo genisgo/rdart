@@ -330,8 +330,80 @@ class _BListGroupeHorizontal extends Bootstrap implements Bscreen {
 }
 
 ///Generale constant
+///**Use Bootstrap class**
+///Use Bootstrap modal plugin to add dialogs to your site for lightboxes,
+/// user notifications, or completely custom content.
+/// * Use [BsElement] to set bootstrap modal class
+/// ``Example:``<br>
+/// ```dart
+///    BsElement(
+///     userParent: true,
+///     child: BsElement(
+///     userParent: true,
+///     child: Column(
+///         children: [
+///             header(),
+///           BsElement(child:Text("Body content"), bootstrap: [bmodal.body]),
+///             footer()
+///         ],
+///         singleBootStrap: true,
+///         bootstrap: [bmodal.content]),
+///     bootstrap: fulldialogStyle),
+///     bootstrap: modalStyle,
+///     attributes: {
+///     "tabindex": "-1",
+///     },
+///     dataset: {
+///   if (static) ...staticAttribut
+///     });
+///```
+///* You can also create a [modal.dialogScrollable]  that allows scroll the modal body by adding .
+///
+///**Vertically centered:** <br>
+///Add ``modal.dialogCentered`` to Relement or Rview contenning [modal.dialog]
+///to vertically center the modal.
+///
+///**Optional sizes:**<br>
+/// User ``modal.{md,sm,xl,xxl}`` Modals have three optional sizes, available via modifier classes to be placed on a
+/// Relement or Element containning a [modal.dialog].<br>
+/// **Fullscreen Modal:** <br> Another override is the option to pop up a modal that covers the user viewport,
+/// available via modifier classes that are placed on a .modal-dialog.
+/// ``Class	Availability``<br>
+/// [modal.fullscreen]	Always <br>
+/// [modal.fullscreen.sm]	576px <br>
+/// [modal.fullscreen.md]	768px <br>
+/// [modal.fullscreen.lg]	992px <br>
+/// [modal.fullscreen.xl]	1200px <br>
+/// [modal.fullscreen.xxl]	1400px <br>
 const bmodal = BModal.modal;
 
+///**Use Bootstrap class**
+///Use Bootstrap modal plugin to add dialogs to your site for lightboxes,
+/// user notifications, or completely custom content.
+/// * Use [BsElement] to set bootstrap modal class
+/// ``Example:``<br>
+/// ```dart
+///    BsElement(
+///     userParent: true,
+///     child: BsElement(
+///     userParent: true,
+///     child: Column(
+///         children: [
+///             header(),
+///           BsElement(child:Text("Body content"), bootstrap: [bmodal.body]),
+///             footer()
+///         ],
+///         singleBootStrap: true,
+///         bootstrap: [bmodal.content]),
+///     bootstrap: fulldialogStyle),
+///     bootstrap: modalStyle,
+///     attributes: {
+///     "tabindex": "-1",
+///     },
+///     dataset: {
+///   if (static) ...staticAttribut
+///     });
+///```
 class BModal extends Bootstrap implements Bscreen {
   const BModal._(super.cname);
   static const modal = BModal._("modal");
@@ -340,9 +412,26 @@ class BModal extends Bootstrap implements Bscreen {
   Bootstrap get header => BModal._("modal-header");
   Bootstrap get title => BModal._("modal-title");
   Bootstrap get body => BModal._("modal-body");
+  Bootstrap get fade => BModal._("fade");
+
+  ///* You can also create a [modal.dialogScrollable]  that allows scroll the modal body by adding .
   Bootstrap get dialogScrollable => BModal._("modal-dialog-scrollable");
+
+  ///**Vertically centered:** <br>
+  ///Add ``modal.dialogCentered`` to Relement or Rview contenning [modal.dialog]
+  ///to vertically center the modal.
   Bootstrap get dialogCentered => BModal._("modal-dialog-centered");
   Bootstrap get footer => BModal._("modal-footer");
+
+  /// **Fullscreen Modal:** <br> Another override is the option to pop up a modal that covers the user viewport,
+  /// available via modifier classes that are placed on a .modal-dialog.
+  /// ``Class	Availability``<br>
+  /// [modal.fullscreen]	Always <br>
+  /// [modal.fullscreen.sm]	576px <br>
+  /// [modal.fullscreen.md]	768px <br>
+  /// [modal.fullscreen.lg]	992px <br>
+  /// [modal.fullscreen.xl]	1200px <br>
+  /// [modal.fullscreen.xxl]	1400px <br>
   _BsModalScreen get fullscreen => _BsModalScreen.fullscreen;
   @override
   Bootstrap _addScreen(param) {
@@ -375,7 +464,7 @@ class _BsModalScreen extends Bootstrap implements Bscreen {
 
   @override
   Bootstrap _addScreen(param) {
-    return _defaultAddScreen(param, cname);
+    return _defaultAddScreen(param, cname, 2);
   }
 
   @override
@@ -397,4 +486,59 @@ class _BsModalScreen extends Bootstrap implements Bscreen {
   @override
   // TODO: implement xxl
   Bootstrap get xxl => _addScreen("xxl-down");
+}
+
+///General const
+final bnavbar = Bnavbar.navbar;
+
+///Navbar
+class Bnavbar extends Bootstrap {
+  const Bnavbar._(super.cname);
+
+  static const navbar = Bnavbar._("navbar");
+
+  Bootstrap get brand => Bnavbar._("navbar-brand");
+  BnavbarExpand get expand => BnavbarExpand.expand;
+  Bootstrap get dark => Bnavbar._("navbar-dark");
+  Bootstrap get light => Bnavbar._("navbar-light");
+  Bootstrap get toggler => Bnavbar._("navbar-toggler");
+  Bootstrap get text => Bnavbar._("navbar-text");
+  Bootstrap get nav => Bnavbar._("navbar-nav");
+  Bootstrap get collapse => Bnavbar._("navbar-collapse");
+  Bootstrap get item => Bnavbar._("nav-item");
+  Bootstrap get link => Bnavbar._("nav-link");
+  Bootstrap get togglerIcon => Bnavbar._("navbar-toggler-icon");
+  Bootstrap get scroll => Bnavbar._("navbar-nav-scroll");
+}
+
+///General const
+final bnavbarExpand = BnavbarExpand.expand;
+
+class BnavbarExpand extends Bootstrap implements Bscreen {
+  const BnavbarExpand._(super.cname);
+  static const expand = BnavbarExpand._("navbar-expand");
+  @override
+  Bootstrap _addScreen(param) {
+    return _defaultAddScreen(param, cname);
+  }
+
+  @override
+  // TODO: implement lg
+  Bootstrap get lg => _addScreen("lg");
+
+  @override
+  // TODO: implement md
+  Bootstrap get md => _addScreen("md");
+
+  @override
+  // TODO: implement sm
+  Bootstrap get sm => _addScreen("sm");
+
+  @override
+  // TODO: implement xl
+  Bootstrap get xl => _addScreen("xl");
+
+  @override
+  // TODO: implement xxl
+  Bootstrap get xxl => _addScreen("xxl");
 }

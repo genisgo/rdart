@@ -1,8 +1,11 @@
 import 'package:rdart/bootstrap.dart';
+import 'package:rdart/rviews.dart';
 
 part 'layout.dart';
 part 'utilities.dart';
 part 'components.dart';
+///Const
+const bactive = _BootStrapDefaultImp("active");
 
 abstract class Bootstrap {
   final String? _cname;

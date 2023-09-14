@@ -12,8 +12,11 @@ class BsModalDialog extends Rview {
   bool scrollable;
   bool center;
   List<Bootstrap> style;
+  List<Bootstrap> dialogStyle;
+
   BsModalDialog(
       {this.header,
+      this.dialogStyle = const [],
       this.id,
       this.body,
       this.footer,
@@ -28,7 +31,7 @@ class BsModalDialog extends Rview {
   @override
   Relement build() {
     //set Modal bootstrap style
-    final modalStyle = [bmodal, if (transition) bcarousel.fade, ...style];
+    final modalStyle = [bmodal, if (transition) bmodal.fade, ...style];
     //set body class
 
     final modalContentElements = [
@@ -37,10 +40,11 @@ class BsModalDialog extends Rview {
       if (footer != null) footer!
     ];
 
-    final dialogStyle = [
+    final fulldialogStyle = [
       bmodal.dialog,
       if (scrollable) bmodal.dialogScrollable,
-      if (center) bmodal.dialogCentered
+      if (center) bmodal.dialogCentered,
+      ...dialogStyle,
     ];
 
     ///Attribute if modal is [static] are true
@@ -54,7 +58,7 @@ class BsModalDialog extends Rview {
                 children: modalContentElements,
                 singleBootStrap: true,
                 bootstrap: [bmodal.content]),
-            bootstrap: dialogStyle),
+            bootstrap: fulldialogStyle),
         bootstrap: modalStyle,
         attributes: {
           "tabindex": "-1",
@@ -88,21 +92,15 @@ class BsModalControl extends Rview {
 
 class BsModalController {
   String targetID;
-  BsModalController({required this.targetID}) {
-    var modal = querySelector('#$targetID');
-
-    if (modal == null) {
-      print("Error no $targetID modal found");
-      return;
-    }
-    _controllModal = Modal(modal);
-  }
+  BsModalController({required this.targetID});
   Modal? _controllModal;
   show() {
+    _controllModal ??= Modal('#$targetID', {});
     _controllModal?.show();
   }
 
   hide() {
+    _controllModal ??= Modal('#$targetID', {});
     _controllModal?.hide();
   }
 }

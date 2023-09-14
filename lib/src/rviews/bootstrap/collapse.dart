@@ -50,6 +50,6 @@ class BsCollapseBody extends Rview {
   @override
   void onInitialized() {
     super.onInitialized();
-    getElement.id = key;
+    getElement.id = key!;
   }
 }

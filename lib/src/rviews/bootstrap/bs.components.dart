@@ -1,7 +1,7 @@
 import 'dart:html';
 import 'package:rdart/bootstrap.dart';
 import '../rview_bases.dart';
-import '../../bootstrap/js/bscard.dart';
+import '../../bootstrap/js/bootrap.js.dart';
 part 'collapse.dart';
 part 'accordion.dart';
 part 'alert.dart';
@@ -11,3 +11,4 @@ part 'carousel.dart';
 part 'dropdown.dart';
 part 'list.dart';
 part 'modal.dart';
+part 'navbar.dart';

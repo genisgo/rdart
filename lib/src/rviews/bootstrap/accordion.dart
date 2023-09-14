@@ -42,10 +42,10 @@ class BsAccordion extends Rview {
 
   @override
   void onInitialized() {
-    getElement.id = key;
+    getElement.id = key!;
     if (!noUseParent) {
       for (var element in item) {
-        element.parent = key;
+        element.parent = key!;
       }
     }
     super.onInitialized();
@@ -87,7 +87,7 @@ class BsAccordionItem extends Rview {
 
   @override
   void onInitialized() {
-    body.headerKey = header.key;
+    body.headerKey = header.key!;
     header.bodyKey = body.id!;
     //show
     if (show) {
@@ -210,7 +210,7 @@ class BsAccordionHeader extends Rview {
     getElement.children.first.attributes.addAll({
       "aria-controls": bodykey,
     });
-    getElement.id = key;
+    getElement.id = key!;
   }
 
   show() {

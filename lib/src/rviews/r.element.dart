@@ -2,8 +2,8 @@ part of 'rview_bases.dart';
 
 abstract class Relement {
   static int registrerElementID = 0;
-  final String key;
-  const Relement({this.key="" });
+  final  String? key;
+  const Relement({this.key});
 
   Element create();
   Element get getElement;
@@ -11,7 +11,7 @@ abstract class Relement {
 
 abstract class Rview extends Relement {
   late Relement _relement;
-  Rview({String key=""}) : super(key: key) {
+  Rview({String? key}) : super(key: key) {
     _relement = build();
     Future.delayed(Duration.zero, () => onInitialized());
   }
