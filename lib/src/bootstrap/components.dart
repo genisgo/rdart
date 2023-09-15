@@ -243,29 +243,29 @@ class _DropdownMenuAlign extends Bootstrap implements Bscreen {
   const _DropdownMenuAlign(String cnames) : super(cnames);
 
   @override
-  Bootstrap _addScreen(param) {
+  Bootstrap addScreen(param) {
     return _defaultAddScreen(param, cname);
   }
 
   @override
   // TODO: implement lg
-  Bootstrap get lg => _addScreen("lg");
+  Bootstrap get lg => addScreen("lg");
 
   @override
   // TODO: implement md
-  Bootstrap get md => _addScreen("md");
+  Bootstrap get md => addScreen("md");
 
   @override
   // TODO: implement sm
-  Bootstrap get sm => _addScreen("sm");
+  Bootstrap get sm => addScreen("sm");
 
   @override
   // TODO: implement xl
-  Bootstrap get xl => _addScreen("xl");
+  Bootstrap get xl => addScreen("xl");
 
   @override
   // TODO: implement xxl
-  Bootstrap get xxl => _addScreen("xxl");
+  Bootstrap get xxl => addScreen("xxl");
 }
 
 ///Generale constante
@@ -305,26 +305,26 @@ class _BListGroupeHorizontal extends Bootstrap implements Bscreen {
 
   @override
   // TODO: implement lg
-  Bootstrap get lg => _addScreen("lg");
+  Bootstrap get lg => addScreen("lg");
 
   @override
   // TODO: implement md
-  Bootstrap get md => _addScreen("md");
+  Bootstrap get md => addScreen("md");
 
   @override
   // TODO: implement sm
-  Bootstrap get sm => _addScreen("sm");
+  Bootstrap get sm => addScreen("sm");
 
   @override
   // TODO: implement xl
-  Bootstrap get xl => _addScreen("xl");
+  Bootstrap get xl => addScreen("xl");
 
   @override
   // TODO: implement xxl
-  Bootstrap get xxl => _addScreen("xxl");
+  Bootstrap get xxl => addScreen("xxl");
 
   @override
-  Bootstrap _addScreen(param) {
+  Bootstrap addScreen(param) {
     return _defaultAddScreen("xxl", cname, 3);
   }
 }
@@ -434,28 +434,28 @@ class BModal extends Bootstrap implements Bscreen {
   /// [modal.fullscreen.xxl]	1400px <br>
   _BsModalScreen get fullscreen => _BsModalScreen.fullscreen;
   @override
-  Bootstrap _addScreen(param) {
+  Bootstrap addScreen(param) {
     return _defaultAddScreen(param, cname);
   }
 
   @override
   // TODO: implement lg
-  Bootstrap get lg => _addScreen("lg");
+  Bootstrap get lg => addScreen("lg");
 
   @override
   // TODO: implement md
-  Bootstrap get md => _addScreen("md");
+  Bootstrap get md => addScreen("md");
   @override
   // TODO: implement sm
-  Bootstrap get sm => _addScreen("sm");
+  Bootstrap get sm => addScreen("sm");
 
   @override
   // TODO: implement xl
-  Bootstrap get xl => _addScreen("xl");
+  Bootstrap get xl => addScreen("xl");
 
   @override
   // TODO: implement xxl
-  Bootstrap get xxl => _addScreen("xxl");
+  Bootstrap get xxl => addScreen("xxl");
 }
 
 class _BsModalScreen extends Bootstrap implements Bscreen {
@@ -463,29 +463,29 @@ class _BsModalScreen extends Bootstrap implements Bscreen {
   static const fullscreen = _BsModalScreen("modal-fullscreen");
 
   @override
-  Bootstrap _addScreen(param) {
+  Bootstrap addScreen(param) {
     return _defaultAddScreen(param, cname, 2);
   }
 
   @override
   // TODO: implement lg
-  Bootstrap get lg => _addScreen("lg-down");
+  Bootstrap get lg => addScreen("lg-down");
 
   @override
   // TODO: implement md
-  Bootstrap get md => _addScreen("md-down");
+  Bootstrap get md => addScreen("md-down");
 
   @override
   // TODO: implement sm
-  Bootstrap get sm => _addScreen("sm-down");
+  Bootstrap get sm => addScreen("sm-down");
 
   @override
   // TODO: implement xl
-  Bootstrap get xl => _addScreen("xl-down");
+  Bootstrap get xl => addScreen("xl-down");
 
   @override
   // TODO: implement xxl
-  Bootstrap get xxl => _addScreen("xxl-down");
+  Bootstrap get xxl => addScreen("xxl-down");
 }
 
 ///General const
@@ -518,27 +518,27 @@ class BnavbarExpand extends Bootstrap implements Bscreen {
   const BnavbarExpand._(super.cname);
   static const expand = BnavbarExpand._("navbar-expand");
   @override
-  Bootstrap _addScreen(param) {
+  Bootstrap addScreen(param) {
     return _defaultAddScreen(param, cname,2);
   }
 
   @override
   // TODO: implement lg
-  Bootstrap get lg => _addScreen("lg");
+  Bootstrap get lg => addScreen("lg");
 
   @override
   // TODO: implement md
-  Bootstrap get md => _addScreen("md");
+  Bootstrap get md => addScreen("md");
 
   @override
   // TODO: implement sm
-  Bootstrap get sm => _addScreen("sm");
+  Bootstrap get sm => addScreen("sm");
 
   @override
   // TODO: implement xl
-  Bootstrap get xl => _addScreen("xl");
+  Bootstrap get xl => addScreen("xl");
 
   @override
   // TODO: implement xxl
-  Bootstrap get xxl => _addScreen("xxl");
+  Bootstrap get xxl => addScreen("xxl");
 }

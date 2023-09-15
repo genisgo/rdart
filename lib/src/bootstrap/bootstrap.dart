@@ -1,4 +1,3 @@
-import 'package:rdart/bootstrap.dart';
 import 'package:rdart/rviews.dart';
 
 part 'layout.dart';
@@ -25,7 +24,7 @@ abstract class Bscreen {
   Bootstrap get lg;
   Bootstrap get xl;
   Bootstrap get xxl;
-  Bootstrap _addScreen(param);
+  Bootstrap addScreen(param);
 }
 
 ///Utiliser pour permetre instanciation interne
