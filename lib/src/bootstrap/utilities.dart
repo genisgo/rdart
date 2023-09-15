@@ -292,7 +292,7 @@ class _TextAlign extends Bootstrap implements Bscreen {
   const _TextAlign(super.cname);
 
   @override
-  Bootstrap _addScreen(param) {
+  Bootstrap addScreen(param) {
     var spleted = cname.split("-");
     spleted.insert(1, param);
     return Brow._(spleted.toSet().join("-"));
@@ -300,23 +300,23 @@ class _TextAlign extends Bootstrap implements Bscreen {
 
   @override
   // TODO: implement lg
-  Bootstrap get lg => _addScreen("lg");
+  Bootstrap get lg => addScreen("lg");
 
   @override
   // TODO: implement md
-  Bootstrap get md => _addScreen("md");
+  Bootstrap get md => addScreen("md");
 
   @override
   // TODO: implement sm
-  Bootstrap get sm => _addScreen("sm");
+  Bootstrap get sm => addScreen("sm");
 
   @override
   // TODO: implement xl
-  Bootstrap get xl => _addScreen("xl");
+  Bootstrap get xl => addScreen("xl");
 
   @override
   // TODO: implement xxl
-  Bootstrap get xxl => _addScreen("xxl");
+  Bootstrap get xxl => addScreen("xxl");
 }
 
 ///Generale constact for [BFs] class quick use
@@ -390,31 +390,31 @@ base class Bdisplay extends Bootstrap implements Bscreen {
   static const inlineFlex = Bdisplay._("d-inline-flex");
 
   @override
-  Bootstrap _addScreen(param) {
+  Bootstrap addScreen(param) {
     return _defaultAddScreen(param, cname);
   }
 
   @override
   // TODO: implement lg
-  Bootstrap get lg => _addScreen("lg");
+  Bootstrap get lg => addScreen("lg");
 
   @override
   // TODO: implement md
-  Bootstrap get md => _addScreen("md");
+  Bootstrap get md => addScreen("md");
 
   @override
   // TODO: implement sm
-  Bootstrap get sm => _addScreen("sm");
+  Bootstrap get sm => addScreen("sm");
 
   @override
   // TODO: implement xl
-  Bootstrap get xl => _addScreen("xl");
+  Bootstrap get xl => addScreen("xl");
 
   @override
   // TODO: implement xxl
-  Bootstrap get xxl => _addScreen("xxl");
+  Bootstrap get xxl => addScreen("xxl");
 
-  Bootstrap get print => _addScreen("print");
+  Bootstrap get print => addScreen("print");
 }
 
 ///Display Flex
@@ -430,29 +430,29 @@ class BFlex extends Bootstrap implements Bscreen {
   static const fill = BFlex._("flex-fill");
 
   @override
-  Bootstrap _addScreen(param) {
+  Bootstrap addScreen(param) {
     return _defaultAddScreen(param, cname);
   }
 
   @override
   // TODO: implement lg
-  Bootstrap get lg => _addScreen("lg");
+  Bootstrap get lg => addScreen("lg");
 
   @override
   // TODO: implement md
-  Bootstrap get md => _addScreen("md");
+  Bootstrap get md => addScreen("md");
 
   @override
   // TODO: implement sm
-  Bootstrap get sm => _addScreen("sm");
+  Bootstrap get sm => addScreen("sm");
 
   @override
   // TODO: implement xl
-  Bootstrap get xl => _addScreen("xl");
+  Bootstrap get xl => addScreen("xl");
 
   @override
   // TODO: implement xxl
-  Bootstrap get xxl => _addScreen("xxl");
+  Bootstrap get xxl => addScreen("xxl");
 }
 
 ///AligneItem
@@ -465,29 +465,29 @@ class BAlignItem extends Bootstrap implements Bscreen {
   static const stretch = BAlignItem._("align-items-stretch");
 
   @override
-  Bootstrap _addScreen(param) {
+  Bootstrap addScreen(param) {
     return _defaultAddScreen(param, cname, 2);
   }
 
   @override
   // TODO: implement lg
-  Bootstrap get lg => _addScreen("lg");
+  Bootstrap get lg => addScreen("lg");
 
   @override
   // TODO: implement md
-  Bootstrap get md => _addScreen("md");
+  Bootstrap get md => addScreen("md");
 
   @override
   // TODO: implement sm
-  Bootstrap get sm => _addScreen("sm");
+  Bootstrap get sm => addScreen("sm");
 
   @override
   // TODO: implement xl
-  Bootstrap get xl => _addScreen("xl");
+  Bootstrap get xl => addScreen("xl");
 
   @override
   // TODO: implement xxl
-  Bootstrap get xxl => _addScreen("xxl");
+  Bootstrap get xxl => addScreen("xxl");
 }
 
 ///AlignSelft
@@ -500,29 +500,29 @@ class BAlignSelf extends Bootstrap implements Bscreen {
   static const stretch = BAlignSelf._("align-self-stretch");
 
   @override
-  Bootstrap _addScreen(param) {
+  Bootstrap addScreen(param) {
     return _defaultAddScreen(param, cname, 2);
   }
 
   @override
   // TODO: implement lg
-  Bootstrap get lg => _addScreen("lg");
+  Bootstrap get lg => addScreen("lg");
 
   @override
   // TODO: implement md
-  Bootstrap get md => _addScreen("md");
+  Bootstrap get md => addScreen("md");
 
   @override
   // TODO: implement sm
-  Bootstrap get sm => _addScreen("sm");
+  Bootstrap get sm => addScreen("sm");
 
   @override
   // TODO: implement xl
-  Bootstrap get xl => _addScreen("xl");
+  Bootstrap get xl => addScreen("xl");
 
   @override
   // TODO: implement xxl
-  Bootstrap get xxl => _addScreen("xxl");
+  Bootstrap get xxl => addScreen("xxl");
 }
 
 ///Justify-Content
@@ -535,29 +535,29 @@ class BJustifyContent extends Bootstrap implements Bscreen {
   static const around = BJustifyContent._("justify-content-around");
 
   @override
-  Bootstrap _addScreen(param) {
+  Bootstrap addScreen(param) {
     return _defaultAddScreen(param, cname, 2);
   }
 
   @override
   // TODO: implement lg
-  Bootstrap get lg => _addScreen("lg");
+  Bootstrap get lg => addScreen("lg");
 
   @override
   // TODO: implement md
-  Bootstrap get md => _addScreen("md");
+  Bootstrap get md => addScreen("md");
 
   @override
   // TODO: implement sm
-  Bootstrap get sm => _addScreen("sm");
+  Bootstrap get sm => addScreen("sm");
 
   @override
   // TODO: implement xl
-  Bootstrap get xl => _addScreen("xl");
+  Bootstrap get xl => addScreen("xl");
 
   @override
   // TODO: implement xxl
-  Bootstrap get xxl => _addScreen("xxl");
+  Bootstrap get xxl => addScreen("xxl");
 }
 
 ///Align-Content
@@ -571,29 +571,29 @@ class BAlinContent extends Bootstrap implements Bscreen {
   static const stretch = BAlinContent._("align-content-stretch");
 
   @override
-  Bootstrap _addScreen(param) {
+  Bootstrap addScreen(param) {
     return _defaultAddScreen(param, cname, 2);
   }
 
   @override
   // TODO: implement lg
-  Bootstrap get lg => _addScreen("lg");
+  Bootstrap get lg => addScreen("lg");
 
   @override
   // TODO: implement md
-  Bootstrap get md => _addScreen("md");
+  Bootstrap get md => addScreen("md");
 
   @override
   // TODO: implement sm
-  Bootstrap get sm => _addScreen("sm");
+  Bootstrap get sm => addScreen("sm");
 
   @override
   // TODO: implement xl
-  Bootstrap get xl => _addScreen("xl");
+  Bootstrap get xl => addScreen("xl");
 
   @override
   // TODO: implement xxl
-  Bootstrap get xxl => _addScreen("xxl");
+  Bootstrap get xxl => addScreen("xxl");
 }
 
 class Bposition extends Bootstrap {
@@ -673,8 +673,8 @@ class Bshadow extends Bootstrap implements Bscreen {
   static const shadow = Bshadow._("shadow");
 
   @override
-  Bootstrap _addScreen(param) {
-    // TODO: implement _addScreen
+  Bootstrap addScreen(param) {
+    // TODO: implement addScreen
     throw UnimplementedError();
   }
 
@@ -780,8 +780,8 @@ class BfitBox extends Bootstrap implements Bscreen {
   static BfitBox get none => BfitBox._("object-fit-none");
 
   @override
-  Bootstrap _addScreen(param) {
-    // TODO: implement _addScreen
+  Bootstrap addScreen(param) {
+    // TODO: implement addScreen
     throw UnimplementedError();
   }
 

@@ -27,23 +27,23 @@ class Bcolumn extends Bootstrap implements Bscreen {
   const Bcolumn.l(int l) : super("col-$l");
 
   @override
-  Bcolumn get sm => _addScreen("sm");
+  Bcolumn get sm => addScreen("sm");
   @override
-  Bcolumn get md => _addScreen("md");
+  Bcolumn get md => addScreen("md");
   @override
-  Bcolumn get lg => _addScreen("lg");
+  Bcolumn get lg => addScreen("lg");
   @override
-  Bcolumn get xl => _addScreen("xl");
+  Bcolumn get xl => addScreen("xl");
   @override
   // TODO: implement xxl
-  Bootstrap get xxl => _addScreen("xxl");
+  Bootstrap get xxl => addScreen("xxl");
 
 //add Goutter
   Bcolumn bg(Bg value) => Bcolumn._("$cname ${value.cname}");
 
   @override
-  Bcolumn _addScreen(screen) {
-    var spleted = cname!.split("-");
+  Bcolumn addScreen(screen) {
+    var spleted = cname.split("-");
     spleted.insert(1, screen);
     return Bcolumn._(spleted.toSet().join("-"));
   }
@@ -64,26 +64,26 @@ class Brow extends Bootstrap implements Bscreen {
 
   @override
   // TODO: implement lg
-  Brow get lg => _addScreen("lg");
+  Brow get lg => addScreen("lg");
 
   @override
-  Brow get md => _addScreen("md");
+  Brow get md => addScreen("md");
 
   @override
   // TODO: implement sm
-  Brow get sm => _addScreen("sm");
+  Brow get sm => addScreen("sm");
 
   @override
   // TODO: implement xl
-  Brow get xl => _addScreen("xl");
+  Brow get xl => addScreen("xl");
 
   @override
   // TODO: implement xxl
-  Bootstrap get xxl => _addScreen("xxl");
+  Bootstrap get xxl => addScreen("xxl");
 
   @override
-  Brow _addScreen(param) {
-    var spleted = cname!.split("-");
+  Brow addScreen(param) {
+    var spleted = cname.split("-");
     spleted.insert(2, param);
     return Brow._(spleted.toSet().join("-"));
   }
@@ -98,7 +98,7 @@ class Bg extends Bootstrap {
   static const g3 = Bg._("g-3");
   static const g4 = Bg._("g-4");
   static const g5 = Bg._("g-5");
-  Bootstrap get y => Bg._(cname!.replaceAll("g", "gy"));
+  Bootstrap get y => Bg._(cname.replaceAll("g", "gy"));
 
-  Bootstrap get x => Bg._(cname!.replaceAll("g", "gx"));
+  Bootstrap get x => Bg._(cname.replaceAll("g", "gx"));
 }
