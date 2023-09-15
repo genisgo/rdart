@@ -519,7 +519,7 @@ class BnavbarExpand extends Bootstrap implements Bscreen {
   static const expand = BnavbarExpand._("navbar-expand");
   @override
   Bootstrap _addScreen(param) {
-    return _defaultAddScreen(param, cname);
+    return _defaultAddScreen(param, cname,2);
   }
 
   @override

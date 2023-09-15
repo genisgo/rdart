@@ -15,6 +15,7 @@ class BsNavbar extends Relement {
 
   ///Add custom style
   List<Bootstrap> style;
+  bool useDefaultExpand;
   String? id;
   BsNavbar(
       {this.title,
@@ -22,6 +23,7 @@ class BsNavbar extends Relement {
       required this.menus,
       this.style = const [],
       this.toggleButton,
+      this.useDefaultExpand = true,
       this.id})
       : super(key: id) {
     id ??= "nav$_idgenerate";
@@ -33,11 +35,12 @@ class BsNavbar extends Relement {
   var collapseContent = Element.div();
   @override
   Element create() {
-    var navStyle = [bnavbar, ...style];
+    var navStyle = [bnavbar, ...style, if (useDefaultExpand) bnavbarExpand.lg];
 
     if (icon != null) {
       spanicon = icon!.create();
     }
+
     collapseContent.className +=
         [Bcollapse.collapse, bnavbar.collapse].join(" ");
     //set Collapse id
@@ -51,7 +54,7 @@ class BsNavbar extends Relement {
     //default btn
     //Title create
     title?.create();
-
+    title?.getElement.className += [bnavbar.brand].join(" ");
     var defaultToggleBtn = BsElement(
         child: RButton(
           singleBootStrap: true,
@@ -72,12 +75,15 @@ class BsNavbar extends Relement {
 
 //Create Default Btn element
     defaultToggleBtn.create();
+    toggleButton ??= defaultToggleBtn;
+    //set icon
+    toggleButton?.getElement.children.add(spanicon);
 //set collapse menu in collapse container
     collapseContent.children.addAll(menus.map((e) => e.create()));
 //set container
     container.children.addAll([
       if (title != null) title!.getElement,
-      if (toggleButton != null) toggleButton!.getElement,
+      toggleButton!.getElement,
       collapseContent
     ]);
 
@@ -114,12 +120,12 @@ class BsNavMenu extends Rview {
   }
 }
 
-class BsNavItem extends Rview {
+class BsNavMenuItem extends Rview {
   Relement child;
   List<Bootstrap> style;
   bool addNavLink;
   bool active;
-  BsNavItem(
+  BsNavMenuItem(
       {required this.child,
       this.style = const [],
       this.addNavLink = false,
@@ -132,7 +138,7 @@ class BsNavItem extends Rview {
 
   @override
   void onInitialized() {
-    if (addNavLink) child.getElement.className += " ${bnavbar.link}";
+    if (addNavLink|| child is Link) child.getElement.className += " ${bnavbar.link}";
     super.onInitialized();
   }
 }

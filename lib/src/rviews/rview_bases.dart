@@ -96,7 +96,8 @@ class Container extends Relement {
   ///Utiliser pour definir les styles et decoration. [style] Permet par exemple la bordure, la couleur
   /* Exemple RStyle(margin: REdgetInset.all(10) */
   RStyle? style;
-  bool singleBootStrap ;
+  bool singleBootStrap;
+
   ///DataSet
   Map<String, String>? dataset;
   Container({
@@ -104,14 +105,14 @@ class Container extends Relement {
     this.style,
     this.width,
     this.height,
-    this.singleBootStrap=false,
+    this.singleBootStrap = false,
   });
   var _div = Element.div();
   @override
   Element create() {
     ///if style is defind and [ height] , [width] is defind
     ///
-   if(!singleBootStrap) _div.className = "container";
+    if (!singleBootStrap) _div.className = "container";
     if (style != null) {
       if (height != 0) style = style!.copyWith(height: height);
       if (width != 0) style = style!.copyWith(width: width);
@@ -122,7 +123,7 @@ class Container extends Relement {
     } else {
       _div
         ..style.width = width == null ? null : "${width}px"
-        ..style.height = width == null ? null : "${height}px";
+        ..style.height = height == null ? null : "${height}px";
     }
 
     if (child != null) {
@@ -228,6 +229,7 @@ class AppBar extends Relement {
 //Text Element
 
 class Text extends Relement {
+  List<Bootstrap> bootstrap;
   String text;
   Color color;
   RStyle? style;
@@ -236,25 +238,28 @@ class Text extends Relement {
   Text(this.text,
       {this.color = Colors.Black,
       this.size = 14,
+      this.bootstrap = const [],
       this.style,
       this.singleBootStrap = false});
   //Div element
-  final divele = Element.div();
+  final div = Element.div();
   @override
   Element create() {
-    divele.innerText = text;
+    div.innerText = text;
 
     if (!singleBootStrap) {
-      divele
+      div
         ..style.color = color.color
         ..style.fontSize = "${size}px";
     }
-    return style?.createStyle(divele) ?? divele;
+    //set bootstrap
+    div.className = bootstrap.join(" ");
+    return style?.createStyle(div) ?? div;
   }
 
   @override
   // TODO: implement getElement
-  Element get getElement => divele;
+  Element get getElement => div;
 }
 
 //Icon
@@ -308,7 +313,7 @@ class Row extends Relement {
   final _div = Element.div();
   @override
   Element create() {
-   if(!singleBootStrap) _div.className = "row";
+    if (!singleBootStrap) _div.className = "row";
 
     _div.children.addAll(children.map((e) => e.create()));
     return RStyle(
@@ -537,7 +542,7 @@ class BsElement extends BootStrapComponent {
       {required this.child,
       this.userParent = false,
       required List<Bootstrap> bootstrap,
-       Map<String, String> dataset =const {},
+      Map<String, String> dataset = const {},
       Map<String, String> attributes = const {},
       this.noUseChildClassName = false})
       : super(bootstrap, dataset, attributes);
