@@ -252,7 +252,7 @@ class Text extends Relement {
         ..style.fontSize = "${size}px";
     }
     //set bootstrap
-    div.className = bootstrap.join(" ");
+    div.className =" "+ bootstrap.join(" ");
     return style?.createStyle(div) ?? div;
   }
 

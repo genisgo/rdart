@@ -192,11 +192,12 @@ class BsCarouselItem extends Rview {
   Relement child;
   bool active;
   int? animationTime;
+  List<Bootstrap> bootstrap; 
   BsCarouselItem(
       {required this.child,
       this.capitation,
       this.active = false,
-      this.animationTime});
+      this.animationTime,this.bootstrap=const []});
 
   @override
   Relement build() {
@@ -206,7 +207,7 @@ class BsCarouselItem extends Rview {
           if (capitation != null)
             BsElement(child: capitation!, bootstrap: [bcarousel.caption],)
         ]),
-        bootstrap: [bcarousel.item, if (active) bcarousel.active],
+        bootstrap: [bcarousel.item,...bootstrap, if (active) bcarousel.active],
         dataset: {if (animationTime != null) "bs-interval": "$animationTime"});
   }
 }

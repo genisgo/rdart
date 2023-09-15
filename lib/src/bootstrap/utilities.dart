@@ -320,8 +320,8 @@ class _TextAlign extends Bootstrap implements Bscreen {
 }
 
 ///Generale constact for [BFs] class quick use
-///Example [fontsize.h1]
-const fontsize = _BFs("");
+///Example [bfontsize.h1]
+const bfontsize = _BFs("");
 
 ///FontSize [BFs] use generale const [fontsize] example [fontsize.h1]
 ///or [Btext.fs] example [Btext.fs.h1]
@@ -339,8 +339,8 @@ base class _BFs extends Bootstrap {
 
 ///Font Weight
 ///Generale constant use [fontweight] quickly example
-///[fontweight.bold]
-const fontweight = _Fw("");
+///[bfontweight.bold]
+const bfontweight = _Fw("");
 
 ///
 class _Fw {
