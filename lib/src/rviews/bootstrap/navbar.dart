@@ -54,7 +54,7 @@ class BsNavbar extends Relement {
     //default btn
     //Title create
     title?.create();
-    title?.getElement.className +=  " "+[bnavbar.brand].join(" ");
+    title?.getElement.className += " " + [bnavbar.brand].join(" ");
     var defaultToggleBtn = BsElement(
         child: RButton(
           singleBootStrap: true,
@@ -138,7 +138,8 @@ class BsNavMenuItem extends Rview {
 
   @override
   void onInitialized() {
-    if (addNavLink|| child is Link) child.getElement.className += " ${bnavbar.link}";
+    if (addNavLink || child is Link || child is RButton)
+      child.getElement.className += " ${bnavbar.link}";
     super.onInitialized();
   }
 }

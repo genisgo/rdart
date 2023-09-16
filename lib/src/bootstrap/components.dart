@@ -519,7 +519,7 @@ class BnavbarExpand extends Bootstrap implements Bscreen {
   static const expand = BnavbarExpand._("navbar-expand");
   @override
   Bootstrap addScreen(param) {
-    return _defaultAddScreen(param, cname,2);
+    return _defaultAddScreen(param, cname, 2);
   }
 
   @override
@@ -541,4 +541,14 @@ class BnavbarExpand extends Bootstrap implements Bscreen {
   @override
   // TODO: implement xxl
   Bootstrap get xxl => addScreen("xxl");
+}
+
+class Bnav extends Bootstrap {
+  const Bnav._(super.cname);
+  static const nav = Bnav._("nav");
+  Bootstrap get tabs => Bnav._("nav-tabs");
+  Bootstrap get underline => Bnav._("nav-underline");
+  Bootstrap get fill => Bnav._("nav-fills");
+  Bootstrap get pills => Bnav._("nav-pills");
+  Bootstrap get justified => Bnav._("nav-justified");
 }

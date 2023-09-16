@@ -27,8 +27,7 @@ class RButton extends Relement {
   Element create() {
     ///Crete child
     child?.create();
-    if (!singleBootStrap) {
-      /// set animation for child on [onMouseEnter] event.
+          /// set animation for child on [onMouseEnter] event.
       if (onMouseEnterColor != null) {
         child?.getElement.onMouseEnter.listen((event) {
           element.style.backgroundColor = onMouseEnterColor?.color;
@@ -41,6 +40,8 @@ class RButton extends Relement {
           element.style.backgroundColor = style?.backgroundColor?.color;
         });
       }
+    if (!singleBootStrap) {
+
 
       ///ajout de nom de classe
       element.id = "btn_defaut";
