@@ -505,8 +505,6 @@ class Bnavbar extends Bootstrap {
   Bootstrap get text => Bnavbar._("navbar-text");
   Bootstrap get nav => Bnavbar._("navbar-nav");
   Bootstrap get collapse => Bnavbar._("navbar-collapse");
-  Bootstrap get item => Bnavbar._("nav-item");
-  Bootstrap get link => Bnavbar._("nav-link");
   Bootstrap get togglerIcon => Bnavbar._("navbar-toggler-icon");
   Bootstrap get scroll => Bnavbar._("navbar-nav-scroll");
 }
@@ -543,12 +541,25 @@ class BnavbarExpand extends Bootstrap implements Bscreen {
   Bootstrap get xxl => addScreen("xxl");
 }
 
+///Generale const
+///
+final bnav = Bnav.nav;
+
 class Bnav extends Bootstrap {
   const Bnav._(super.cname);
   static const nav = Bnav._("nav");
+  static const navbar = Bnavbar._("navbar");
+  Bootstrap get item => Bnavbar._("nav-item");
+  Bootstrap get link => Bnavbar._("nav-link");
   Bootstrap get tabs => Bnav._("nav-tabs");
   Bootstrap get underline => Bnav._("nav-underline");
   Bootstrap get fill => Bnav._("nav-fills");
   Bootstrap get pills => Bnav._("nav-pills");
   Bootstrap get justified => Bnav._("nav-justified");
+}
+
+class BTabs extends Bootstrap {
+ const BTabs._(super.cname);
+  static const btabs = BTabs._("nav-tabs");
+  Bootstrap get content => BTabs._("tab-contents");
 }

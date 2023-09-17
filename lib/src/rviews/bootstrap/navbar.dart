@@ -120,6 +120,183 @@ class BsNavMenu extends Rview {
   }
 }
 
+class BsNav extends Relement {
+  int _idgenerate = 0;
+
+  String? id;
+  List<Relement> items;
+  List<Bootstrap> bootstrap;
+  final _nav = Element.ul();
+  BsNav({required this.items, this.bootstrap = const [], this.id})
+      : super(key: id) {
+    _idgenerate++;
+    id ??= "nav$_idgenerate";
+  }
+
+  @override
+  Element create() {
+    _nav.id = id!;
+    _nav.className = bootstrap.join(" ");
+    _nav.children.addAll(items.map((e) => e.create()));
+
+    return _nav;
+  }
+
+  @override
+  // TODO: implement getElement
+  Element get getElement => _nav;
+}
+
+class BsNavTabs extends Relement {
+  String? id;
+
+  List<BsTab> tabs;
+
+  List<Bootstrap> style;
+
+  List<Bootstrap> contentStyle;
+
+  List<BsTabPanel> panels;
+
+  String? targetId;
+
+  String _contentId = "";
+
+  final _nav = Element.ul();
+
+  final _divPanels = Element.div();
+  final _divContent = Element.div();
+
+  BsNavTabs(
+      {required this.tabs,
+      this.style = const [],
+      this.panels = const [],
+      this.contentStyle = const [],
+      this.targetId,
+      this.id})
+      : super(key: id) {
+    id ??= "nav-tabs-$generateId";
+    _contentId = "content-$generateId";
+  }
+
+  @override
+  Element create() {
+    ///if target is set
+    bool isTarget = targetId != null && panels.isEmpty;
+    //nav
+    _nav.id = id!;
+    _nav.attributes.addAll({"role": "tablist"});
+    _nav.className = [bnav, ...style].join(" ");
+    //BsTab & content
+    List<Element> contentElement = [];
+    var tabEelement = tabs.map((e) => e.create()).toList();
+    //on set target id
+    if (isTarget) {
+      var querySelect = querySelector("#$targetId");
+      if (querySelect != null) contentElement = querySelect.children;
+    } else {
+      contentElement = panels.map((e) => e.create()).toList();
+    }
+
+    assert(contentElement.length == tabs.length,
+        "tabs and panel must be the same numbers");
+
+    for (var i = 0; i < tabEelement.length; i++) {
+      var btn = tabEelement[i].children.first;
+      var content = contentElement[i];
+      //set content id to btn
+      btn.dataset.addAll({"bs-target": "#${content.id}"});
+      btn.attributes.addAll({"aria-controls": content.id});
+      //set aria-labelledby
+      content.attributes.addAll({"aria-labelledby": btn.id});
+    }
+
+//content
+    _divPanels.className = [btabs.content, ...contentStyle].join(" ");
+    _divPanels.id = _contentId;
+
+    _nav.children.addAll(tabEelement);
+    if (panels.isNotEmpty) {
+      _divPanels.children.addAll(contentElement);
+    }
+    _divContent.children.add(
+      _nav,
+    );
+    if (!isTarget) {
+      _divContent.children.add(_divPanels);
+    }
+    return _divContent;
+  }
+
+  @override
+  // TODO: implement getElement
+  Element get getElement => _divContent;
+}
+
+///Tab
+
+class BsTab extends Relement {
+  Relement child;
+  List<Bootstrap> style;
+  bool addNavLink;
+  bool active;
+  String title;
+  String? id;
+  final _li = Element.li();
+  final _btn = ButtonElement();
+  BsTab(
+      {required this.child,
+      this.style = const [],
+      this.addNavLink = false,
+      this.title = "",
+      this.id,
+      this.active = false})
+      : super(key: id) {
+    id ??= "tab-$generateId";
+  }
+
+  @override
+  Element create() {
+    _btn.id = id!;
+    _btn.className = [
+      bnav.link,
+    ].join(" ");
+    _btn.attributes
+        .addAll({"role": "tab", "aria-selected": "$active", "type": "button"});
+    _btn.dataset.addAll({
+      "bs-toggle": "tab",
+    });
+    _li.children.add(_btn);
+    return _li;
+  }
+
+  @override
+  // TODO: implement getElement
+  Element get getElement => _li;
+}
+
+///Tab Panel
+class BsTabPanel extends Rview {
+  Relement child;
+  String? id;
+  List<Bootstrap> bootstrap;
+  BsTabPanel({
+    required this.child,
+    this.bootstrap = const [],
+    this.id,
+  }) : super(key: id) {
+    id ??= "tab-panel-$generateId";
+  }
+  @override
+  Relement build() {
+    return BsElement(
+        child: child,
+        bootstrap: [btabs.panel, bfade, ...bootstrap],
+        attributes: {"role": "tabpanel", "tabindex": "0", "id": id!});
+  }
+}
+
+///BsNavMenuItem
 class BsNavMenuItem extends Rview {
   Relement child;
   List<Bootstrap> style;
@@ -133,13 +310,14 @@ class BsNavMenuItem extends Rview {
   @override
   Relement build() {
     return BsElement(
-        child: child, bootstrap: [bnavbar.item, if (active) bactive, ...style]);
+        child: child, bootstrap: [bnav.item, if (active) bactive, ...style]);
   }
 
   @override
   void onInitialized() {
-    if (addNavLink || child is Link || child is RButton)
-      child.getElement.className += " ${bnavbar.link}";
+    if (addNavLink || child is Link || child is RButton) {
+      child.getElement.className += " ${bnav.link}";
+    }
     super.onInitialized();
   }
 }

@@ -30,6 +30,8 @@ class Page extends Relement {
   RStyle? appBarStyle;
   RStyle? bottomStyle;
   Color? backgroundColor;
+  bool singleBootStrap;
+  List<Bootstrap> bootstrap;
   Page(
       {this.appBar,
       this.body,
@@ -37,22 +39,27 @@ class Page extends Relement {
       this.backgroundColor,
       this.appBarStyle,
       this.bodyStyle,
+      this.singleBootStrap = false,
+      this.bootstrap=const [],
       this.bottomStyle});
 
   //Div element
   final _element = DivElement();
   @override
   Element create() {
-    _element
-      ..className = ClassName.page.name
-      ..id = "page"
-      ..style.width = "100%"
-      ..style.height = "100%"
-      ..style.display = "flex"
-      ..style.flexDirection = "column"
-      ..style.backgroundColor =
-          backgroundColor?.color ?? _currentTheme.backgroundColor.color;
-
+    
+    _element.className="page ${bootstrap.join(" ")}";
+    if (!singleBootStrap) {
+      _element
+        ..className = ClassName.page.name
+        ..id = "page"
+        ..style.width = "100%"
+        ..style.height = "100%"
+        ..style.display = "flex"
+        ..style.flexDirection = "column"
+        ..style.backgroundColor =
+            backgroundColor?.color ?? _currentTheme.backgroundColor.color;
+    }
     if (appBar != null) {
       var appbarElement = appBar!.create();
       if (appBarStyle != null) {
@@ -252,7 +259,7 @@ class Text extends Relement {
         ..style.fontSize = "${size}px";
     }
     //set bootstrap
-    div.className =" "+ bootstrap.join(" ");
+    div.className = " " + bootstrap.join(" ");
     return style?.createStyle(div) ?? div;
   }
 
