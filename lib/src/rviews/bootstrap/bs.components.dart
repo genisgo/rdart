@@ -12,3 +12,4 @@ part 'dropdown.dart';
 part 'list.dart';
 part 'modal.dart';
 part 'navbar.dart';
+part 'offcanvas.dart';

@@ -22,3 +22,10 @@ class Tab {
   external show();
   external hide();
 }
+
+@JS("Offcanvas")
+class Offcanvas {
+  external Offcanvas(id);
+  external show();
+  external hide();
+}

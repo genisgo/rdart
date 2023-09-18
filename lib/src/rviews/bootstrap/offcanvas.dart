@@ -1,5 +1,7 @@
 part of 'bs.components.dart';
 
+enum BsPosition { start, top, bottom, end }
+
 class BsOffcanvas extends Rview {
   static int _idgenerate = 0;
 
@@ -9,6 +11,7 @@ class BsOffcanvas extends Rview {
   bool transition;
   bool static;
   bool center;
+  BsPosition position;
   List<Bootstrap> style;
   List<Bootstrap> dialogStyle;
 
@@ -17,6 +20,7 @@ class BsOffcanvas extends Rview {
       this.dialogStyle = const [],
       this.id,
       this.body,
+      this.position = BsPosition.start,
       this.center = true,
       this.static = false,
       this.transition = true,
@@ -27,7 +31,12 @@ class BsOffcanvas extends Rview {
   @override
   Relement build() {
     //set Modal bootstrap style
-    final canvasStyle = [boffcanvas, if (transition) boffcanvas.fade, ...style];
+    final canvasStyle = [
+      boffcanvas,
+      if (transition) boffcanvas.fade,
+      getposition,
+      ...style
+    ];
     //set body class
 
     final modalContentElements = [
@@ -57,6 +66,13 @@ class BsOffcanvas extends Rview {
     getElement.id = id!;
     super.onInitialized();
   }
+
+  Bootstrap get getposition => switch (position) {
+        BsPosition.top => bcanvasPossition.top,
+        BsPosition.end => bcanvasPossition.end,
+        BsPosition.bottom => bcanvasPossition.bottom,
+        _ => bcanvasPossition.start
+      };
 }
 
 class BsOffcanvasControl extends Rview {
@@ -122,9 +138,10 @@ class BsOffcanvasHeader extends Relement {
     close?.getElement.dataset.addAll({"bs-dismiss": "offcanvas"});
     close?.getElement.attributes.addAll({"aria-label": "Close"});
     //Set title attrib
-    title.getElement.className += " ${[bmodal.title, ...titleStye].join(" ")}";
+    title.getElement.className +=
+        " ${[boffcanvas.title, ...titleStye].join(" ")}";
     //div
-    header.className += [bmodal.header, ...headerStye].join(" ");
+    header.className += [boffcanvas.header, ...headerStye].join(" ");
     header.children
         .addAll([title.getElement, if (close != null) close!.getElement]);
     return header;

@@ -569,6 +569,9 @@ class BTabs extends Bootstrap {
 
 //-----------------------OFFCANVASE-------------------/
 ///```
+///General const
+final boffcanvas = BoffCanvas.offcanvas;
+
 class BoffCanvas extends Bootstrap implements Bscreen {
   const BoffCanvas._(super.cname);
   static const offcanvas = BoffCanvas._("offcanvas");
