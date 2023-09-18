@@ -15,11 +15,14 @@ class BsOffcanvas extends Rview {
   List<Bootstrap> style;
   List<Bootstrap> dialogStyle;
 
+  bool scrollable;
+
   BsOffcanvas(
       {this.header,
       this.dialogStyle = const [],
       this.id,
       this.body,
+      this.scrollable = true,
       this.position = BsPosition.start,
       this.center = true,
       this.static = false,
@@ -57,7 +60,8 @@ class BsOffcanvas extends Rview {
           "tabindex": "-1",
         },
         dataset: {
-          if (static) ...staticAttribut
+          if (static) ...staticAttribut,
+          if (scrollable) "data-bs-scroll": "$scrollable"
         });
   }
 
