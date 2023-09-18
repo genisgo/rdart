@@ -1,27 +1,23 @@
 part of 'bs.components.dart';
 
-class BsModalDialog extends Rview {
+class BsOffcanvas extends Rview {
   static int _idgenerate = 0;
 
   String? id;
   Relement? header;
   Relement? body;
-  Relement? footer;
   bool transition;
   bool static;
-  bool scrollable;
   bool center;
   List<Bootstrap> style;
   List<Bootstrap> dialogStyle;
 
-  BsModalDialog(
+  BsOffcanvas(
       {this.header,
       this.dialogStyle = const [],
       this.id,
       this.body,
-      this.footer,
       this.center = true,
-      this.scrollable = false,
       this.static = false,
       this.transition = true,
       this.style = const []}) {
@@ -31,35 +27,23 @@ class BsModalDialog extends Rview {
   @override
   Relement build() {
     //set Modal bootstrap style
-    final modalStyle = [bmodal, if (transition) bmodal.fade, ...style];
+    final canvasStyle = [boffcanvas, if (transition) boffcanvas.fade, ...style];
     //set body class
 
     final modalContentElements = [
       if (header != null) header!,
-      if (body != null) BsElement(child: body!, bootstrap: [bmodal.body]),
-      if (footer != null) footer!
-    ];
-
-    final fulldialogStyle = [
-      bmodal.dialog,
-      if (scrollable) bmodal.dialogScrollable,
-      if (center) bmodal.dialogCentered,
-      ...dialogStyle,
+      if (body != null) BsElement(child: body!, bootstrap: [boffcanvas.body]),
     ];
 
     ///Attribute if modal is [static] are true
     const staticAttribut = {"bs-backdrop": "static", "bs-keyboard": "false"};
 
     return BsElement(
-        userParent: true,
-        child: BsElement(
-            userParent: true,
-            child: Column(
-                children: modalContentElements,
-                singleBootStrap: true,
-                bootstrap: [bmodal.content]),
-            bootstrap: fulldialogStyle),
-        bootstrap: modalStyle,
+        child: Column(
+          children: modalContentElements,
+          singleBootStrap: true,
+        ),
+        bootstrap: canvasStyle,
         attributes: {
           "tabindex": "-1",
         },
@@ -75,37 +59,37 @@ class BsModalDialog extends Rview {
   }
 }
 
-class BsModalControl extends Rview {
+class BsOffcanvasControl extends Rview {
   Relement child;
   String targetID;
   String? data;
-  BsModalControl({required this.targetID, required this.child, this.data});
+  BsOffcanvasControl({required this.targetID, required this.child, this.data});
   @override
   Relement build() {
     return BsElement(child: child, bootstrap: [], dataset: {
-      "bs-toggle": "modal",
+      "bs-toggle": "offcanvas",
       "bs-target": "#$targetID",
       if (data != null) "bs-whatever": "$data"
     });
   }
 }
 
-class BsModalController {
+class BsOffcanvasController {
   String targetID;
-  BsModalController({required this.targetID});
-  bjs.Modal? _controllModal;
+  BsOffcanvasController({required this.targetID});
+  bjs.Offcanvas? _controllModal;
   show() {
-    _controllModal ??= bjs.Modal('#$targetID', {});
+    _controllModal ??= bjs.Offcanvas('#$targetID');
     _controllModal?.show();
   }
 
   hide() {
-    _controllModal ??= bjs.Modal('#$targetID', {});
+    _controllModal ??= bjs.Offcanvas('#$targetID');
     _controllModal?.hide();
   }
 }
 
-class BsModalHeader extends Relement {
+class BsOffcanvasHeader extends Relement {
   Relement title;
   Relement? close;
   bool defaultClose;
@@ -114,7 +98,7 @@ class BsModalHeader extends Relement {
   List<Bootstrap> titleStye;
 
   late final Element header = Element.div();
-  BsModalHeader(
+  BsOffcanvasHeader(
       {required this.title,
       this.close,
       this.defaultClose = true,
@@ -135,7 +119,7 @@ class BsModalHeader extends Relement {
     close?.create();
     //Set close btn attrib
     close?.getElement.className += " ${[Btn.close].join(" ")}";
-    close?.getElement.dataset.addAll({"bs-dismiss": "modal"});
+    close?.getElement.dataset.addAll({"bs-dismiss": "offcanvas"});
     close?.getElement.attributes.addAll({"aria-label": "Close"});
     //Set title attrib
     title.getElement.className += " ${[bmodal.title, ...titleStye].join(" ")}";
@@ -151,25 +135,11 @@ class BsModalHeader extends Relement {
   Element get getElement => header;
 }
 
-class BsModalFooter extends Rview {
-  List<Relement> childreen;
-  List<Bootstrap> bootstrap;
-  BsModalFooter({this.childreen = const [], this.bootstrap = const []});
-
-  @override
-  Relement build() {
-    return Column(
-        singleBootStrap: true,
-        children: childreen,
-        bootstrap: [bmodal.footer, ...bootstrap]);
-  }
-}
-
-class BsModalCloseBtn extends Rview {
+class BsoffcanvasCloseBtn extends Rview {
   Relement? child;
   List<Bootstrap> bootstrap;
   Function(Relement)? onPress;
-  BsModalCloseBtn({this.child, this.bootstrap = const [], this.onPress});
+  BsoffcanvasCloseBtn({this.child, this.bootstrap = const [], this.onPress});
   @override
   Relement build() {
     var defualtBtn =
@@ -178,7 +148,7 @@ class BsModalCloseBtn extends Rview {
     return BsElement(
         child: child ?? defualtBtn,
         bootstrap: [],
-        dataset: {"bs-dismiss": "modal"});
+        dataset: {"bs-dismiss": "offcanvas"});
   }
 
   @override

@@ -566,3 +566,70 @@ class BTabs extends Bootstrap {
   Bootstrap get content => BTabs._("tab-content");
   Bootstrap get panel => BTabs._("tab-pane");
 }
+
+//-----------------------OFFCANVASE-------------------/
+///```
+class BoffCanvas extends Bootstrap implements Bscreen {
+  const BoffCanvas._(super.cname);
+  static const offcanvas = BoffCanvas._("offcanvas");
+  Bootstrap get header => BoffCanvas._("offcanvas-header");
+  Bootstrap get title => BoffCanvas._("offcanvas-title");
+  Bootstrap get body => BoffCanvas._("offcanvas-body");
+  Bootstrap get fade => BoffCanvas._("fade");
+
+  /// **Fullscreen Modal:** <br> Another override is the option to pop up a modal that covers the user viewport,
+  /// available via modifier classes that are placed on a .modal-dialog.
+  /// ``Class	Availability``<br>
+  /// [offcanvas.position.start] left<br>
+  /// [offcanvas.position.end]	right<br>
+  /// [offcanvas.position.top]	top <br>
+  /// [offcanvas.position.bottom] bottom <br>
+  BoffCanvasPosition get position => bcanvasPossition;
+  @override
+  Bootstrap addScreen(param) {
+    return _defaultAddScreen(param, cname);
+  }
+
+  @override
+  // TODO: implement lg
+  Bootstrap get lg => addScreen("lg");
+
+  @override
+  // TODO: implement md
+  Bootstrap get md => addScreen("md");
+  @override
+  // TODO: implement sm
+  Bootstrap get sm => addScreen("sm");
+
+  @override
+  // TODO: implement xl
+  Bootstrap get xl => addScreen("xl");
+
+  @override
+  // TODO: implement xxl
+  Bootstrap get xxl => addScreen("xxl");
+}
+
+///General const
+final bcanvasPossition = BoffCanvasPosition.position;
+
+class BoffCanvasPosition {
+  final String cname;
+  const BoffCanvasPosition(this.cname);
+  Bootstrap addScreen(param) {
+    return _defaultAddScreen(param, cname);
+  }
+
+  static const position = BoffCanvasPosition("offcanvas");
+  // TODO: implement lg
+  Bootstrap get start => addScreen("start");
+
+  // TODO: implement md
+  Bootstrap get end => addScreen("end");
+
+  // TODO: implement sm
+  Bootstrap get top => addScreen("top");
+
+  // TODO: implement xl
+  Bootstrap get bottom => addScreen("bottom");
+}

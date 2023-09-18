@@ -1,7 +1,7 @@
 import 'dart:html';
 import 'package:rdart/bootstrap.dart';
 import '../rview_bases.dart';
-import '../../bootstrap/js/bootrap.js.dart';
+import '../../bootstrap/js/bootrap.js.dart' as bjs;
 part 'collapse.dart';
 part 'accordion.dart';
 part 'alert.dart';

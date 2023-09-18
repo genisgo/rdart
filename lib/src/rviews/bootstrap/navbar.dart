@@ -228,6 +228,8 @@ class BsNavTabs extends Relement {
       //set tab index
       tabs[i].index = i;
 
+      ///active
+
       //Add on onselectItem in tab btn
       btn.onClick.listen((event) {
         onselectItem?.call(i);
@@ -259,6 +261,7 @@ class BsNavTabs extends Relement {
     }
     _divContent.className = contenairStyle.join(" ");
     //Select listener
+    active(0);
     return _divContent;
   }
 
@@ -271,6 +274,21 @@ class BsNavTabs extends Relement {
   @override
   // TODO: implement getElement
   Element get getElement => _divContent;
+
+  Future<void> active(int index) async {
+    return Future.delayed(
+      Duration.zero,
+      () {
+        final tab = tabs[index];
+        final tabjs = bjs.Tab("#${tab.id}");
+        if (tab.active) {
+          tabjs.show();
+        } else {
+          tabjs.hide();
+        }
+      },
+    );
+  }
 }
 
 ///Tab
@@ -328,12 +346,6 @@ class BsTab extends Relement {
     _btn.children.add(child.create());
     _li.children.add(_btn);
 
-    ///active
-    if (active) {
-      bjs.Tab(id).hide();
-    } else {
-      bjs.Tab(id).hide();
-    }
     return _li;
   }
 
