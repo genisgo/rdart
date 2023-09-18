@@ -147,19 +147,27 @@ class BsNav extends Relement {
   Element get getElement => _nav;
 }
 
+enum BsTabType {
+  tabs,
+  fills,
+  pills,
+}
+
 class BsNavTabs extends Relement {
   String? id;
-
+  BsTabType type;
+  bool vertacal;
   List<BsTab> tabs;
 
-  List<Bootstrap> style;
+  List<Bootstrap> navStyle;
 
-  List<Bootstrap> contentStyle;
+  List<Bootstrap> panelStyle;
+  List<Bootstrap> contenairStyle;
 
   List<BsTabPanel> panels;
 
   String? targetId;
-
+  Function(int index)? onselectItem;
   String _contentId = "";
 
   final _nav = Element.ul();
@@ -169,9 +177,13 @@ class BsNavTabs extends Relement {
 
   BsNavTabs(
       {required this.tabs,
-      this.style = const [],
+      this.navStyle = const [],
+      this.type = BsTabType.tabs,
       this.panels = const [],
-      this.contentStyle = const [],
+      this.panelStyle = const [],
+      this.contenairStyle = const [],
+      this.onselectItem,
+      this.vertacal = false,
       this.targetId,
       this.id})
       : super(key: id) {
@@ -183,16 +195,24 @@ class BsNavTabs extends Relement {
   Element create() {
     ///if target is set
     bool isTarget = targetId != null && panels.isEmpty;
+
     //nav
     _nav.id = id!;
-    _nav.attributes.addAll({"role": "tablist"});
-    _nav.className = [bnav, ...style].join(" ");
+
+    _nav.attributes.addAll(
+        {"role": "tablist", if (vertacal) "aria-orientation": "vertical"});
+
+    _nav.className = [bnav, navType, ...navStyle].join(" ");
+
     //BsTab & content
     List<Element> contentElement = [];
+
     var tabEelement = tabs.map((e) => e.create()).toList();
+
     //on set target id
     if (isTarget) {
       var querySelect = querySelector("#$targetId");
+
       if (querySelect != null) contentElement = querySelect.children;
     } else {
       contentElement = panels.map((e) => e.create()).toList();
@@ -203,19 +223,31 @@ class BsNavTabs extends Relement {
 
     for (var i = 0; i < tabEelement.length; i++) {
       var btn = tabEelement[i].children.first;
+
       var content = contentElement[i];
+      //set tab index
+      tabs[i].index = i;
+
+      //Add on onselectItem in tab btn
+      btn.onClick.listen((event) {
+        onselectItem?.call(i);
+      });
       //set content id to btn
       btn.dataset.addAll({"bs-target": "#${content.id}"});
+
       btn.attributes.addAll({"aria-controls": content.id});
+
       //set aria-labelledby
       content.attributes.addAll({"aria-labelledby": btn.id});
     }
 
 //content
-    _divPanels.className = [btabs.content, ...contentStyle].join(" ");
+    _divPanels.className = [btabs.content, ...panelStyle].join(" ");
+
     _divPanels.id = _contentId;
 
     _nav.children.addAll(tabEelement);
+
     if (panels.isNotEmpty) {
       _divPanels.children.addAll(contentElement);
     }
@@ -225,8 +257,16 @@ class BsNavTabs extends Relement {
     if (!isTarget) {
       _divContent.children.add(_divPanels);
     }
+    _divContent.className = contenairStyle.join(" ");
+    //Select listener
     return _divContent;
   }
+
+  Bootstrap get navType => switch (type) {
+        BsTabType.fills => bnav.fills,
+        BsTabType.pills => bnav.pills,
+        _ => bnav.tabs
+      };
 
   @override
   // TODO: implement getElement
@@ -237,36 +277,63 @@ class BsNavTabs extends Relement {
 
 class BsTab extends Relement {
   Relement child;
+
   List<Bootstrap> style;
+
   bool addNavLink;
+
   bool active;
+
   String title;
+
+  Function(int? index)? onSelect;
+
   String? id;
+
+  int? index;
   final _li = Element.li();
+
   final _btn = ButtonElement();
+
   BsTab(
       {required this.child,
       this.style = const [],
+      this.onSelect,
       this.addNavLink = false,
       this.title = "",
       this.id,
-      this.active = false})
-      : super(key: id) {
+      this.active = false}) {
     id ??= "tab-$generateId";
   }
 
   @override
   Element create() {
     _btn.id = id!;
+
+    _li.className = "${bnav.item}";
+
     _btn.className = [
       bnav.link,
     ].join(" ");
+
     _btn.attributes
         .addAll({"role": "tab", "aria-selected": "$active", "type": "button"});
+//Add select event
+    _btn.onClick.listen((event) {
+      onSelect?.call(index);
+    });
     _btn.dataset.addAll({
       "bs-toggle": "tab",
     });
+    _btn.children.add(child.create());
     _li.children.add(_btn);
+
+    ///active
+    if (active) {
+      bjs.Tab(id).hide();
+    } else {
+      bjs.Tab(id).hide();
+    }
     return _li;
   }
 
@@ -284,11 +351,11 @@ class BsTabPanel extends Rview {
     required this.child,
     this.bootstrap = const [],
     this.id,
-  }) : super(key: id) {
-    id ??= "tab-panel-$generateId";
-  }
+  });
   @override
   Relement build() {
+    id ??= "tab-panel-$generateId";
+
     return BsElement(
         child: child,
         bootstrap: [btabs.panel, bfade, ...bootstrap],

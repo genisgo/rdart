@@ -15,3 +15,10 @@ class Modal {
   external show();
   external hide();
 }
+
+@JS("Tab")
+class Tab {
+  external Tab(id);
+  external show();
+  external hide();
+}

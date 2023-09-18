@@ -553,13 +553,16 @@ class Bnav extends Bootstrap {
   Bootstrap get link => Bnavbar._("nav-link");
   Bootstrap get tabs => Bnav._("nav-tabs");
   Bootstrap get underline => Bnav._("nav-underline");
-  Bootstrap get fill => Bnav._("nav-fills");
+  Bootstrap get fills => Bnav._("nav-fills");
   Bootstrap get pills => Bnav._("nav-pills");
   Bootstrap get justified => Bnav._("nav-justified");
 }
 
+final btabs = BTabs.btabs;
+
 class BTabs extends Bootstrap {
- const BTabs._(super.cname);
+  const BTabs._(super.cname);
   static const btabs = BTabs._("nav-tabs");
-  Bootstrap get content => BTabs._("tab-contents");
+  Bootstrap get content => BTabs._("tab-content");
+  Bootstrap get panel => BTabs._("tab-pane");
 }
