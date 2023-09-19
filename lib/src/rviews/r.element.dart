@@ -14,7 +14,7 @@ abstract class Relement {
 
 abstract class Rview extends Relement {
   late Relement _relement;
-   Rview({String? key}) : super(key: key) {
+  Rview({String? key}) : super(key: key) {
     _relement = build();
     Future.delayed(Duration.zero, () => onInitialized());
   }
@@ -27,6 +27,18 @@ abstract class Rview extends Relement {
   @override
   Element create() {
     return _relement.create();
+  }
+
+  void setState(void Function() state) {
+    Future.delayed(
+      Duration.zero,
+      () {
+        state();
+
+        getElement.parent?.children.add(build().create());
+        getElement.parent?.children.remove(getElement);
+      },
+    );
   }
 
   @override

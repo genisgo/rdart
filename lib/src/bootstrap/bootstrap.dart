@@ -7,6 +7,7 @@ part 'components.dart';
 ///Const
 const bactive = _BootStrapDefaultImp("active");
 const bfade = _BootStrapDefaultImp("fade");
+const bdisable = _BootStrapDefaultImp("disable");
 
 abstract class Bootstrap {
   final String? _cname;

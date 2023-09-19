@@ -71,7 +71,8 @@ class BsPagination extends Relement {
       //set disable if min
       if (isMinIndex) {
         eprev.className += " $bdisable";
-      } else  {
+      } else 
+      {
         eprev.className = eprev.className.replaceAll("$bdisable", "");
       }
       onPrevious?.call(selectIndex);
