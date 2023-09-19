@@ -13,3 +13,4 @@ part 'list.dart';
 part 'modal.dart';
 part 'navbar.dart';
 part 'offcanvas.dart';
+part 'pagination.dart';

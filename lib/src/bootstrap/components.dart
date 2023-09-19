@@ -671,3 +671,38 @@ class Bpagination extends Bootstrap implements Bscreen {
   // TODO: implement xxl
   Bootstrap get xxl => addScreen("xxl");
 }
+
+////--------------------------PlaceHolder---------------------------////
+final bplacehorder = BPlaceHolder.placeholder;
+
+class BPlaceHolder extends Bootstrap implements Bscreen {
+  const BPlaceHolder._(super.cname);
+  static const placeholder = BPlaceHolder._("placeholder");
+  Bootstrap get grow => BPlaceHolder._("placeholder-glow");
+  Bootstrap get wave => BPlaceHolder._("placeholder-wav");
+
+  @override
+  Bootstrap addScreen(param) {
+    return _defaultAddScreen(param, cname);
+  }
+
+  @override
+  // TODO: implement lg
+  Bootstrap get lg => addScreen("lg");
+
+  @override
+  // TODO: implement md
+  Bootstrap get md => addScreen("md");
+
+  @override
+  // TODO: implement sm
+  Bootstrap get sm => addScreen("sm");
+
+  @override
+  // TODO: implement xl
+  Bootstrap get xl => addScreen("xl");
+
+  @override
+  // TODO: implement xxl
+  Bootstrap get xxl => addScreen("xxl");
+}
