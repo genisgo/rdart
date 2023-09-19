@@ -21,11 +21,11 @@ abstract class Bootstrap {
 }
 
 abstract class Bscreen {
-  Bootstrap get sm;
-  Bootstrap get md;
-  Bootstrap get lg;
-  Bootstrap get xl;
-  Bootstrap get xxl;
+  Bootstrap get sm => addScreen("sm");
+  Bootstrap get md => addScreen("md");
+  Bootstrap get lg => addScreen("lg");
+  Bootstrap get xl => addScreen("xl");
+  Bootstrap get xxl => addScreen("xxl");
   Bootstrap addScreen(param);
 }
 

@@ -636,3 +636,38 @@ class BoffCanvasPosition {
   // TODO: implement xl
   Bootstrap get bottom => addScreen("bottom");
 }
+
+////--------------------------Pagination-----------///
+///genral const
+final bpagination = Bpagination.pagination;
+
+class Bpagination extends Bootstrap implements Bscreen {
+  const Bpagination._(super.cname);
+  static const pagination = Bpagination._("pagination");
+  Bootstrap get item => Bpagination._("page-item");
+  Bootstrap get link => Bpagination._("page-link");
+  @override
+  Bootstrap addScreen(param) {
+    return _defaultAddScreen(param, cname);
+  }
+
+  @override
+  // TODO: implement lg
+  Bootstrap get lg => addScreen("lg");
+
+  @override
+  // TODO: implement md
+  Bootstrap get md => addScreen("md");
+
+  @override
+  // TODO: implement sm
+  Bootstrap get sm => addScreen("sm");
+
+  @override
+  // TODO: implement xl
+  Bootstrap get xl => addScreen("xl");
+
+  @override
+  // TODO: implement xxl
+  Bootstrap get xxl => addScreen("xxl");
+}
