@@ -706,3 +706,13 @@ class BPlaceHolder extends Bootstrap implements Bscreen {
   // TODO: implement xxl
   Bootstrap get xxl => addScreen("xxl");
 }
+
+///------------------ProgressBar--------------------///
+
+class Bprogress extends Bootstrap {
+  const Bprogress._(super.cname);
+  static const progress = Bprogress._("progress");
+  Bootstrap get bar => Bprogress._("progress-bar");
+  Bootstrap get stacked => Bprogress._("progress-stacked");
+  Bootstrap get striped => Bprogress._(" progress-bar-striped");
+}

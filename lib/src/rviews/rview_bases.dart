@@ -40,15 +40,14 @@ class Page extends Relement {
       this.appBarStyle,
       this.bodyStyle,
       this.singleBootStrap = false,
-      this.bootstrap=const [],
+      this.bootstrap = const [],
       this.bottomStyle});
 
   //Div element
   final _element = DivElement();
   @override
   Element create() {
-    
-    _element.className="page ${bootstrap.join(" ")}";
+    _element.className = "page ${bootstrap.join(" ")}";
     if (!singleBootStrap) {
       _element
         ..className = ClassName.page.name
@@ -545,7 +544,7 @@ class BsElement extends BootStrapComponent {
   /// et [dataset] sont appliquer directement au [BsElement]
   final bool userParent;
   BsElement(
-      {required this.child,
+      {this.child,
       this.userParent = false,
       required List<Bootstrap> bootstrap,
       Map<String, String> dataset = const {},
