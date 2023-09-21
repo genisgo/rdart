@@ -717,3 +717,36 @@ class Bprogress extends Bootstrap {
   Bootstrap get stacked => Bprogress._("progress-stacked");
   Bootstrap get striped => Bprogress._(" progress-bar-striped");
 }
+
+///------------------Spinners-----------------------///
+final class Bspinner extends Bootstrap implements Bscreen {
+  const Bspinner._(super.cname);
+
+  static const border = Bspinner._("spinner-border");
+  static const grow = Bspinner._("spinner-border");
+
+  @override
+  Bootstrap addScreen(param) {
+    return _defaultAddScreen(param, cname);
+  }
+
+  @override
+  // TODO: implement lg
+  Bootstrap get lg => addScreen("lg");
+
+  @override
+  // TODO: implement md
+  Bootstrap get md => addScreen("md");
+
+  @override
+  // TODO: implement sm
+  Bootstrap get sm => addScreen("sm");
+
+  @override
+  // TODO: implement xl
+  Bootstrap get xl => addScreen("xl");
+
+  @override
+  // TODO: implement xxl
+  Bootstrap get xxl => addScreen("xxl");
+}
