@@ -28,15 +28,23 @@ abstract class Rview extends Relement {
   Element create() {
     return _relement.create();
   }
-
+  
   void setState(void Function() state) {
     Future.delayed(
       Duration.zero,
       () {
-        state();
+        Element old = getElement;
+        var oldParent = old.parent;
+        var oldIndex = oldParent!.children.indexOf(old);
+        
+          state();
+          _relement = build();
+          _relement.create();
+          oldParent.children.remove(old);
+          oldParent.children.insert(oldIndex, getElement);
+        
 
-        getElement.parent?.children.add(build().create());
-        getElement.parent?.children.remove(getElement);
+        
       },
     );
   }

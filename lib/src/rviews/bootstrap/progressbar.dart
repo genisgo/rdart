@@ -3,7 +3,8 @@ class BsProgressBar extends Rview {
   int value;
   int max;
   String label;
-  BsProgressBar({this.max = 0, this.value = 100, this.label = ""});
+  List<Bootstrap> bootstraps;
+  BsProgressBar({this.max = 100, this.value = 50, this.label = "",this.bootstraps=const []});
   @override
   Relement build() {
     return BsElement(
@@ -16,7 +17,7 @@ class BsProgressBar extends Rview {
         },
         dataset: {},
         child: BsElement(
-          bootstrap: [bprogress.bar],
+          bootstrap: [bprogress.bar,...bootstraps],
           userParent: true,
           attributes: {"style": "width: $value%"},
         ),
