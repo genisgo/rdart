@@ -10,6 +10,7 @@ enum BsPopoversType {
   final String value;
 }
 
+@Deprecated("Problem off render")
 class BsPopovers extends Rview {
   Relement child;
   String? title;

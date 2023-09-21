@@ -708,6 +708,7 @@ class BPlaceHolder extends Bootstrap implements Bscreen {
 }
 
 ///------------------ProgressBar--------------------///
+final bprogress = Bprogress.progress;
 
 class Bprogress extends Bootstrap {
   const Bprogress._(super.cname);

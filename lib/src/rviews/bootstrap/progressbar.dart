@@ -1,6 +1,4 @@
-import 'package:rdart/bootstrap.dart';
-import 'package:rdart/src/rviews/rview_bases.dart';
-
+part  of'bs.components.dart';
 class BsProgressBar extends Rview {
   int value;
   int max;
