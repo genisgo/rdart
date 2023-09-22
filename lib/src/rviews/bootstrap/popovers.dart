@@ -10,7 +10,6 @@ enum BsPopoversType {
   final String value;
 }
 
-@Deprecated("Problem off render")
 class BsPopovers extends Rview {
   Relement child;
   String? title;
@@ -34,5 +33,11 @@ class BsPopovers extends Rview {
       "bs-toggle": "popover",
       if (onhover) "bs-trigger": type.value
     });
+  }
+
+  @override
+  void onInitialized() {
+    bjs.Popover(getElement, {});
+    super.onInitialized();
   }
 }

@@ -38,3 +38,11 @@ class Toast {
   external hide();
   external static Toast getOrCreateInstance(element);
 }
+@JS("Popover")
+class Popover {
+  external Popover(id, config);
+  external show();
+  external hide();
+  external static Popover getOrCreateInstance(element);
+}
+

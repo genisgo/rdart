@@ -763,5 +763,7 @@ class Btoast extends Bootstrap {
   const Btoast._(super.cname);
   static const toast = Btoast._("toast");
   Bootstrap get header => Btoast._("toast-header");
+  Bootstrap get container => Btoast._("toast-container");
+
   Bootstrap get body => Btoast._("toast-body");
 }
