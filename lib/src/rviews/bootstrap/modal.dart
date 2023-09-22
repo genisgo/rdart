@@ -172,8 +172,11 @@ class BsModalCloseBtn extends Rview {
   BsModalCloseBtn({this.child, this.bootstrap = const [], this.onPress});
   @override
   Relement build() {
-    var defualtBtn =
-        RButton(type: BtnType.button, singleBootStrap: true, onPress: onPress);
+    var defualtBtn = RButton(
+        type: BtnType.button,
+        singleBootStrap: true,
+        onPress: onPress,
+        style: RStyle());
 
     return BsElement(
         child: child ?? defualtBtn,

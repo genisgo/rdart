@@ -1,6 +1,7 @@
 @JS("bootstrap")
 library bootstrapJs;
 
+import 'dart:html';
 import 'dart:js_interop';
 
 @JS("Carousel")
@@ -28,4 +29,12 @@ class Offcanvas {
   external Offcanvas(id);
   external show();
   external hide();
+}
+
+@JS("Toast")
+class Toast {
+  external Toast(id, config);
+  external show();
+  external hide();
+  external static Toast getOrCreateInstance(element);
 }

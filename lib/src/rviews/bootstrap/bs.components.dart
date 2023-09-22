@@ -17,3 +17,4 @@ part 'pagination.dart';
 part 'popovers.dart';
 part 'progressbar.dart';
 part 'spinner.dart';
+part 'toast.dart';

@@ -728,10 +728,11 @@ final class Bspinner extends Bootstrap implements Bscreen {
 
   static const border = Bspinner._("spinner-border");
   static const grow = Bspinner._("spinner-grow");
+  static const none = Bspinner._("");
 
   @override
   Bootstrap addScreen(param) {
-    return _defaultAddScreen(param, cname);
+    return _defaultAddScreen(param, cname, 2);
   }
 
   @override
@@ -753,4 +754,14 @@ final class Bspinner extends Bootstrap implements Bscreen {
   @override
   // TODO: implement xxl
   Bootstrap get xxl => addScreen("xxl");
+}
+
+/////--------------------Toasts------------///
+final btoast = Btoast.toast;
+
+class Btoast extends Bootstrap {
+  const Btoast._(super.cname);
+  static const toast = Btoast._("toast");
+  Bootstrap get header => Btoast._("toast-header");
+  Bootstrap get body => Btoast._("toast-body");
 }

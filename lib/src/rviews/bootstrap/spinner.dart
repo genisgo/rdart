@@ -14,7 +14,7 @@ class BsSpinner extends Rview {
       {this.bootstraps = const [],
       this.type = BspinnerType.border,
       this.child});
-
+      
   @override
   Relement build() {
     return BsElement(child: child, userParent: true, bootstrap: [
