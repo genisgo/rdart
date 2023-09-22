@@ -10,6 +10,23 @@ enum BsPopoversType {
   final String value;
 }
 
+class BsPopoersController {
+  String targetID;
+  BsPopoersController({required this.targetID});
+  bjs.Popover? _controllModal;
+  show()
+  {
+    _controllModal ??= bjs.Popover('#$targetID', {});
+    _controllModal?.show();
+  }
+
+  hide()
+  {
+    _controllModal ??= bjs.Popover('#$targetID', {});
+    _controllModal?.hide();
+  }
+}
+
 class BsPopovers extends Rview {
   Relement child;
   String? title;

@@ -45,4 +45,11 @@ class Popover {
   external hide();
   external static Popover getOrCreateInstance(element);
 }
+@JS("Tooltip")
+class Tooltip {
+  external Tooltip(id, config);
+  external show();
+  external hide();
+  external static Tooltip getOrCreateInstance(element);
+}
 
