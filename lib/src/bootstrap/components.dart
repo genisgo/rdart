@@ -718,12 +718,16 @@ class Bprogress extends Bootstrap {
   Bootstrap get striped => Bprogress._(" progress-bar-striped");
 }
 
+///Generale const
+final bspinnerBorder = Bspinner.border;
+final bspinnerGrow = Bspinner.grow;
+
 ///------------------Spinners-----------------------///
 final class Bspinner extends Bootstrap implements Bscreen {
   const Bspinner._(super.cname);
 
   static const border = Bspinner._("spinner-border");
-  static const grow = Bspinner._("spinner-border");
+  static const grow = Bspinner._("spinner-grow");
 
   @override
   Bootstrap addScreen(param) {

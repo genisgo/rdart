@@ -15,7 +15,9 @@ class BsProgressBar extends Rview {
           "aria-valuemin": "$value",
           "aria-valuemax": "$max"
         },
-        dataset: {},
+        dataset: {
+          
+        },
         child: BsElement(
           bootstrap: [bprogress.bar,...bootstraps],
           userParent: true,

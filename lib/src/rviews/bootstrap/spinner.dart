@@ -6,6 +6,7 @@ enum BspinnerType {
 }
 
 class BsSpinner extends Rview {
+  /// Use the [bspinnerBorder] and [bspinnerGrow]
   List<Bootstrap> bootstraps;
   BspinnerType type;
   Relement? child;

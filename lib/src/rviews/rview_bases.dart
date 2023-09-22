@@ -305,16 +305,16 @@ enum Ricons {
 
 class Row extends Relement {
   List<Relement> children;
-  AlignHorizontal mainAxisAlignment;
-  AlignVertical crossAxisAlignment;
+  AlignHorizontal? mainAxisAlignment;
+  AlignVertical? crossAxisAlignment;
   List<Bootstrap> bootstrap;
   final bool singleBootStrap;
   Row(
       {this.children = const [],
       this.singleBootStrap = false,
       this.bootstrap = const [],
-      this.crossAxisAlignment = AlignVertical.top,
-      this.mainAxisAlignment = AlignHorizontal.left});
+      this.crossAxisAlignment ,
+      this.mainAxisAlignment ,});
   final _div = Element.div();
   @override
   Element create() {
@@ -325,7 +325,7 @@ class Row extends Relement {
             alignHorizontal: mainAxisAlignment,
             alignmentVertical: crossAxisAlignment,
             bootstrap: bootstrap,
-            expandWidth: true)
+            expandWidth: !singleBootStrap)
         .createStyle(_div);
   }
 
