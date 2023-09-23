@@ -3,6 +3,7 @@ import 'package:rdart/rviews.dart';
 part 'layout.dart';
 part 'utilities.dart';
 part 'components.dart';
+part 'forms.dart';
 
 ///Const
 const bactive = _BootStrapDefaultImp("active");

@@ -66,9 +66,9 @@ class BsOffcanvas extends Rview {
   }
 
   @override
-  void onInitialized() {
+  void initState() {
     getElement.id = id!;
-    super.onInitialized();
+    super.initState();
   }
 
   Bootstrap get getposition => switch (position) {
@@ -173,13 +173,13 @@ class BsoffcanvasCloseBtn extends Rview {
   }
 
   @override
-  void onInitialized() {
+  void initState() {
     ///Add onclick
     if (child == null) {
       getElement.onClick.listen((event) {
         onPress?.call(this);
       });
     }
-    super.onInitialized();
+    super.initState();
   }
 }

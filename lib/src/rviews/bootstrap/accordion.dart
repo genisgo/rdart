@@ -41,14 +41,14 @@ class BsAccordion extends Rview {
   }
 
   @override
-  void onInitialized() {
+  void initState() {
     getElement.id = key!;
     if (!noUseParent) {
       for (var element in item) {
         element.parent = key!;
       }
     }
-    super.onInitialized();
+    super.initState();
   }
 }
 
@@ -86,7 +86,7 @@ class BsAccordionItem extends Rview {
   }
 
   @override
-  void onInitialized() {
+  void initState() {
     body.headerKey = header.key!;
     header.bodyKey = body.id!;
     //show
@@ -95,7 +95,7 @@ class BsAccordionItem extends Rview {
       header.show();
     }
 
-    super.onInitialized();
+    super.initState();
   }
 }
 
@@ -167,7 +167,7 @@ class BsAccordionHeader extends Rview {
       : super(key: key);
 
   @override
-  void onInitialized() {
+  void initState() {
     //setActive color
     if (activeColor != null) {
       getElement.style
@@ -176,7 +176,7 @@ class BsAccordionHeader extends Rview {
         ..setProperty("--bs-accordion-btn-padding-y", "${padding}px");
     }
 
-    super.onInitialized();
+    super.initState();
   }
 
   @override

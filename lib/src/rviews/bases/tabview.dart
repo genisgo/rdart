@@ -28,7 +28,7 @@ class TabView extends Rview {
   }
 
   @override
-  void onInitialized() {
+  void initState() {
     _setidCurrentPage();
     _setOnselectCallBack();
     _setDefaultTabPage();
@@ -101,7 +101,7 @@ class TabBar extends Rview {
   }
 
   @override
-  void onInitialized() {
+  void initState() {
     _setIdTabBar();
     _initializColor();
     _selectionTab();

@@ -39,7 +39,7 @@ class BsCard extends Rview {
   }
 
   @override
-  void onInitialized() {
+  void initState() {
     var bsTitle = _addBsInElement(bs: [bcard.title], rview: title).create();
 
     var headerelement = header?.getElement;
@@ -51,6 +51,6 @@ class BsCard extends Rview {
 
     ///set title in body
     body?.getElement.children.insert(0, bsTitle);
-    super.onInitialized();
+    super.initState();
   }
 }

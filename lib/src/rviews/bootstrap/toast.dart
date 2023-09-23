@@ -86,13 +86,13 @@ class BsToastClose extends Rview {
   }
 
   @override
-  void onInitialized() {
+  void initState() {
     ///Add onclick
     if (child == null) {
       getElement.onClick.listen((event) {
         onPress?.call(this);
       });
     }
-    super.onInitialized();
+    super.initState();
   }
 }

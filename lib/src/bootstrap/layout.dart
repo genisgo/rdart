@@ -23,6 +23,8 @@ class Bcolumn extends Bootstrap implements Bscreen {
   static const w10 = Bcolumn._("col-10");
   static const w11 = Bcolumn._("col-11");
   static const w12 = Bcolumn._("col-12");
+    static const auto = Bcolumn._("col-auto");
+
   const Bcolumn._(super.cname);
   const Bcolumn.l(int l) : super("col-$l");
 

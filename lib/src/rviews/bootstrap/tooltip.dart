@@ -22,8 +22,8 @@ class BsTooltip extends Rview {
   }
 
   @override
-  void onInitialized() {
+  void initState() {
     bjs.Tooltip(getElement, {});
-    super.onInitialized();
+    super.initState();
   }
 }

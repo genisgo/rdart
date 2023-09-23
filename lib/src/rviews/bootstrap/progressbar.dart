@@ -29,9 +29,9 @@ class BsProgressBar extends Rview {
   }
 
   @override
-  void onInitialized() {
+  void initState() {
     getElement.children.first.innerText = label;
 
-    super.onInitialized();
+    super.initState();
   }
 }

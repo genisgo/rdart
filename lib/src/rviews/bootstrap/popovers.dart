@@ -53,8 +53,8 @@ class BsPopovers extends Rview {
   }
 
   @override
-  void onInitialized() {
+  void initState() {
     bjs.Popover(getElement, {});
-    super.onInitialized();
+    super.initState();
   }
 }

@@ -69,9 +69,9 @@ class BsModalDialog extends Rview {
   }
 
   @override
-  void onInitialized() {
+  void initState() {
     getElement.id = id!;
-    super.onInitialized();
+    super.initState();
   }
 }
 
@@ -185,13 +185,13 @@ class BsModalCloseBtn extends Rview {
   }
 
   @override
-  void onInitialized() {
+  void initState() {
     ///Add onclick
     if (child == null) {
       getElement.onClick.listen((event) {
         onPress?.call(this);
       });
     }
-    super.onInitialized();
+    super.initState();
   }
 }

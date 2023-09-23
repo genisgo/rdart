@@ -69,7 +69,7 @@ class BsCarousel extends Rview {
   }
 
   @override
-  void onInitialized() {
+  void initState() {
     ///set indicator parent
     indicators?.parent = this;
     //set parent in controller
@@ -90,7 +90,7 @@ class BsCarousel extends Rview {
       var gcar = bjs.Carousel(getElement, {});
       gcar.cycle();
     }
-    super.onInitialized();
+    super.initState();
   }
 }
 
@@ -104,19 +104,19 @@ class BsCarouselIndicators extends Rview {
         dataset: {});
   }
 
-  ///Call to carousel onInitialized method
+  ///Call to carousel initState method
   set parent(BsCarousel carousel) {
     _parent = carousel;
   }
 
   @override
-  void onInitialized() {
+  void initState() {
     if (_parent != null) {
       for (var i = 0; i < _parent!.items.length; i++) {
         getElement.children.add(indicatorItem(_parent!, i));
       }
     }
-    super.onInitialized();
+    super.initState();
   }
 
   Element indicatorItem(BsCarousel carousel, int index) {

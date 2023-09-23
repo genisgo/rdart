@@ -113,10 +113,10 @@ class BsNavMenu extends Rview {
   }
 
   @override
-  void onInitialized() {
+  void initState() {
     ///set Id
     if (id != null) getElement.id = id!;
-    super.onInitialized();
+    super.initState();
   }
 }
 
@@ -393,10 +393,10 @@ class BsNavMenuItem extends Rview {
   }
 
   @override
-  void onInitialized() {
+  void initState() {
     if (addNavLink || child is Link || child is RButton) {
       child.getElement.className += " ${bnav.link}";
     }
-    super.onInitialized();
+    super.initState();
   }
 }

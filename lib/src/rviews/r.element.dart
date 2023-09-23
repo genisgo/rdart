@@ -16,14 +16,14 @@ abstract class Rview extends Relement {
   late Relement _relement;
   Rview({String? key}) : super(key: key) {
     _relement = build();
-    Future.delayed(Duration.zero, () => onInitialized());
+    Future.delayed(Duration.zero, () => initState());
   }
 
   ///build creat Element
   Relement build();
 
   ///On initialized
-  void onInitialized() {}
+  void initState() {}
   @override
   Element create() {
     return _relement.create();
