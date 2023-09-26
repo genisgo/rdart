@@ -1,16 +1,16 @@
 part of 'bootstrap.dart';
 
 ///General const
-final bsform = BsForm.form;
+final bsform = BsInputForm.form;
 
-class BsForm extends Bootstrap implements Bscreen {
-  const BsForm._(super.cname);
-  static const form = BsForm._("form-control");
-  Bootstrap get label => BsForm._("form-label");
-  Bootstrap get text => BsForm._("form-text");
-  Bootstrap get plaintext => BsForm._("form-control-plaintext");
-  Bootstrap get color => BsForm._("form-control-color");
-  Bootstrap get col => BsForm._("col-form-label");
+class BsInputForm extends Bootstrap implements Bscreen {
+  const BsInputForm._(super.cname);
+  static const form = BsInputForm._("form-control");
+  Bootstrap get label => BsInputForm._("form-label");
+  Bootstrap get text => BsInputForm._("form-text");
+  Bootstrap get plaintext => BsInputForm._("form-control-plaintext");
+  Bootstrap get color => BsInputForm._("form-control-color");
+  Bootstrap get col => BsInputForm._("col-form-label");
 
   @override
   Bootstrap addScreen(param) {
@@ -37,3 +37,4 @@ class BsForm extends Bootstrap implements Bscreen {
   // TODO: implement xxl
   Bootstrap get xxl => addScreen("xxl");
 }
+

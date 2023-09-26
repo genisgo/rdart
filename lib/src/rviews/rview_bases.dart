@@ -309,12 +309,13 @@ class Row extends Relement {
   AlignVertical? crossAxisAlignment;
   List<Bootstrap> bootstrap;
   final bool singleBootStrap;
-  Row(
-      {this.children = const [],
-      this.singleBootStrap = false,
-      this.bootstrap = const [],
-      this.crossAxisAlignment ,
-      this.mainAxisAlignment ,});
+  Row({
+    this.children = const [],
+    this.singleBootStrap = false,
+    this.bootstrap = const [],
+    this.crossAxisAlignment,
+    this.mainAxisAlignment,
+  });
   final _div = Element.div();
   @override
   Element create() {
@@ -617,4 +618,36 @@ class Link extends Relement {
   @override
   // TODO: implement getElement
   Element get getElement => _a;
+}
+
+class DataListItem extends Relement {
+  String data;
+  String value;
+  DataListItem({required this.data, required this.value});
+  var option = OptionElement();
+  @override
+  Element create() {
+    option.value = value;
+    return option;
+  }
+
+  @override
+  // TODO: implement getElement
+  Element get getElement => option;
+}
+
+class DataList extends Relement {
+  String id;
+  List<DataListItem> options;
+  DataList({required this.options, required this.id});
+  var datalist = DataListElement();
+  @override
+  Element create() {
+    datalist.options?.addAll(options.map((e) => e.create()).toList());
+    return datalist;
+  }
+
+  @override
+  // TODO: implement getElement
+  Element get getElement => datalist;
 }

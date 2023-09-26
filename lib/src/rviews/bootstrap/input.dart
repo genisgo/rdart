@@ -87,16 +87,18 @@ class BsInput extends Relement {
     if (type == InputType.color) {
       _input.className += " ${bsform.color}";
     }
-    //min and max
-    _input.maxLength = maxLength;
-    _input.minLength = minLength;
-    _input.min = min;
-    _input.max = max;
+
+    if (maxLength != null) _input.maxLength = maxLength;
+    if (minLength != null) _input.minLength = minLength;
+    if (min != null) _input.min = min;
+    if (max != null) _input.max = max;
 
     //div
     if (label != null || labelChild != null) {
       if (labelChild != null) {
         _labelElement.children.add(labelChild!.create());
+      } else {
+        if (label != null) _labelElement.innerText = label!;
       }
 
       _div.children.addAll([_labelElement, _input]);

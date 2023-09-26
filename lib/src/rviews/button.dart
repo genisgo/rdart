@@ -54,7 +54,7 @@ class RButton extends Relement {
     if (type != null) element.type = type!.name;
 
     ///Set default theme
-    style ??= _currentTheme.buttonTheme.defaultStyle;
+   if(!singleBootStrap) style ??= _currentTheme.buttonTheme.defaultStyle;
 
     ///Add event if [onMouseEnterColor] is not null or [onMouseDownColor] is not null
     // if (onMouseEnterColor != null || onMouseDownColor != null) {
