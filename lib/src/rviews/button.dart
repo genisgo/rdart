@@ -27,22 +27,21 @@ class RButton extends Relement {
   Element create() {
     ///Crete child
     child?.create();
-          /// set animation for child on [onMouseEnter] event.
-      if (onMouseEnterColor != null) {
-        child?.getElement.onMouseEnter.listen((event) {
-          element.style.backgroundColor = onMouseEnterColor?.color;
-        });
-      }
 
-      ///ajoute un listerner d'evenement de tipe quiter le button
-      if (onMouseDownColor != null) {
-        child?.getElement.onMouseOut.listen((event) {
-          element.style.backgroundColor = style?.backgroundColor?.color;
-        });
-      }
+    /// set animation for child on [onMouseEnter] event.
+    if (onMouseEnterColor != null) {
+      child?.getElement.onMouseEnter.listen((event) {
+        element.style.backgroundColor = onMouseEnterColor?.color;
+      });
+    }
+
+    ///ajoute un listerner d'evenement de tipe quiter le button
+    if (onMouseDownColor != null) {
+      child?.getElement.onMouseOut.listen((event) {
+        element.style.backgroundColor = style?.backgroundColor?.color;
+      });
+    }
     if (!singleBootStrap) {
-
-
       ///ajout de nom de classe
       element.id = "btn_defaut";
 
@@ -54,7 +53,7 @@ class RButton extends Relement {
     if (type != null) element.type = type!.name;
 
     ///Set default theme
-   if(!singleBootStrap) style ??= _currentTheme.buttonTheme.defaultStyle;
+     style ??= _currentTheme.buttonTheme.defaultStyle;
 
     ///Add event if [onMouseEnterColor] is not null or [onMouseDownColor] is not null
     // if (onMouseEnterColor != null || onMouseDownColor != null) {
@@ -74,6 +73,9 @@ class RButton extends Relement {
       });
     }
     // mouseEventAnimation(element);
+
+    //bootstrap no create default style
+   // if (singleBootStrap) return element;
 
     ///add de style
     element = style?.createStyle(element) as ButtonElement;

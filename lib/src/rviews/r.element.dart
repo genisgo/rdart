@@ -28,7 +28,7 @@ abstract class Rview extends Relement {
   Element create() {
     return _relement.create();
   }
-  
+
   void setState(void Function() state) {
     Future.delayed(
       Duration.zero,
@@ -36,15 +36,12 @@ abstract class Rview extends Relement {
         Element old = getElement;
         var oldParent = old.parent;
         var oldIndex = oldParent!.children.indexOf(old);
-        
-          state();
-          _relement = build();
-          _relement.create();
-          oldParent.children.remove(old);
-          oldParent.children.insert(oldIndex, getElement);
-        
 
-        
+        state();
+        _relement = build();
+        _relement.create();
+        oldParent.children.remove(old);
+        oldParent.children.insert(oldIndex, getElement);
       },
     );
   }
