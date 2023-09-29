@@ -38,3 +38,23 @@ class BsInputForm extends Bootstrap implements Bscreen {
   Bootstrap get xxl => addScreen("xxl");
 }
 
+///Generale const
+final bformSelect = BformSelect.select;
+
+class BformSelect extends Bootstrap {
+  const BformSelect._(super.cname);
+  static const select = BformSelect._("form-select");
+}
+
+///General const
+final bformCheck = BformCheck.check;
+
+class BformCheck extends Bootstrap {
+  const BformCheck._(super.cname);
+  static const check = BformCheck._("form-check");
+
+  Bootstrap get input => BformCheck._("form-check-input");
+  Bootstrap get label => BformCheck._("form-check-label");
+  Bootstrap get inline => BformCheck._("form-check-inline");
+  Bootstrap get reverse => BformCheck._("form-check-reverse");
+}

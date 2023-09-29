@@ -77,11 +77,12 @@ class BsInput extends Relement {
       "for": "$id",
     });
 
+    ///set Style
     _labelElement.className += [bsform.label, ...labelStyle].join(" ");
+    _input.className += [bsform, ...inputStyle].join(" ");
 
     //input
     _input.type = type.name;
-    _input.className += [bsform, ...inputStyle].join(" ");
     _input.id = id!;
 
     //set placeholder
@@ -111,9 +112,17 @@ class BsInput extends Relement {
     if (value != null && noUseDefaultValueIf) {
       _input.value = value;
     }
+
+    ///[InputType]
     //if type is file
     if (type == InputType.file) {
       _input.accept = fileAccept;
+    }
+    //if is CheckBox
+    if (type == InputType.checkbox) {
+      _div.className = [bformCheck].join(" ");
+      _input.className = [bformCheck.input, ...inputStyle].join(" ");
+      _labelElement.className = [bformCheck.label, ...labelStyle].join(" ");
     }
 
     //add elements
@@ -126,8 +135,13 @@ class BsInput extends Relement {
     if (list != null) _div.children.add(list!.create());
     //set Event
     _input.addEventListener("input", (event) {
+      var target = event.target as InputElement;
       if (type == InputType.file) {
-        onChange?.call((event.target as InputElement).files);
+        onChange?.call(target.files);
+        return;
+      }
+      if (type == InputType.checkbox) {
+        onChange?.call(target.checked);
         return;
       }
       onChange?.call((event.target as InputElement).value);

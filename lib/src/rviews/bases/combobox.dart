@@ -23,14 +23,17 @@ class ComboItem<T> extends Relement {
 class ComboBox<T> extends Relement {
   List<ComboItem<T>> items;
   Direction orientation;
+  List<Bootstrap> bootstraps;
   Function(ComboItem item, int index)? onSelected;
   ComboBox(
       {required this.items,
       this.orientation = Direction.verticale,
+      this.bootstraps = const [],
       this.onSelected});
   final _select = SelectElement();
   @override
   SelectElement create() {
+    _select.className += bootstraps.join(" ");
     //Item
     for (var element in items) {
       element.create();
