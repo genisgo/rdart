@@ -30,25 +30,40 @@ class BsInput extends Relement {
   Relement? labelChild;
   String? label;
   bool readonly;
+  bool singleInput;
   String? name;
   String? placeholder;
   bool multiple;
   InputType type;
   String? fileAccept;
-
+  bool labelFloating;
+  bool checkSwitch;
+  bool reversed;
+  bool groupeMode;
   void Function(dynamic value)? onChange;
   String? value;
   String? min;
   String? max;
+  bool btnCheck;
   int? minLength;
   int? maxLength;
+  bool disable;
+  String? step;
   List<Bootstrap> labelStyle;
   List<Bootstrap> inputStyle;
   DataList? list;
   BsInput({
     this.onChange,
+    this.groupeMode = false,
+    this.labelFloating = false,
+    this.singleInput = false,
+    this.btnCheck = false,
+    this.checkSwitch = false,
     this.id,
+    this.reversed = false,
+    this.disable = false,
     this.fileAccept,
+    this.step,
     this.readonly = false,
     this.label,
     this.multiple = false,
@@ -67,7 +82,7 @@ class BsInput extends Relement {
   });
   final _labelElement = LabelElement();
   final _input = InputElement();
-  final _div = Element.div();
+  var _div = Element.div();
 
   @override
   Element create() {
@@ -78,13 +93,16 @@ class BsInput extends Relement {
     });
 
     ///set Style
-    _labelElement.className += [bsform.label, ...labelStyle].join(" ");
-    _input.className += [bsform, ...inputStyle].join(" ");
-
+    _labelElement.className += [
+      if (groupeMode) binputGroup.text else bform.label,
+      ...labelStyle
+    ].join(" ");
+    _input.className += [bform, ...inputStyle].join(" ");
+    _div.className = [if (groupeMode) binputGroup].join(" ");
     //input
     _input.type = type.name;
     _input.id = id!;
-
+    _input.disabled = disable;
     //set placeholder
     if (placeholder != null) _input.placeholder = placeholder!;
 
@@ -97,7 +115,7 @@ class BsInput extends Relement {
 
     //set color class
     if (type == InputType.color) {
-      _input.className += " ${bsform.color}";
+      _input.className += " ${bform.color}";
     }
 
     //max and mine
@@ -112,6 +130,11 @@ class BsInput extends Relement {
     if (value != null && noUseDefaultValueIf) {
       _input.value = value;
     }
+    //use floating label mode
+    if (labelFloating) {
+      _div.className = bform.floating.cname;
+      reversed = true; //reversed label and input disposition
+    }
 
     ///[InputType]
     //if type is file
@@ -120,33 +143,62 @@ class BsInput extends Relement {
     }
     //if is CheckBox
     if (type == InputType.checkbox) {
-      _div.className = [bformCheck].join(" ");
-      _input.className = [bformCheck.input, ...inputStyle].join(" ");
-      _labelElement.className = [bformCheck.label, ...labelStyle].join(" ");
+      _input.attributes.addAll({if (checkSwitch) "role": "switch"});
+
+      _div.className = [
+        bformCheck,
+        if (checkSwitch) bform.switchs,
+      ].join(" ");
+
+      _input.className = [
+        if (btnCheck) bformCheck.btn else bformCheck.input,
+        ...inputStyle
+      ].join(" ");
+
+      _labelElement.className =
+          [if (!btnCheck) bformCheck.label, ...labelStyle].join(" ");
+    }
+    //if type is
+    if (type == InputType.range) {
+      _input.className = [bform.range, ...inputStyle].join(" ");
+      min ??= "0";
+      max ??= "100";
+
+      _input.min = min;
+      _input.max = max;
+      _input.step = step;
     }
 
     //add elements
     if (labelChild != null) _labelElement.children.add(labelChild!.create());
 
     if (label != null) _labelElement.innerText += label!;
-
-    _div.children.addAll([_labelElement, _input]);
+    var content = [
+      _labelElement,
+      _input,
+    ];
+    //if is btnCheck mode
+    if (btnCheck || reversed) content = content.reversed.toList();
+    _div.children.addAll(content);
 
     if (list != null) _div.children.add(list!.create());
+
     //set Event
     _input.addEventListener("input", (event) {
       var target = event.target as InputElement;
-      if (type == InputType.file) {
-        onChange?.call(target.files);
-        return;
+      switch (type) {
+        case InputType.file:
+          onChange?.call(target.files);
+          break;
+        case InputType.checkbox:
+          onChange?.call(target.checked);
+          break;
+        default:
+          onChange?.call((event.target as InputElement).value);
       }
-      if (type == InputType.checkbox) {
-        onChange?.call(target.checked);
-        return;
-      }
-      onChange?.call((event.target as InputElement).value);
     });
     //
+    if (singleInput) _div = _input;
     return _div;
   }
 
