@@ -54,8 +54,10 @@ class BsInput extends Relement {
   List<Bootstrap> labelStyle;
   List<Bootstrap> inputStyle;
   DataList? list;
+  bool requred;
   BsInput({
     this.onChange,
+    this.requred = false,
     this.groupeMode = false,
     this.labelFloating = false,
     this.singleInput = false,
@@ -68,6 +70,8 @@ class BsInput extends Relement {
     this.step,
     this.readonly = false,
     this.label,
+    this.invalidMessage,
+    this.validedMessage,
     this.multiple = false,
     this.type = InputType.text,
     this.placeholder,
@@ -104,6 +108,7 @@ class BsInput extends Relement {
     //input
     _input.type = type.name;
     _input.id = id!;
+    _input.required = requred;
     _input.disabled = disable;
     //set placeholder
     if (placeholder != null) _input.placeholder = placeholder!;
@@ -175,7 +180,9 @@ class BsInput extends Relement {
     if (labelChild != null) _labelElement.children.add(labelChild!.create());
     //create relement
     invalidMessage?.create();
+    invalidMessage?.getElement.className += " ${[bform.invalidFeed].join(" ")}";
     validedMessage?.create();
+    validedMessage?.getElement.className += " ${[bform.validFeed].join()}";
     //
     if (label != null) _labelElement.innerText += label!;
     var content = [

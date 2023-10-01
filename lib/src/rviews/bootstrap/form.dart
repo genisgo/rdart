@@ -4,15 +4,20 @@ class BsForm extends Relement {
   String? id;
   final _form = FormElement();
   final bool needsValidat;
+  List<Bootstrap> style;
   List<Relement> children;
-  BsForm({this.needsValidat = true, this.children = const [], this.id});
+  BsForm(
+      {this.needsValidat = true,
+      this.children = const [],
+      this.id,
+      this.style = const []});
 
   @override
   Element create() {
     id ??= "bsForm$generateId";
     _form.id = id!;
 
-    _form.className = [bform.needsValidation].join(" ");
+    _form.className = [bform.needsValidation, ...style].join(" ");
     _form.noValidate = needsValidat;
     _form.children.addAll(children.map((e) => e.create()));
 
