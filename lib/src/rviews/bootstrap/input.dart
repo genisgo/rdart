@@ -55,6 +55,7 @@ class BsInput extends Relement {
   List<Bootstrap> inputStyle;
   DataList? list;
   bool requred;
+
   BsInput({
     this.onChange,
     this.requred = false,
@@ -183,6 +184,7 @@ class BsInput extends Relement {
     invalidMessage?.getElement.className += " ${[bform.invalidFeed].join(" ")}";
     validedMessage?.create();
     validedMessage?.getElement.className += " ${[bform.validFeed].join()}";
+
     //
     if (label != null) _labelElement.innerText += label!;
     var content = [
@@ -191,6 +193,7 @@ class BsInput extends Relement {
       if (invalidMessage != null) invalidMessage!.getElement,
       if (validedMessage != null) validedMessage!.getElement
     ];
+
     //if is btnCheck mode
     if (btnCheck || reversed) content = content.reversed.toList();
     _div.children.addAll(content);
@@ -217,6 +220,7 @@ class BsInput extends Relement {
 
   Element get labelElement => _labelElement;
   Element get inputElement => _input;
+
   @override
   // TODO: implement getElement
   Element get getElement => _div;
