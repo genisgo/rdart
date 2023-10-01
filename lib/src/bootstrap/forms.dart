@@ -24,6 +24,13 @@ class BsInputForm extends Bootstrap implements Bscreen {
 
   Bootstrap get switchs => BformCheck._("form-switch");
 
+  Bootstrap get needsValidation => BformCheck._("needs-validation");
+
+  Bootstrap get invalidFeed => BformCheck._("invalid-feedback");
+
+  Bootstrap get validFeed => BformCheck._("valid-feedback");
+  Bootstrap get wasValidated => BformCheck._("was-validated");
+
   @override
   Bootstrap addScreen(param) {
     return _defaultAddScreen(param, cname, 2);

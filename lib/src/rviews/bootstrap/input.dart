@@ -40,6 +40,8 @@ class BsInput extends Relement {
   bool checkSwitch;
   bool reversed;
   bool groupeMode;
+  Relement? invalidMessage;
+  Relement? validedMessage;
   void Function(dynamic value)? onChange;
   String? value;
   String? min;
@@ -171,16 +173,20 @@ class BsInput extends Relement {
 
     //add elements
     if (labelChild != null) _labelElement.children.add(labelChild!.create());
-
+    //create relement
+    invalidMessage?.create();
+    validedMessage?.create();
+    //
     if (label != null) _labelElement.innerText += label!;
     var content = [
       _labelElement,
       _input,
+      if (invalidMessage != null) invalidMessage!.getElement,
+      if (validedMessage != null) validedMessage!.getElement
     ];
     //if is btnCheck mode
     if (btnCheck || reversed) content = content.reversed.toList();
     _div.children.addAll(content);
-
     if (list != null) _div.children.add(list!.create());
 
     //set Event
