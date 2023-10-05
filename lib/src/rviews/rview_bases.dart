@@ -14,6 +14,7 @@ part 'button.dart';
 part 'enum.dart';
 part '../router/r.router.dart';
 part '../router/router.dart';
+part '../router/go.router.dart';
 part 'bases/tabview.dart';
 part 'bases/listview.dart';
 part 'bases/combobox.dart';
@@ -83,6 +84,13 @@ class Page extends Relement {
 
   @override
   Element get getElement => _element;
+  @override
+  ondispose() {
+    appBar?.ondispose();
+    body?.ondispose();
+    bottom?.ondispose();
+    return super.ondispose();
+  }
 }
 
 ///Les container

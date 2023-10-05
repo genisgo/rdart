@@ -1,9 +1,7 @@
 part of '../rviews/rview_bases.dart';
 
 class Rrouter extends Router {
-
   Rrouter({required super.routes, super.home}) {
-
     _setDefaultRoute();
   }
 
@@ -31,7 +29,6 @@ class Rrouter extends Router {
     print(previousIndex);
 
     if (previousIndex >= 0) {
-
       var last = _lastRoute.elementAt(0);
 
       print(last.url);
@@ -41,25 +38,22 @@ class Rrouter extends Router {
   }
 
   @override
-  push(String url) 
-  {
-    
+  push(String url, {data}) {
     _setRoute(url: url);
-    
   }
 
   void _setRoute({String url = "", String name = ""}) {
     var route = routes
         .singleWhere((element) => element.url == url || element.name == name);
     _app.children.clear();
-    _app.children.add(route.page().create());
+    _app.children.add(route.page(null).create());
     _currentRoute = route;
 
     _lastRoute.add(_currentRoute!);
   }
 
   @override
-  pushName(String name) {
+  pushName(String name, {data}) {
     _setRoute(name: name);
   }
 
@@ -73,5 +67,45 @@ class Rrouter extends Router {
 
 //route
 class Rroute extends Route {
-  Rroute({required super.url, super.name, required super.page});
+  Rroute(
+      {required super.url,
+      super.name,
+      required super.page,
+      super.data,
+      super.routes}) {
+    _setPartent();
+  }
+
+  void _setPartent() {
+    for (var element in routes) {
+      element.parent = this;
+    }
+  }
+
+  @override
+  // TODO: implement absolueUrl
+  String get absolutePath {
+    String pathname = url;
+    bool slashNoSet = url[0] != "/";
+    if (slashNoSet) {
+      pathname = "/$url";
+    }
+    //su
+    if (parent != null) {
+      pathname = parent!.absolutePath + pathname;
+    }
+
+    return pathname;
+  }
+
+  @override
+  Route? contains(String url) {
+    String path = absolutePath;
+    if (path == url) return this;
+    for (var route in routes) {
+      var con = route.contains(path + url);
+      if (con != null) return con;
+    }
+    return null;
+  }
 }

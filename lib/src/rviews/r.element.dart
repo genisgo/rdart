@@ -8,6 +8,8 @@ abstract class Relement {
   const Relement({this.key});
 
   Element create();
+
+  ondispose() {}
   Element get getElement;
   int get generateId => _idgenerate++;
 }
@@ -15,15 +17,21 @@ abstract class Relement {
 abstract class Rview extends Relement {
   late Relement _relement;
   Rview({String? key}) : super(key: key) {
+    ///ondispose est cree pour eviter l'attachement des element appres suppression
+    ///Comme les listener [sEventListener]
+    ondispose();
+
     _relement = build();
+
     Future.delayed(Duration.zero, () => initState());
   }
+
+  ///On initialized
+  void initState() {}
 
   ///build creat Element
   Relement build();
 
-  ///On initialized
-  void initState() {}
   @override
   Element create() {
     return _relement.create();

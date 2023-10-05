@@ -23,23 +23,30 @@ class RButton extends Relement {
       this.child,
       this.disable = false});
   var element = ButtonElement();
+  List<StreamSubscription<MouseEvent>?> events = [];
+
   @override
   Element create() {
     ///Crete child
+    ///
+    // ondispon
+    ondispose();
     child?.create();
 
     /// set animation for child on [onMouseEnter] event.
     if (onMouseEnterColor != null) {
-      child?.getElement.onMouseEnter.listen((event) {
+      var sub = child?.getElement.onMouseEnter.listen((event) {
         element.style.backgroundColor = onMouseEnterColor?.color;
       });
+      //events.add(sub);
     }
 
     ///ajoute un listerner d'evenement de tipe quiter le button
     if (onMouseDownColor != null) {
-      child?.getElement.onMouseOut.listen((event) {
+      var sub = child?.getElement.onMouseOut.listen((event) {
         element.style.backgroundColor = style?.backgroundColor?.color;
       });
+      events.add(sub);
     }
     if (!singleBootStrap) {
       ///ajout de nom de classe
@@ -53,7 +60,7 @@ class RButton extends Relement {
     if (type != null) element.type = type!.name;
 
     ///Set default theme
-     style ??= _currentTheme.buttonTheme.defaultStyle;
+    style ??= _currentTheme.buttonTheme.defaultStyle;
 
     ///Add event if [onMouseEnterColor] is not null or [onMouseDownColor] is not null
     // if (onMouseEnterColor != null || onMouseDownColor != null) {
@@ -68,14 +75,15 @@ class RButton extends Relement {
     }
     //Evement Click
     if (onPress != null) {
-      element.onClick.listen((event) {
+      var sub = element.onClick.listen((event) {
         onPress!(this);
       });
+      //events.add(sub);
     }
     // mouseEventAnimation(element);
 
     //bootstrap no create default style
-   // if (singleBootStrap) return element;
+    // if (singleBootStrap) return element;
 
     ///add de style
     element = style?.createStyle(element) as ButtonElement;
@@ -107,6 +115,9 @@ class RButton extends Relement {
   //     element.style.opacity = "1";
   //   });
   // }
+  @override
+  ondispose() {
+    // events.map((e) => e?.cancel());
+    return super.ondispose();
+  }
 }
-
-void main(List<String> args) {}

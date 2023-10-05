@@ -6,12 +6,12 @@ part of '../rviews/rview_bases.dart';
 ///
 abstract class Router {
   final List<Route> routes;
-  final List<Route>? activeRoute = [];
-   Route? _home;
+  final List<Route> activeRoute = [];
+  Route? _home;
   Router({required this.routes, Route? home}) : _home = home;
   pop();
-  push(String url);
-  pushName(String name);
+  push(String url, {data});
+  pushName(String name, {data});
   nextRoute();
   Route currentRoute();
   _setDefaultRoute();
@@ -20,7 +20,16 @@ abstract class Router {
 abstract class Route {
   String url;
   String? name;
-  Relement Function() page;
-
-  Route({required this.url, this.name, required this.page});
+  List<Route> routes;
+  var data;
+  Relement Function(dynamic data) page;
+  String get absolutePath;
+   Route? parent; 
+   Route? contains(String url);
+  Route(
+      {required this.url,
+      this.name,
+      required this.page,
+      this.data,
+      this.routes = const []});
 }

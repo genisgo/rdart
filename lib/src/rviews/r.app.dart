@@ -2,24 +2,27 @@ part of 'rview_bases.dart';
 
 ///test Router
 Router routerNavigation = Rrouter(routes: []);
-
+String appID ="_rapp"; 
 class Rapplication extends Relement {
   final Relement? home;
 
   final DataTheme theme;
 
   final Router router;
+
   final bool bootstrap;
 
   Rapplication(
       {this.home,
       this.theme = Theme.defaultTheme,
       required this.router,
-      this.bootstrap = true}) {
+      
+      this.bootstrap = true})
+      : super(key: appID) {
     _currentTheme = theme;
 
     if (router._home == null) {
-      router._home = Rroute(url: "home", page: () => home!);
+      router._home = Rroute(url: "/", page: (data) => home!);
 
       router.routes.add(router._home!);
       router._setDefaultRoute();
@@ -35,6 +38,8 @@ class Rapplication extends Relement {
 
   @override
   Element create() {
+    element?.id = key!;
+
     //Add default fontFamily
     element?.style
       ?..fontFamily = "-apple-system,system-ui,BlinkMacSystemFont,'Segoe UI',"
@@ -69,6 +74,5 @@ class Rapplication extends Relement {
     //     ..src =
     //         "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js",
     // );
-   
   }
 }
