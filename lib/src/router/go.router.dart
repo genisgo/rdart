@@ -26,9 +26,9 @@ class GoRouter extends Router {
   void _setRoute(Route? route, [data]) {
     window.history.pushState(route?.data, "", route?.absolutePath);
     //activeRoute.add(route!);
-    var app = document.getElementById(appID);
-    app?.children.clear();
-    app?.children.add(route!.page(data).create());
+    iniEvent();
+    app.getElement.children.clear();
+    app.getElement.children.add(route!.page(data).create());
   }
 
   @override

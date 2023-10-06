@@ -30,12 +30,12 @@ class RButton extends Relement {
     ///Crete child
     ///
     // ondispon
-    ondispose();
+    // ondispose();
     child?.create();
 
     /// set animation for child on [onMouseEnter] event.
     if (onMouseEnterColor != null) {
-      var sub = child?.getElement.onMouseEnter.listen((event) {
+      child?.getElement.onMouseEnter.listen((event) {
         element.style.backgroundColor = onMouseEnterColor?.color;
       });
       //events.add(sub);
@@ -43,10 +43,9 @@ class RButton extends Relement {
 
     ///ajoute un listerner d'evenement de tipe quiter le button
     if (onMouseDownColor != null) {
-      var sub = child?.getElement.onMouseOut.listen((event) {
+      child?.getElement.onMouseOut.listen((event) {
         element.style.backgroundColor = style?.backgroundColor?.color;
       });
-      events.add(sub);
     }
     if (!singleBootStrap) {
       ///ajout de nom de classe
@@ -73,11 +72,16 @@ class RButton extends Relement {
         onHover!(this);
       });
     }
+
     //Evement Click
     if (onPress != null) {
-      var sub = element.onClick.listen((event) {
-        onPress!(this);
-      });
+      element.onClick.listen(
+        (event) {
+          print("iniEvent");
+          onPress!(this);
+        },
+      );
+
       //events.add(sub);
     }
     // mouseEventAnimation(element);

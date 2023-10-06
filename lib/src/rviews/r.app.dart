@@ -2,7 +2,8 @@ part of 'rview_bases.dart';
 
 ///test Router
 Router routerNavigation = Rrouter(routes: []);
-String appID ="_rapp"; 
+late Relement app;
+
 class Rapplication extends Relement {
   final Relement? home;
 
@@ -16,22 +17,22 @@ class Rapplication extends Relement {
       {this.home,
       this.theme = Theme.defaultTheme,
       required this.router,
-      
       this.bootstrap = true})
-      : super(key: appID) {
+      : super(key: "_app") {
     _currentTheme = theme;
-
+    app = this;
     if (router._home == null) {
       router._home = Rroute(url: "/", page: (data) => home!);
 
       router.routes.add(router._home!);
-      router._setDefaultRoute();
+      // router._setDefaultRoute();
     }
 
     routerNavigation = router;
 
     create();
     if (bootstrap) activeBootStrap();
+    //set current App
   }
 
   Element? element = querySelector("body");
@@ -48,6 +49,7 @@ class Rapplication extends Relement {
       ..height = "100%"
       ..width = "100%";
 
+    element!.children.add(getEventListeners());
     element!.children.add(home!.create());
     return element!;
   }
@@ -66,6 +68,7 @@ class Rapplication extends Relement {
         ..integrity =
             "sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9",
     ]);
+
     // document.body?.children.add(
     //   ScriptElement()
     //     ..crossOrigin = "anonymous"
@@ -74,5 +77,12 @@ class Rapplication extends Relement {
     //     ..src =
     //         "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js",
     // );
+  }
+
+  @override
+  ondispose() {
+    home?.ondispose();
+    getElement.children.clear();
+    return super.ondispose();
   }
 }

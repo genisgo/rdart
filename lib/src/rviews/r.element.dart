@@ -9,7 +9,10 @@ abstract class Relement {
 
   Element create();
 
-  ondispose() {}
+  Future ondispose() {
+    return Future.value();
+  }
+
   Element get getElement;
   int get generateId => _idgenerate++;
 }
