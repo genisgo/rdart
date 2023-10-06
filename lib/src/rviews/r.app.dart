@@ -31,7 +31,7 @@ class Rapplication extends Relement {
     routerNavigation = router;
 
     create();
-    if (bootstrap) activeBootStrap();
+
     //set current App
   }
 
@@ -49,7 +49,18 @@ class Rapplication extends Relement {
       ..height = "100%"
       ..width = "100%";
 
+    ///Active bootstrap
+    if (bootstrap) {
+      //add css libray
+      activeBootStrap();
+      //add script libray
+      element!.children.add(bootstrapScript());
+    }
+
+    ///Add native Script
     element!.children.add(getEventListeners());
+
+    ///Add Element
     element!.children.add(home!.create());
     return element!;
   }
@@ -57,27 +68,6 @@ class Rapplication extends Relement {
   @override
   // TODO: implement getElement
   Element get getElement => element!;
-
-  void activeBootStrap() {
-    document.head?.children.addAll([
-      LinkElement()
-        ..crossOrigin = "anonymous"
-        ..href =
-            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-        ..rel = "stylesheet"
-        ..integrity =
-            "sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9",
-    ]);
-
-    // document.body?.children.add(
-    //   ScriptElement()
-    //     ..crossOrigin = "anonymous"
-    //     ..integrity =
-    //         "sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    //     ..src =
-    //         "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js",
-    // );
-  }
 
   @override
   ondispose() {

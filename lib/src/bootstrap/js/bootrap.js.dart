@@ -3,7 +3,7 @@ library bootstrapJs;
 
 import 'dart:html';
 import 'dart:js_interop';
-
+part 'add_script.dart';
 @JS("Carousel")
 class Carousel {
   external Carousel(element, config);
@@ -38,6 +38,7 @@ class Toast {
   external hide();
   external static Toast getOrCreateInstance(element);
 }
+
 @JS("Popover")
 class Popover {
   external Popover(id, config);
@@ -45,6 +46,7 @@ class Popover {
   external hide();
   external static Popover getOrCreateInstance(element);
 }
+
 @JS("Tooltip")
 class Tooltip {
   external Tooltip(id, config);
@@ -52,5 +54,4 @@ class Tooltip {
   external hide();
   external static Tooltip getOrCreateInstance(element);
 }
-
 
