@@ -28,6 +28,8 @@ class GoRouter extends Router {
     //activeRoute.add(route!);
     iniEvent();
     app.getElement.children.clear();
+    //iniApp
+    //app.iniApp();
     app.getElement.children.add(route!.page(data).create());
   }
 

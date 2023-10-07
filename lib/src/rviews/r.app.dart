@@ -2,7 +2,7 @@ part of 'rview_bases.dart';
 
 ///test Router
 Router routerNavigation = Rrouter(routes: []);
-late Relement app;
+late Rapplication app;
 
 class Rapplication extends Relement {
   final Relement? home;
@@ -35,12 +35,23 @@ class Rapplication extends Relement {
     //set current App
   }
 
-  Element? element = querySelector("body");
+  Element? element = Element.div();
 
   @override
   Element create() {
     element?.id = key!;
 
+    //Add default fontFamily
+    iniApp();
+
+    ///Add Element
+    element!.children.add(home!.create());
+    document.body!.children.add(element!);
+
+    return element!;
+  }
+
+  void iniApp() {
     //Add default fontFamily
     element?.style
       ?..fontFamily = "-apple-system,system-ui,BlinkMacSystemFont,'Segoe UI',"
@@ -54,15 +65,10 @@ class Rapplication extends Relement {
       //add css libray
       activeBootStrap();
       //add script libray
-      element!.children.add(bootstrapScript());
     }
 
     ///Add native Script
-    element!.children.add(getEventListeners());
-
-    ///Add Element
-    element!.children.add(home!.create());
-    return element!;
+    document.body!.children.add(getEventListeners());
   }
 
   @override

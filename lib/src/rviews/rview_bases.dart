@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:html';
-import 'dart:math';
+import 'package:rdart/src/bootstrap/js/bootrap.js.dart';
 import 'package:rdart/src/rviews/js/nativeJs.dart';
 
 import '../../themes.dart';
@@ -89,7 +89,6 @@ class Page extends Relement {
   Element get getElement => _element;
   @override
   ondispose() {
-
     appBar?.ondispose();
     body?.ondispose();
     bottom?.ondispose();
