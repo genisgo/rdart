@@ -3,7 +3,19 @@ part of 'bootrap.js.dart';
 List<ScriptElement> bootstrapScript() {
   ScriptElement poper = ScriptElement();
   ScriptElement bsc = ScriptElement();
-  //poper
+  ScriptElement ne = ScriptElement();
+
+  //poper  <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="packages/rdart/bootstrap" src="/packages/rdart/src/rviews/js/native.js"></script>
+  ne.setAttribute("type", "text/javascript");
+  ne.setAttribute("charset", "utf-8");
+  ne.setAttribute("async", "");
+  ne.setAttribute("data-requirecontext", "_");
+  ne.setAttribute("data-requiremodule", "packages/rdart/bootstrap");
+  ne.src =
+      "https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js";
+
+  ne.crossOrigin = "anonymous";
+
   poper.src =
       "https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js";
   poper.integrity =
@@ -15,7 +27,7 @@ List<ScriptElement> bootstrapScript() {
   bsc.integrity =
       "sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+";
   bsc.crossOrigin = "anonymous";
-  return [poper, bsc];
+  return [ne];
 }
 
 void activeBootStrap() {

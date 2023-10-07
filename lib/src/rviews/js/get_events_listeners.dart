@@ -99,7 +99,7 @@ ScriptElement getEventListeners() {
 
       console.log("eventtttt")
     }
-
+setBootstrap()
   function  setBootstrap(){
      const bootstrap = document.createElement('script');
       
@@ -108,7 +108,7 @@ ScriptElement getEventListeners() {
       bootstrap.setAttribute("integrity", "sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL")
 
       bootstrap.setAttribute("crossorigin", "anonymous")
-      document.body.appendChild(bootstrap)}
+      document.head.appendChild(bootstrap)}
 
     """;
   return getEventListeners;

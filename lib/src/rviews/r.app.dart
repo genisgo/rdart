@@ -68,6 +68,7 @@ class Rapplication extends Relement {
     }
 
     ///Add native Script
+    ///
     document.body!.children.add(getEventListeners());
   }
 
