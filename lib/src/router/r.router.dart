@@ -53,11 +53,6 @@ class Rrouter extends Router {
   }
 
   @override
-  pushName(String name, {data}) {
-    _setRoute(name: name);
-  }
-
-  @override
   _setDefaultRoute() {
     ///Insertion of home page is first page
     if (_home != null) _lastRoute.add(_home!);
@@ -107,5 +102,24 @@ class Rroute extends Route {
       if (con != null) return con;
     }
     return null;
+  }
+
+
+  @override
+  // TODO: implement absoluteName
+  String? get absoluteName {
+    if (name == null) return name;
+
+    String pathname = name!;
+    bool slashNoSet = pathname[0] != "/";
+
+    if (slashNoSet) pathname = "/$pathname";
+
+    //su
+    if (parent != null && parent?.absoluteName != null) {
+      pathname = parent!.absoluteName! + pathname;
+    }
+
+    return pathname;
   }
 }

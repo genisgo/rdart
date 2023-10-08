@@ -28,6 +28,7 @@ class Rapplication extends Relement {
       // router._setDefaultRoute();
     }
 
+
     routerNavigation = router;
 
     create();
@@ -68,7 +69,7 @@ class Rapplication extends Relement {
     }
 
     ///Add native Script
-    ///
+    document.head!.children.addAll(bootstrapScript());
     document.body!.children.add(getEventListeners());
   }
 

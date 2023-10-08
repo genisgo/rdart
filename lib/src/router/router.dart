@@ -11,7 +11,7 @@ abstract class Router {
   Router({required this.routes, Route? home}) : _home = home;
   pop();
   push(String url, {data});
-  pushName(String name, {data});
+  //pushName(String name, {data});
   nextRoute();
   Route currentRoute();
   _setDefaultRoute();
@@ -24,6 +24,7 @@ abstract class Route {
   var data;
   Relement Function(dynamic data) page;
   String get absolutePath;
+  String? get absoluteName; 
    Route? parent; 
    Route? contains(String url);
   Route(

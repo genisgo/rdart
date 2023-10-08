@@ -9,6 +9,7 @@ class GoRouter extends Router {
       window.history.state;
       var url = window.location.pathname;
       var data = "";
+
       print("state ${window.history.state} $url");
       if (url == "/") containSet(url!, data);
 
@@ -55,22 +56,21 @@ class GoRouter extends Router {
   int couter = 0;
   @override
   push(String url, {data}) {
-    print(url);
+    // print(url);
     //_setRoute(routes.singleWhere((element) => element.url == url));
     //print(routes);
-    print("push $couter");
+    // print("push $couter");
     containSet(url, data);
   }
 
   void containSet(String url, data) {
     if (url[0] != "/") url = "/$url";
-    int counter = 0;
+    // int counter = 0;
     for (var route in routes) {
       var res = route.contains(url);
       print(route.routes);
       if (res != null) {
-        counter++;
-        print("pushRes ${res.absolutePath} ${route.url} $counter $data");
+        //  print("pushRes ${res.absolutePath} ${route.url} $counter $data");
         _setRoute(res, data);
         break;
       }
@@ -79,7 +79,14 @@ class GoRouter extends Router {
 
   @override
   pushName(String name, {data}) {
-    // TODO: implement pushName
-    throw UnimplementedError();
+    for (var route in routes) {
+      var res = route.containName(name);
+      print("containName ${route.routes}");
+      if (res != null) {
+        //  print("pushRes ${res.absolutePath} ${route.url} $counter $data");
+        _setRoute(res, data);
+        break;
+      }
+    }
   }
 }
