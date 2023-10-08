@@ -2,10 +2,8 @@ part of '../rviews/rview_bases.dart';
 
 class GoRouter extends Router {
   GoRouter({required super.routes}) {
-    var oldState;
     window.onPopState.listen((event) {
       //  if (oldState == event.state) return;
-      oldState = event.state;
       window.history.state;
       var url = window.location.pathname;
       var data = "";
@@ -77,16 +75,5 @@ class GoRouter extends Router {
     }
   }
 
-  @override
-  pushName(String name, {data}) {
-    for (var route in routes) {
-      var res = route.containName(name);
-      print("containName ${route.routes}");
-      if (res != null) {
-        //  print("pushRes ${res.absolutePath} ${route.url} $counter $data");
-        _setRoute(res, data);
-        break;
-      }
-    }
-  }
+
 }

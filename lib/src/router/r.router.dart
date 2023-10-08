@@ -42,9 +42,9 @@ class Rrouter extends Router {
     _setRoute(url: url);
   }
 
-  void _setRoute({String url = "", String name = ""}) {
+  void _setRoute({String url = ""}) {
     var route = routes
-        .singleWhere((element) => element.url == url || element.name == name);
+        .singleWhere((element) => element.url == url );
     _app.children.clear();
     _app.children.add(route.page(null).create());
     _currentRoute = route;
@@ -64,7 +64,6 @@ class Rrouter extends Router {
 class Rroute extends Route {
   Rroute(
       {required super.url,
-      super.name,
       required super.page,
       super.data,
       super.routes}) {
@@ -105,21 +104,4 @@ class Rroute extends Route {
   }
 
 
-  @override
-  // TODO: implement absoluteName
-  String? get absoluteName {
-    if (name == null) return name;
-
-    String pathname = name!;
-    bool slashNoSet = pathname[0] != "/";
-
-    if (slashNoSet) pathname = "/$pathname";
-
-    //su
-    if (parent != null && parent?.absoluteName != null) {
-      pathname = parent!.absoluteName! + pathname;
-    }
-
-    return pathname;
-  }
 }

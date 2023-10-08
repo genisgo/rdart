@@ -19,17 +19,14 @@ abstract class Router {
 
 abstract class Route {
   String url;
-  String? name;
   List<Route> routes;
   var data;
   Relement Function(dynamic data) page;
   String get absolutePath;
-  String? get absoluteName; 
    Route? parent; 
    Route? contains(String url);
   Route(
       {required this.url,
-      this.name,
       required this.page,
       this.data,
       this.routes = const []});
