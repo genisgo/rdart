@@ -1,7 +1,7 @@
 part of 'rview_bases.dart';
 
 ///test Router
-Router routerNavigation = Rrouter(routes: []);
+late final   Router rnavigator ;
 late Rapplication app;
 
 class Rapplication extends Relement {
@@ -19,20 +19,25 @@ class Rapplication extends Relement {
       required this.router,
       this.bootstrap = true})
       : super(key: "_app") {
-    _currentTheme = theme;
-    app = this;
-    if (router._home == null) {
-      router._home = Rroute(url: "/", page: (data) => home!);
 
-      router.routes.add(router._home!);
-     
+    _currentTheme = theme;
+
+    app = this;
+
+    var _router =router; 
+
+    if (router._home == null) {
+      
+   _router=   _router.copyWith(home:  Rroute(url: "/", page: (data) => home!)) ;
+
+      _router.routes.add(router._home!);
     }
 
-
-    routerNavigation = router;
+    rnavigator = _router;
 
     create();
-router._setDefaultRoute();
+
+    router._setDefaultRoute();
     //set current App
   }
 

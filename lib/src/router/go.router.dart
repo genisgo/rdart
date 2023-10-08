@@ -1,15 +1,14 @@
 part of '../rviews/rview_bases.dart';
 
 class GoRouter extends Router {
-  GoRouter({required super.routes}) {
+  GoRouter({required super.routes,Route? home}):super(home: home) {
     window.onPopState.listen((event) {
       var url = window.location.pathname;
 
-      containSet(url!, "", true);
+      containSet(url!, null, true);
       print(activeRoute);
       event.preventDefault();
       event.stopPropagation();
-      // routes.singleWhere((element) => element.url==event.path);
     });
   }
 
@@ -27,16 +26,14 @@ class GoRouter extends Router {
     }
 
     iniEvent();
+
     app.getElement.children.clear();
-    //iniApp
-    //app.iniApp();
+
     app.getElement.children.add(route.page(route.data).create());
   }
 
   @override
   Route currentRoute() {
-    // _setRoute(activeRoute.last);
-    //print(activeRoute.last);
     return activeRoute.last;
   }
 
@@ -84,5 +81,10 @@ class GoRouter extends Router {
     }
     //if routne no exist
     if (newRoute == null) _setDefaultRoute();
+  }
+  
+  @override
+  Router copyWith({List<Route>? routes, Route? home}) {
+    return GoRouter(routes: routes??this.routes,home: home??_home);
   }
 }
