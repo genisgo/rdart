@@ -3,14 +3,10 @@ part of '../rviews/rview_bases.dart';
 class GoRouter extends Router {
   GoRouter({required super.routes}) {
     window.onPopState.listen((event) {
-      //  if (oldState == event.state) return;
-      window.history.state;
       var url = window.location.pathname;
-      var data = "";
 
-      print("state ${window.history.state} $url");
-      if (url == "/") containSet(url!, data);
-
+      containSet(url!, "", true);
+      print(activeRoute);
       event.preventDefault();
       event.stopPropagation();
       // routes.singleWhere((element) => element.url==event.path);
@@ -19,23 +15,28 @@ class GoRouter extends Router {
 
   @override
   _setDefaultRoute() {
-    _setRoute(_home);
+    _setRoute(_home!);
+    //activeRoute.add(_home!);
   }
 
-  void _setRoute(Route? route, [data]) {
-    window.history.pushState(route?.data, "", route?.absolutePath);
-    //activeRoute.add(route!);
+  void _setRoute(Route route, [data, isHistory = false]) {
+    if (!isHistory) {
+      window.history.pushState(null, "", route.absolutePath);
+      route.data = data;
+      activeRoute.add(route);
+    }
+
     iniEvent();
     app.getElement.children.clear();
     //iniApp
     //app.iniApp();
-    app.getElement.children.add(route!.page(data).create());
+    app.getElement.children.add(route.page(route.data).create());
   }
 
   @override
   Route currentRoute() {
     // _setRoute(activeRoute.last);
-    print(activeRoute.last);
+    //print(activeRoute.last);
     return activeRoute.last;
   }
 
@@ -47,33 +48,41 @@ class GoRouter extends Router {
 
   @override
   pop() {
-    // TODO: implement pop
-    throw UnimplementedError();
+    activeRoute.removeLast();
+    containSet(activeRoute.last.url, activeRoute.last.data);
   }
 
-  int couter = 0;
   @override
   push(String url, {data}) {
-    // print(url);
-    //_setRoute(routes.singleWhere((element) => element.url == url));
-    //print(routes);
-    // print("push $couter");
     containSet(url, data);
   }
 
-  void containSet(String url, data) {
+  void containSet(String url, data, [bool isHistory = false]) {
+    //add /
     if (url[0] != "/") url = "/$url";
-    // int counter = 0;
+
+    if (isHistory) {
+      //  hs = activeRoute.singleWhere(
+      //       (element) => element.absolutePath == newRoute!.absolutePath);
+      //  print("history ${hs.data}");
+
+      activeRoute.removeLast();
+      _setRoute(activeRoute.last, null, isHistory);
+
+      return;
+    }
+    print(activeRoute);
+    Route? newRoute;
     for (var route in routes) {
-      var res = route.contains(url);
-      print(route.routes);
-      if (res != null) {
-        //  print("pushRes ${res.absolutePath} ${route.url} $counter $data");
-        _setRoute(res, data);
+      newRoute = route.contains(url);
+
+      if (newRoute != null) {
+        // Route hs;
+        _setRoute(newRoute, data, isHistory);
         break;
       }
     }
+    //if routne no exist
+    if (newRoute == null) _setDefaultRoute();
   }
-
-
 }

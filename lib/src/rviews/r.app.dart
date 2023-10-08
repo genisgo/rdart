@@ -25,14 +25,14 @@ class Rapplication extends Relement {
       router._home = Rroute(url: "/", page: (data) => home!);
 
       router.routes.add(router._home!);
-      // router._setDefaultRoute();
+     
     }
 
 
     routerNavigation = router;
 
     create();
-
+router._setDefaultRoute();
     //set current App
   }
 
