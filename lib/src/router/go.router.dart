@@ -1,7 +1,7 @@
 part of '../rviews/rview_bases.dart';
 
 class GoRouter extends Router {
-  GoRouter({required super.routes,Route? home}):super(home: home) {
+  GoRouter({required super.routes, Route? home}) : super(home: home) {
     window.onPopState.listen((event) {
       var url = window.location.pathname;
 
@@ -38,15 +38,9 @@ class GoRouter extends Router {
   }
 
   @override
-  nextRoute() {
-    // TODO: implement nextRoute
-    throw UnimplementedError();
-  }
-
-  @override
   pop() {
-    activeRoute.removeLast();
-    containSet(activeRoute.last.url, activeRoute.last.data);
+    if (activeRoute.length > 1) activeRoute.removeLast();
+    _setRoute(activeRoute.last, null, true);
   }
 
   @override
@@ -59,16 +53,10 @@ class GoRouter extends Router {
     if (url[0] != "/") url = "/$url";
 
     if (isHistory) {
-      //  hs = activeRoute.singleWhere(
-      //       (element) => element.absolutePath == newRoute!.absolutePath);
-      //  print("history ${hs.data}");
-
-      activeRoute.removeLast();
-      _setRoute(activeRoute.last, null, isHistory);
-
+      pop();
       return;
     }
-    print(activeRoute);
+
     Route? newRoute;
     for (var route in routes) {
       newRoute = route.contains(url);
@@ -82,9 +70,9 @@ class GoRouter extends Router {
     //if routne no exist
     if (newRoute == null) _setDefaultRoute();
   }
-  
+
   @override
   Router copyWith({List<Route>? routes, Route? home}) {
-    return GoRouter(routes: routes??this.routes,home: home??_home);
+    return GoRouter(routes: routes ?? this.routes, home: home ?? _home);
   }
 }

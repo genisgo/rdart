@@ -1,15 +1,15 @@
 part of 'rview_bases.dart';
 
 ///test Router
-late final   Router rnavigator ;
+late final Router rnavigator;
 late Rapplication app;
 
 class Rapplication extends Relement {
-  final Relement? home;
+  Relement? home;
 
   final DataTheme theme;
 
-  final Router router;
+  Router router;
 
   final bool bootstrap;
 
@@ -19,21 +19,20 @@ class Rapplication extends Relement {
       required this.router,
       this.bootstrap = true})
       : super(key: "_app") {
-
     _currentTheme = theme;
 
     app = this;
 
-    var _router =router; 
+    //assert if router._homm && home is null
 
     if (router._home == null) {
-      
-   _router=   _router.copyWith(home:  Rroute(url: "/", page: (data) => home!)) ;
+      router = router.copyWith(
+          home: Rroute(url: "/", page: (data) => home!), routes: router.routes);
 
-      _router.routes.add(router._home!);
+      router.routes.add(router._home!);
     }
 
-    rnavigator = _router;
+    rnavigator = router;
 
     create();
 
@@ -50,8 +49,11 @@ class Rapplication extends Relement {
     //Add default fontFamily
     iniApp();
 
+    final routePage = router._home!.page(router._home!.data);
+
     ///Add Element
-    element!.children.add(home!.create());
+    element!.children.add(home?.create() ?? routePage.create());
+
     document.body!.children.add(element!);
 
     return element!;

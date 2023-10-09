@@ -6,14 +6,16 @@ part of '../rviews/rview_bases.dart';
 ///
 abstract class Router {
   final List<Route> routes;
-  final List<Route> activeRoute = const [];
+  List<Route> activeRoute = [];
   final Route? _home;
- const  Router({required this.routes, Route? home}) : _home = home;
+  Router({required this.routes, Route? home}) : _home = home;
   pop();
   push(String url, {data});
   //pushName(String name, {data});
-  nextRoute();
- Router copyWith({List<Route>? routes,Route? home,});
+  Router copyWith({
+    List<Route>? routes,
+    Route? home,
+  });
   Route currentRoute();
   _setDefaultRoute();
 }
