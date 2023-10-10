@@ -1,9 +1,9 @@
 import 'package:rdart/rviews.dart';
 
-part 'layout.dart';
-part 'utilities.dart';
-part 'components.dart';
-part 'forms.dart';
+part '../bootstrap/css.class/utilities.dart';
+part '../bootstrap/css.class/layout.dart';
+part 'css.class/components.dart';
+part '../bootstrap/css.class/forms.dart';
 
 ///Const
 const bactive = _BootStrapDefaultImp("active");

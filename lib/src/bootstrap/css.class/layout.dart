@@ -1,4 +1,4 @@
-part of 'bootstrap.dart';
+part of '../bootstrap.dart';
 
 
 class BContainer extends Bootstrap {

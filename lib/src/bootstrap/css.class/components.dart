@@ -1,4 +1,4 @@
-part of 'bootstrap.dart';
+part of '../bootstrap.dart';
 
 ///Click the accordions below to expand/collapse the accordion content.
 ///Example:

@@ -1,6 +1,6 @@
 part of 'nativeJs.dart';
 
-ScriptElement getEventListeners() {
+ScriptElement jgetEventListeners() {
   ScriptElement getEventListeners = ScriptElement();
   getEventListeners.innerHtml = """  (function () {
       'use strict';

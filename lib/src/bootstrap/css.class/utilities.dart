@@ -1,4 +1,4 @@
-part of 'bootstrap.dart';
+part of '../bootstrap.dart';
 
 class Icolor<T> {
   final String icname;
