@@ -2,7 +2,7 @@ part of 'rview_bases.dart';
 
 ///test Router
 late final Router rnavigator;
-late Rapplication app;
+late final Rapplication app;
 
 class Rapplication extends Relement {
   Relement? home;
@@ -21,10 +21,7 @@ class Rapplication extends Relement {
       : super(key: "_app") {
     _currentTheme = theme;
 
-    app = this;
-
     //assert if router._homm && home is null
-
     if (router._home == null) {
       router = router.copyWith(
           home: Rroute(url: "/", page: (data) => home!), routes: router.routes);
@@ -35,8 +32,13 @@ class Rapplication extends Relement {
     rnavigator = router;
 
     create();
+    //cet emplacement est important car c'est apres la creation que
+    // l'application doit etre affecter
+    app = this;
+        print("Router Home ----------------- ${router._home}");
 
     router._setDefaultRoute();
+
     //set current App
   }
 

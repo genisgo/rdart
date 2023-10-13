@@ -1,7 +1,7 @@
 part of 'bootrap.js.dart';
 
 List<ScriptElement> bootstrapScript() {
-  ScriptElement poper = ScriptElement();
+  //ScriptElement poper = ScriptElement();
   ScriptElement bscript = ScriptElement();
 
   //boostrap //poper  <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="packages/rdart/bootstrap" src="/packages/rdart/src/rviews/js/native.js"></script>

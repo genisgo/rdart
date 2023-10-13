@@ -6,7 +6,7 @@ class GoRouter extends Router {
       var url = window.location.pathname;
 
       containSet(url!, null, true);
-      print(activeRoute);
+
       event.preventDefault();
       event.stopPropagation();
     });
@@ -14,22 +14,24 @@ class GoRouter extends Router {
 
   @override
   _setDefaultRoute() {
-    _setRoute(_home!);
+    window.history.pushState(null, "", _home!.absolutePath);
+    activeRoute.add(_home!);
+    //_setRoute(_home!);
     //activeRoute.add(_home!);
   }
 
-  void _setRoute(Route route, [data, isHistory = false]) {
+  void _setRoute(Route route, [data, isHistory = false]) async {
     if (!isHistory) {
       window.history.pushState(null, "", route.absolutePath);
       route.data = data;
       activeRoute.add(route);
     }
-
     iniEvent();
 
     app.getElement.children.clear();
 
-    app.getElement.children.add(route.page(route.data).create());
+    var routePage = route.page(route.data).create();
+    app.getElement.children.add(routePage);
   }
 
   @override

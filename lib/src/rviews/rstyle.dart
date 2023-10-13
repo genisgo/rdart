@@ -72,7 +72,7 @@ class RStyle extends Style {
       this.bootstrap = const [],
       super.margin,
       super.padding,
-      this.alignHorizontal ,
+      this.alignHorizontal,
       this.alignmentVertical,
       this.textSize,
       this.backgroundColor,
