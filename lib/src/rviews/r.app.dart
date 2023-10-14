@@ -35,7 +35,6 @@ class Rapplication extends Relement {
     //cet emplacement est important car c'est apres la creation que
     // l'application doit etre affecter
     app = this;
-        print("Router Home ----------------- ${router._home}");
 
     router._setDefaultRoute();
 

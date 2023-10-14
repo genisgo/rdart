@@ -41,8 +41,10 @@ class GoRouter extends Router {
 
   @override
   pop() {
-    if (activeRoute.length > 1) activeRoute.removeLast();
-    _setRoute(activeRoute.last, null, true);
+    if (activeRoute.length > 1) {
+      activeRoute.removeLast();
+      _setRoute(activeRoute.last, null, true);
+    }
   }
 
   @override
