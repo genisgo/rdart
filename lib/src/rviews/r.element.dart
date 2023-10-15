@@ -22,8 +22,6 @@ abstract class Rview extends Relement {
   Rview({String? key}) : super(key: key) {
     ///ondispose est cree pour eviter l'attachement des element appres suppression
     ///Comme les listener [sEventListener]
-    ondispose();
-
     _relement = build();
 
     Future.delayed(Duration.zero, () => initState());
