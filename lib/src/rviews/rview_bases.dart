@@ -53,11 +53,10 @@ class Page extends Relement {
   Element create() {
     _element = DivElement();
     _element.className = "page ${bootstrap.join(" ")}";
-    _element.id =key?? "page $generateId";
+    _element.id = key ?? "page $generateId";
     if (!singleBootStrap) {
       _element
         ..className = ClassName.page.name
-        
         ..style.width = "100%"
         ..style.height = "100%"
         ..style.display = "flex"
@@ -595,7 +594,7 @@ class BsElement extends BootStrapComponent {
 }
 
 class Link extends Relement {
-  String link;
+  String? link;
   String label;
   Relement? child;
   bool active;
@@ -604,7 +603,7 @@ class Link extends Relement {
   Link(
       {this.click,
       this.active = true,
-      this.link = "#",
+      this.link,
       this.label = "",
       this.child,
       this.bootstrap = const []});
@@ -620,10 +619,12 @@ class Link extends Relement {
     //Set bootstrap
     _a.className = bootstrap.join(" ");
 
-    _a.attributes.addAll({"href": link});
+    _a.attributes.addAll({"href": link??""});
     //onPress
     _a.onClick.listen((event) {
       click?.call();
+    if(link==null) event.preventDefault();
+      
     });
     return _a;
   }

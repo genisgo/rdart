@@ -22,7 +22,7 @@ class GoRouter extends Router {
     // et pourtant les valeur sont presente.
     homPath ??= _home!.absolutePath;
     //_setRoute(_home!);
-    //activeRoute.add(_home!);
+    activeRoute.add(_home!);
   }
 
   void _setRoute(Route route, [data, isHistory = false]) {
@@ -35,7 +35,7 @@ class GoRouter extends Router {
     app.getElement.children.clear();
 
     if (route.url == "/") {
-      app.getElement.children.add(route.page(data).getElement);
+      app.getElement.children.add(route.page(data).create());
 
       return;
     }

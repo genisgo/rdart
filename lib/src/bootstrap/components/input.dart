@@ -189,14 +189,18 @@ class BsInput extends Relement {
     if (label != null) _labelElement.innerText += label!;
     var content = [
       _labelElement,
-      _input,
+      //Si singleInput est activer _input ne doit pas être ajouter a ce niveau 
+      //car cela vas provoquer un double ajout en bas line (223 -225)
+      if(!singleInput)_input,
       if (invalidMessage != null) invalidMessage!.getElement,
       if (validedMessage != null) validedMessage!.getElement
     ];
 
     //if is btnCheck mode
     if (btnCheck || reversed) content = content.reversed.toList();
+
     _div.children.addAll(content);
+
     if (list != null) _div.children.add(list!.create());
 
     //set Event
@@ -214,7 +218,10 @@ class BsInput extends Relement {
       }
     });
     //
-    if (singleInput) _div = _input;
+    if (singleInput) {
+      //_div.children.clear();
+      _div = _input;
+    }
     return _div;
   }
 

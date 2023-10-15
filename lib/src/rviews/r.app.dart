@@ -26,7 +26,7 @@ class Rapplication extends Relement {
       router = router.copyWith(
           home: Rroute(url: "/", page: (data) => home!), routes: router.routes);
 
-      router.routes.add(router._home!);
+     // router.routes.add(router._home!);
     }
 
     rnavigator = router;
