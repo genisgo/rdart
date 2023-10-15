@@ -1,10 +1,11 @@
 part of '../rviews/rview_bases.dart';
 
 class GoRouter extends Router {
+  String? homPath;
   GoRouter({required super.routes, Route? home}) : super(home: home) {
     window.onPopState.listen((event) {
       var url = window.location.pathname;
-
+      print(event.state);
       containSet(url!, null, true);
 
       event.preventDefault();
@@ -16,26 +17,29 @@ class GoRouter extends Router {
   _setDefaultRoute() {
     window.history.pushState(null, "", _home!.absolutePath);
     activeRoute.add(_home!);
+    //Le probleme si nous essayons d'utiliser directement home
+    // sa valeur a un moment donnée declanche null sécurité sans
+    // et pourtant les valeur sont presente.
+    homPath ??= _home!.absolutePath;
     //_setRoute(_home!);
     //activeRoute.add(_home!);
   }
 
-  void _setRoute(Route route, [data, isHistory = false]) async {
+  void _setRoute(Route route, [data, isHistory = false]) {
     if (!isHistory) {
       window.history.pushState(null, "", route.absolutePath);
       route.data = data;
       activeRoute.add(route);
-    } 
-    
+    }
+
     app.getElement.children.clear();
-    // iniEvent();
-    if (route.url == _home!.url) {
-      route.page(data).getElement.remove();
+
+    if (route.url == "/") {
       app.getElement.children.add(route.page(data).getElement);
+
       return;
     }
-   
-   print("test Cretating ${route.page("").getElement.innerHtml}"); 
+
     var routePage = route.page(route.data).create();
     app.getElement.children.add(routePage);
   }
@@ -49,7 +53,6 @@ class GoRouter extends Router {
   pop() {
     if (activeRoute.length > 1) {
       activeRoute.removeLast();
-      print("active-------${activeRoute.map((e) => e.url)}");
       _setRoute(activeRoute.last, null, true);
     }
   }
@@ -60,10 +63,12 @@ class GoRouter extends Router {
   }
 
   void containSet(String url, data, [bool isHistory = false]) {
+    bool isPrevious = isPreviousPop(url);
+
     //add /
     if (url[0] != "/") url = "/$url";
 
-    if (isHistory) {
+    if (isHistory && isPrevious) {
       pop();
       return;
     }
@@ -71,7 +76,6 @@ class GoRouter extends Router {
     Route? newRoute;
     for (var route in routes) {
       newRoute = route.contains(url);
-
       if (newRoute != null) {
         // Route hs;
         _setRoute(newRoute, data, isHistory);
@@ -80,6 +84,13 @@ class GoRouter extends Router {
     }
     //if routne no exist
     if (newRoute == null) _setDefaultRoute();
+  }
+
+  bool isPreviousPop(String url) {
+    return activeRoute
+        .map((e) => e.absolutePath)
+        .where((element) => element == url)
+        .isNotEmpty;
   }
 
   @override
