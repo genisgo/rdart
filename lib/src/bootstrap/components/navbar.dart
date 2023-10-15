@@ -31,7 +31,7 @@ class BsNavbar extends Relement {
   var idCollapse = "navcollapse$_idgenerate";
   final nav = Element.nav();
   var spanicon = Element.span();
-  var container = Element.div();
+  //var container = Element.div();
   var collapseContent = Element.div();
   @override
   Element create() {
@@ -48,7 +48,7 @@ class BsNavbar extends Relement {
     //set icon bootstrap class
     spanicon.className += " ${bnavbar.togglerIcon}";
     //containter class
-    container.className = [BContainer.fluid].join(" ");
+    // container.className = [BContainer.fluid].join(" ");
     //nav class
     nav.className = navStyle.join(" ");
     //default btn
@@ -81,14 +81,14 @@ class BsNavbar extends Relement {
 //set collapse menu in collapse container
     collapseContent.children.addAll(menus.map((e) => e.create()));
 //set container
-    container.children.addAll([
+    //container.children.addAll();
+
+//add element to nav
+    nav.children.addAll([
       if (title != null) title!.getElement,
       toggleButton!.getElement,
       collapseContent
     ]);
-
-//add element to nav
-    nav.children.add(container);
 
     return nav;
   }
