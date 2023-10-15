@@ -7,7 +7,7 @@ part of '../rviews/rview_bases.dart';
 abstract class Router {
   final List<Route> routes;
   List<Route> activeRoute = [];
-  final Route? _home;
+   Route? _home;
   Router({required this.routes, Route? home}) : _home = home;
   pop();
   push(String url, {data});

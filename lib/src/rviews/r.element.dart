@@ -53,6 +53,7 @@ abstract class Rview extends Relement {
         _relement.create();
         oldParent.children.remove(old);
         oldParent.children.insert(oldIndex, getElement);
+        //iniEvent();
       },
     );
   }

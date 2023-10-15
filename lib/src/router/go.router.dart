@@ -25,11 +25,17 @@ class GoRouter extends Router {
       window.history.pushState(null, "", route.absolutePath);
       route.data = data;
       activeRoute.add(route);
-    }
-    iniEvent();
-
+    } 
+    
     app.getElement.children.clear();
-
+    // iniEvent();
+    if (route.url == _home!.url) {
+      route.page(data).getElement.remove();
+      app.getElement.children.add(route.page(data).getElement);
+      return;
+    }
+   
+   print("test Cretating ${route.page("").getElement.innerHtml}"); 
     var routePage = route.page(route.data).create();
     app.getElement.children.add(routePage);
   }
@@ -43,6 +49,7 @@ class GoRouter extends Router {
   pop() {
     if (activeRoute.length > 1) {
       activeRoute.removeLast();
+      print("active-------${activeRoute.map((e) => e.url)}");
       _setRoute(activeRoute.last, null, true);
     }
   }

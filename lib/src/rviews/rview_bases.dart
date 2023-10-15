@@ -48,14 +48,16 @@ class Page extends Relement {
       this.bottomStyle});
 
   //Div element
-  final _element = DivElement();
+  var _element = DivElement();
   @override
   Element create() {
+    _element = DivElement();
     _element.className = "page ${bootstrap.join(" ")}";
+    _element.id =key?? "page $generateId";
     if (!singleBootStrap) {
       _element
         ..className = ClassName.page.name
-        ..id = "page"
+        
         ..style.width = "100%"
         ..style.height = "100%"
         ..style.display = "flex"
@@ -269,7 +271,7 @@ class Text extends Relement {
         ..style.fontSize = "${size}px";
     }
     //set bootstrap
-    div.className = " " + bootstrap.join(" ");
+    div.className = " ${bootstrap.join(" ")}";
     return style?.createStyle(div) ?? div;
   }
 

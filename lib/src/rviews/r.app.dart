@@ -50,10 +50,11 @@ class Rapplication extends Relement {
     //Add default fontFamily
     iniApp();
 
-    final routePage = router._home!.page(router._home!.data);
+    var routePage =
+        home?.create() ?? router._home!.page(router._home!.data).create();
 
     ///Add Element
-    element!.children.add(home?.create() ?? routePage.create());
+    element!.children.add(routePage);
 
     document.body!.children.add(element!);
 
