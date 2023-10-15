@@ -5,7 +5,7 @@ class GoRouter extends Router {
   GoRouter({required super.routes, Route? home}) : super(home: home) {
     window.onPopState.listen((event) {
       var url = window.location.pathname;
-      print(event.state);
+
       containSet(url!, null, true);
 
       event.preventDefault();
@@ -17,12 +17,13 @@ class GoRouter extends Router {
   _setDefaultRoute() {
     window.history.pushState(null, "", _home!.absolutePath);
     activeRoute.add(_home!);
+    routes.add(_home!);
     //Le probleme si nous essayons d'utiliser directement home
     // sa valeur a un moment donnée declanche null sécurité sans
     // et pourtant les valeur sont presente.
     homPath ??= _home!.absolutePath;
     //_setRoute(_home!);
-    activeRoute.add(_home!);
+    // activeRoute.add(_home!);
   }
 
   void _setRoute(Route route, [data, isHistory = false]) {
@@ -31,12 +32,11 @@ class GoRouter extends Router {
       route.data = data;
       activeRoute.add(route);
     }
-
     app.getElement.children.clear();
 
     if (route.url == "/") {
-      app.getElement.children.add(route.page(data).create());
-
+      app.getElement.children.add(route.page(data).getElement);
+      print("set---------");
       return;
     }
 
@@ -82,8 +82,9 @@ class GoRouter extends Router {
         break;
       }
     }
+    print("fist ----- $url ${routes.first.url}");
     //if routne no exist
-    if (newRoute == null) _setDefaultRoute();
+    //  if (newRoute == null) _setDefaultRoute();
   }
 
   bool isPreviousPop(String url) {
