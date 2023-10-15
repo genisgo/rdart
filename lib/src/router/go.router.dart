@@ -35,8 +35,8 @@ class GoRouter extends Router {
     app.getElement.children.clear();
 
     if (route.url == "/") {
-      app.getElement.children.add(route.page(data).getElement);
-      print("set---------");
+      app.getElement.children.add(route.page(data).create());
+
       return;
     }
 
