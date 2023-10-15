@@ -1,6 +1,5 @@
 part of '../bootstrap.dart';
 
-
 class BContainer extends Bootstrap {
   static const sm = BContainer._("container-sm");
   static const md = BContainer._("container-md");
@@ -23,7 +22,7 @@ class Bcolumn extends Bootstrap implements Bscreen {
   static const w10 = Bcolumn._("col-10");
   static const w11 = Bcolumn._("col-11");
   static const w12 = Bcolumn._("col-12");
-    static const auto = Bcolumn._("col-auto");
+  static const auto = Bcolumn._("col-auto");
 
   const Bcolumn._(super.cname);
   const Bcolumn.l(int l) : super("col-$l");
@@ -51,6 +50,8 @@ class Bcolumn extends Bootstrap implements Bscreen {
   }
 }
 
+final brow = Brow.row;     
+
 class Brow extends Bootstrap implements Bscreen {
   static const col1 = Brow._col(1);
   static const col2 = Brow._col(2);
@@ -61,7 +62,7 @@ class Brow extends Bootstrap implements Bscreen {
   static const col7 = Brow._col(7);
   static const col8 = Brow._col(8);
   const Brow._(super.cname);
-
+  static const row = Brow._("row");
   const Brow._col(int col) : super("row-cols-$col");
 
   @override
@@ -91,7 +92,7 @@ class Brow extends Bootstrap implements Bscreen {
   }
 }
 
-  //Gottier col
+//Gottier col
 class Bg extends Bootstrap {
   const Bg._(super.cname);
   //Full
