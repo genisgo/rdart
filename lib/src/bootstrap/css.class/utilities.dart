@@ -214,6 +214,8 @@ class Bborder extends Bootstrap {
   Bootstrap get start => Bborder._(_addDisposition("start"));
   Bootstrap get bottom => Bborder._(_addDisposition("bottom"));
   Bootstrap get top => Bborder._(_addDisposition("top"));
+  Bootstrap get circle => Bborder._(_addDisposition("circle"));
+  Bootstrap get pill => Bborder._(_addDisposition("pill"));
 
   String _addDisposition(String disposition) {
     String endClass = "";
