@@ -36,6 +36,7 @@ abstract class Style {
   final EdgInset? margin;
   final EdgInset? padding;
   final OverFlow? overFlow;
+  final String? backgroundSize;
 
   ///[ratioWidth] make in % width *exemple* ratioWidth:true, width:100 (100%)
   final bool ratioWidth;
@@ -49,6 +50,7 @@ abstract class Style {
       this.maxWidth,
       this.margin,
       this.padding,
+      this.backgroundSize,
       this.ratioHeight = false,
       this.ratioWidth = false,
       this.expandHeight = false,
@@ -60,6 +62,7 @@ abstract class Style {
 
 class RStyle extends Style {
   final bool modeRatio;
+
   final Decoration? decoration;
   final AlignHorizontal? alignHorizontal;
   final AlignVertical? alignmentVertical;
@@ -89,6 +92,7 @@ class RStyle extends Style {
       super.expandHeight = false,
       super.expandWidth = false,
       super.maxHeight,
+      super.backgroundSize,
       super.maxWidth});
   RStyle copyWith(
       {bool? modeRatio,
@@ -110,6 +114,7 @@ class RStyle extends Style {
       bool? expandHeight,
       bool? expandWidth,
       double? maxWidth,
+      String? backgroundSize,
       FontWeight? fontWeight,
       double? maxHeight}) {
     return RStyle(
@@ -119,6 +124,7 @@ class RStyle extends Style {
         decoration: decoration ?? this.decoration,
         expandHeight: expandHeight ?? this.expandHeight,
         expandWidth: expandWidth ?? this.expandWidth,
+        backgroundSize: backgroundSize??this.backgroundSize,
         height: height ?? this.height,
         margin: margin ?? this.margin,
         fontWeight: fontWeight ?? this.fontWeight,
@@ -205,7 +211,8 @@ class RStyle extends Style {
 
     ///Set overflow or active scroll bar .
     element.style.overflow = overFlow?.name;
-
+    //backgroun size
+    element.style.backgroundSize = backgroundSize ?? "";
     return element;
   }
 }
