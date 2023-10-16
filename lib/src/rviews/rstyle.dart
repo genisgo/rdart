@@ -165,7 +165,7 @@ class RStyle extends Style {
           : ""
       ..style.justifyContent = alignHorizontal?.value ?? ""
       ..style.alignItems = alignmentVertical?.value ?? ""
-      ..style.backgroundColor = backgroundColor?.color ?? "";
+      ..style.background = backgroundColor?.color ?? "";
     if (padding != null) {
       element.style.padding =
           "${padding?.top}px ${padding?.right}px ${padding?.bottom}px ${padding?.left}px";
