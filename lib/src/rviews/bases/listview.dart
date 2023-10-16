@@ -6,7 +6,7 @@ class ListTitle extends Rview {
   final bool divider;
   final Rborder border;
   final Color separtorColor;
-  final Color backgroundColor;
+  final Color background;
   final Function(Relement itme)? onPress;
   final Color selectedColor;
   final EdgInset margin;
@@ -25,7 +25,7 @@ class ListTitle extends Rview {
       this.padding = REdgetInset.zero,
       this.selectedColor = const Colors.formRGB(66, 135, 245, 0.50),
       this.separtorColor = const Color("#e8e8e8"),
-      this.backgroundColor = Colors.transparent,
+      this.background = Colors.transparent,
       this.heigth}) {
     RStyle(
       textSize: 14,
@@ -45,7 +45,7 @@ class ListTitle extends Rview {
               width: 100,
               ratioWidth: true,
               alignmentVertical: AlignVertical.center,
-              backgroundColor: backgroundColor,
+              background: background,
               decoration: Decoration(
                 border: border,
               )),

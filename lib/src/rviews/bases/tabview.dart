@@ -70,14 +70,14 @@ class TabBar extends Rview {
   Function(int indx)? onTabSelected;
   int defaultTabIndex;
   int elevation;
-  Color? backgroundColor;
+  Color? background;
   Color shadowColor;
   TabBar(
       {required this.tabs,
       this.elevation = 4,
       this.height,
       this.shadowColor = Colors.grays,
-      this.backgroundColor,
+      this.background,
       this.defaultTabIndex = 0,
       this.selectorColor = Colors.white,
       this.titre,
@@ -88,7 +88,7 @@ class TabBar extends Rview {
         style: RStyle(
           height: height ?? 0,
           ratioWidth: true,
-          backgroundColor: backgroundColor,
+          background: background,
           decoration: Decoration(
             shadow: BoxShadow(blur: elevation, vertical: 0),
           ),
@@ -111,7 +111,7 @@ class TabBar extends Rview {
 //colors initialisation
   void _initializColor() {
     for (var element in tabs) {
-      element.color ??= backgroundColor;
+      element.color ??= background;
       element.height ??= height;
       element.getStyle().createStyle(element.getElement);
     }
@@ -178,7 +178,7 @@ class Tab extends Relement {
       height: height ?? 100,
       padding: padding,
       ratioHeight: height == null ? true : false,
-      backgroundColor: color,
+      background: color,
       decoration: Decoration(
           border: _isActive
               ? Rborder(

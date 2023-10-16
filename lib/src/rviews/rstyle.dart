@@ -69,7 +69,7 @@ class RStyle extends Style {
   final TextAlign? textAlign;
   final int? textSize;
   final List<Bootstrap> bootstrap;
-  final Color? backgroundColor;
+  final Color? background;
   const RStyle(
       {this.modeRatio = true,
       this.bootstrap = const [],
@@ -78,7 +78,7 @@ class RStyle extends Style {
       this.alignHorizontal,
       this.alignmentVertical,
       this.textSize,
-      this.backgroundColor,
+      this.background,
       this.textAlign,
       super.overFlow,
       super.height,
@@ -100,7 +100,7 @@ class RStyle extends Style {
       REdgetInset? padding,
       AlignHorizontal? alignHorizontal,
       AlignVertical? alignmentVertical,
-      Color? backgroundColor,
+      Color? background,
       TextAlign? textAlign,
       double? height,
       OverFlow? overFlow,
@@ -120,7 +120,7 @@ class RStyle extends Style {
     return RStyle(
         alignmentVertical: alignmentVertical ?? this.alignmentVertical,
         alignHorizontal: alignHorizontal ?? this.alignHorizontal,
-        backgroundColor: backgroundColor ?? this.backgroundColor,
+        background: background ?? this.background,
         decoration: decoration ?? this.decoration,
         expandHeight: expandHeight ?? this.expandHeight,
         expandWidth: expandWidth ?? this.expandWidth,
@@ -171,7 +171,7 @@ class RStyle extends Style {
           : ""
       ..style.justifyContent = alignHorizontal?.value ?? ""
       ..style.alignItems = alignmentVertical?.value ?? ""
-      ..style.background = backgroundColor?.color ?? "";
+      ..style.background = background?.color ?? "";
     if (padding != null) {
       element.style.padding =
           "${padding?.top}px ${padding?.right}px ${padding?.bottom}px ${padding?.left}px";

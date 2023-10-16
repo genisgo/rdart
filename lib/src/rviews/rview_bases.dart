@@ -33,14 +33,14 @@ class Page extends Relement {
   RStyle? bodyStyle;
   RStyle? appBarStyle;
   RStyle? bottomStyle;
-  Color? backgroundColor;
+  Color? background;
   bool singleBootStrap;
   List<Bootstrap> bootstrap;
   Page(
       {this.appBar,
       this.body,
       this.bottom,
-      this.backgroundColor,
+      this.background,
       this.appBarStyle,
       this.bodyStyle,
       this.singleBootStrap = false,
@@ -61,8 +61,8 @@ class Page extends Relement {
         ..style.height = "100%"
         ..style.display = "flex"
         ..style.flexDirection = "column"
-        ..style.backgroundColor =
-            backgroundColor?.color ?? _currentTheme.backgroundColor.color;
+        ..style.background =
+            background?.color ?? _currentTheme.background.color;
     }
     if (appBar != null) {
       var appbarElement = appBar!.create();
@@ -166,7 +166,7 @@ class AppBar extends Relement {
   final BoxShadow boxShadow;
   final RelementCallBack? onPress;
 
-  Color? backgroundColor;
+  Color? background;
   AppBar(
       {this.title,
       this.alginVertical = AlignVertical.center,
@@ -174,7 +174,7 @@ class AppBar extends Relement {
       this.boxShadow = const BoxShadow(),
       this.backup,
       this.actions = const [],
-      this.backgroundColor,
+      this.background,
       this.heigth = 45,
       this.onPress});
 
@@ -190,8 +190,8 @@ class AppBar extends Relement {
       ..style.display = "inline-flex"
       ..style.alignContent = "center"
       ..style.boxShadow = boxShadow.toString()
-      ..style.backgroundColor = backgroundColor?.color ??
-          _currentTheme.appBarStyle.backgroundColor?.color;
+      ..style.background = background?.color ??
+          _currentTheme.appBarStyle.background?.color;
 
     //initilized childreen
     div.children.clear();
@@ -391,7 +391,7 @@ class Column extends Relement {
                 alignHorizontal: mainAxisAlignment,
                 expandWidth: crossAxisExpand,
                 expandHeight: mainAxisExpand,
-                backgroundColor: Colors.none,
+                background: Colors.none,
                 alignmentVertical: crossAxisAlignment)
             .createStyle(_div);
   }
@@ -500,7 +500,7 @@ class Divider extends Relement {
   Element create() {
     _div
       ..id = "divider$_idgenerate"
-      ..style.backgroundColor = color.color
+      ..style.background = color.color
       ..style.width = width == null ? "-webkit-fill-available" : "${width}px"
       ..style.height = "${height}px";
 

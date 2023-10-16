@@ -36,7 +36,7 @@ class RButton extends Relement {
     /// set animation for child on [onMouseEnter] event.
     if (onMouseEnterColor != null) {
       child?.getElement.onMouseEnter.listen((event) {
-        element.style.backgroundColor = onMouseEnterColor?.color;
+        element.style.background = onMouseEnterColor?.color;
       });
       //events.add(sub);
     }
@@ -44,7 +44,7 @@ class RButton extends Relement {
     ///ajoute un listerner d'evenement de tipe quiter le button
     if (onMouseDownColor != null) {
       child?.getElement.onMouseOut.listen((event) {
-        element.style.backgroundColor = style?.backgroundColor?.color;
+        element.style.background = style?.background?.color;
       });
     }
     if (!singleBootStrap) {
@@ -98,12 +98,12 @@ class RButton extends Relement {
   // void _onMouserEnterAnimation() {
   //   element.onMouseEnter.listen((event) {
   //     if (onMouseEnterColor != null) {
-  //       element.style.backgroundColor = onMouseEnterColor?.color;
+  //       element.style.background = onMouseEnterColor?.color;
   //     }
   //   });
 
   //   element.onMouseOut.listen((event) {
-  //     element.style.backgroundColor = style?.backgroundColor?.color;
+  //     element.style.background = style?.background?.color;
   //   });
   // }
 

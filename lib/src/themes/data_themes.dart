@@ -6,7 +6,7 @@ abstract class DataTheme {
   final ButtonDataTheme buttonTheme;
   final Color primaryColor;
   final double defaultPadding;
-  final Color backgroundColor;
+  final Color background;
   final TextFieldDataTheme textFieldTheme;
 
   const DataTheme(
@@ -16,7 +16,7 @@ abstract class DataTheme {
       required this.primaryColor,
       required this.textFieldTheme,
       required this.defaultPadding,
-      required this.backgroundColor});
+      required this.background});
 }
 
 abstract class ButtonDataTheme {

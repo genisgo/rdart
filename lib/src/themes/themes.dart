@@ -5,7 +5,7 @@ import 'data_themes.dart';
 class Theme extends DataTheme {
   static const DataTheme defaultTheme = Theme();
   static const RStyle defaultAppbar = RStyle(
-    backgroundColor: defaultColor,
+    background: defaultColor,
   );
   static const Color defaultColor = Colors.blue;
   static const Color defaultBackgroundColor = Colors.white;
@@ -18,7 +18,7 @@ class Theme extends DataTheme {
       super.textFieldTheme = TextFeildTheme.defaultTextFieldTheme,
       super.defaultPadding = Theme.padding,
       super.buttonTheme = ButtonTheme.defaultButtonTheme,
-      super.backgroundColor = Theme.defaultBackgroundColor});
+      super.background = Theme.defaultBackgroundColor});
 }
 
 ///TextTheme
@@ -39,7 +39,7 @@ class ButtonTheme extends ButtonDataTheme {
       height: 45,
       width: 100,
       padding: REdgetInset.all(10),
-      backgroundColor: Theme.defaultColor,
+      background: Theme.defaultColor,
       decoration: Decoration(
         border: Rborder.all(raduis: Raduis.all(4), side: BorderSide()),
       ));
@@ -48,7 +48,7 @@ class ButtonTheme extends ButtonDataTheme {
       height: 45,
       width: 100,
       padding: REdgetInset.all(10),
-      backgroundColor: Colors.danger,
+      background: Colors.danger,
       decoration: Decoration(
         border: Rborder.all(raduis: Raduis.all(4), side: BorderSide()),
       ));
@@ -56,14 +56,14 @@ class ButtonTheme extends ButtonDataTheme {
       height: 45,
       width: 100,
       padding: REdgetInset.all(10),
-      backgroundColor: Colors.success,
+      background: Colors.success,
       decoration: Decoration(
         border: Rborder.all(raduis: Raduis.all(4), side: BorderSide()),
       ));
   static const _disbalbeButtonStyle = RStyle(
       width: 100,
       height: 45,
-      backgroundColor: Colors.white,
+      background: Colors.white,
       decoration: Decoration(
           shadow: BoxShadow(blur: 3, horizontal: 1, vertical: 1),
           border: Rborder(
