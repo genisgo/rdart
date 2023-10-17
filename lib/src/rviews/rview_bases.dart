@@ -59,8 +59,8 @@ class Page extends Relement {
         ..className = ClassName.page.name
         ..style.width = "100%"
         ..style.height = "100%"
-        ..style.display = "flex"
-        ..style.flexDirection = "column"
+        ..style.display = "grid"
+        //..style.flexDirection = "column"
         ..style.background =
             background?.color ?? _currentTheme.background.color;
     }
