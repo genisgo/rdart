@@ -190,8 +190,8 @@ class AppBar extends Relement {
       ..style.display = "inline-flex"
       ..style.alignContent = "center"
       ..style.boxShadow = boxShadow.toString()
-      ..style.background = background?.color ??
-          _currentTheme.appBarStyle.background?.color;
+      ..style.background =
+          background?.color ?? _currentTheme.appBarStyle.background?.color;
 
     //initilized childreen
     div.children.clear();
@@ -619,12 +619,11 @@ class Link extends Relement {
     //Set bootstrap
     _a.className = bootstrap.join(" ");
 
-    _a.attributes.addAll({"href": link??""});
+    _a.attributes.addAll({"href": link ?? ""});
     //onPress
     _a.onClick.listen((event) {
       click?.call();
-    if(link==null) event.preventDefault();
-      
+      if (link == null) event.preventDefault();
     });
     return _a;
   }

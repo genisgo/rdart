@@ -6,6 +6,7 @@ class BContainer extends Bootstrap {
   static const lg = BContainer._("container-lg");
   static const xl = BContainer._("container-xl");
   static const fluid = BContainer._("container-fluid");
+  static const container = BContainer._("container");
   const BContainer._(String cname) : super(cname);
 }
 
