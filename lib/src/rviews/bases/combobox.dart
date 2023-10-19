@@ -35,7 +35,7 @@ class ComboBox<T> extends Relement {
   SelectElement create() {
     _select.className += bootstraps.join(" ");
 
-
+    
     //Item
     for (var element in items) {
       element.create();
