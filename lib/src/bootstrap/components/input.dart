@@ -189,9 +189,9 @@ class BsInput extends Relement {
     if (label != null) _labelElement.innerText += label!;
     var content = [
       _labelElement,
-      //Si singleInput est activer _input ne doit pas être ajouter a ce niveau 
+      //Si singleInput est activer _input ne doit pas être ajouter a ce niveau
       //car cela vas provoquer un double ajout en bas line (223 -225)
-      if(!singleInput)_input,
+      if (!singleInput) _input,
       if (invalidMessage != null) invalidMessage!.getElement,
       if (validedMessage != null) validedMessage!.getElement
     ];
@@ -217,7 +217,8 @@ class BsInput extends Relement {
           onChange?.call((event.target as InputElement).value);
       }
     });
-    //
+    //if label is Null en childLabel is null throw singleInput at true
+    if (label == null && labelChild == null) singleInput = true;
     if (singleInput) {
       //_div.children.clear();
       _div = _input;
