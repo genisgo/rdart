@@ -516,6 +516,7 @@ class SizeBox extends Relement {
   int? height;
   int? width;
   bool modeRatio;
+  List<Bootstrap> bootstrap;
   AlignHorizontal alignHorizontal;
   AlignVertical alignVertical;
   final Relement? child;
@@ -524,6 +525,7 @@ class SizeBox extends Relement {
       {this.height,
       this.width,
       this.child,
+      this.bootstrap = const [],
       this.modeRatio = false,
       this.alignHorizontal = AlignHorizontal.center,
       this.alignVertical = AlignVertical.center}) {
@@ -534,13 +536,17 @@ class SizeBox extends Relement {
   Element create() {
     if (child != null) _div.children.add(child!.create());
 
-    return _div
-      ..id = "sizebox$_idgenerate"
-      ..style.justifyContent = alignHorizontal.value
-      ..style.alignItems = alignVertical.value
-      ..style.display = "flex"
-      ..style.width = width.px
-      ..style.height = height.px;
+    _div.id = "sizebox$_idgenerate";
+    _div.className = bootstrap.join(" ");
+    if (bootstrap.isEmpty) {
+      _div
+        ..style.justifyContent = alignHorizontal.value
+        ..style.alignItems = alignVertical.value
+        ..style.display = "flex"
+        ..style.width = width.px
+        ..style.height = height.px;
+    }
+    return _div;
   }
 
   @override

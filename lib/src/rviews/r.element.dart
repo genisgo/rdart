@@ -18,13 +18,12 @@ abstract class Relement {
 }
 
 abstract class Rview extends Relement {
-  late Relement _relement;
+  late Element _relement;
   Rview({String? key}) : super(key: key) {
     ///ondispose est cree pour eviter l'attachement des element appres suppression
     ///Comme les listener [sEventListener]
-    _relement = build();
 
-    Future.delayed(Duration.zero, () => initState());
+    // Future.delayed(Duration.zero, () => initState());
   }
 
   ///On initialized
@@ -35,7 +34,9 @@ abstract class Rview extends Relement {
 
   @override
   Element create() {
-    return _relement.create();
+    _relement = build().create();
+    initState();
+    return _relement;
   }
 
   void setState(void Function() state) {
@@ -47,8 +48,7 @@ abstract class Rview extends Relement {
         var oldIndex = oldParent!.children.indexOf(old);
 
         state();
-        _relement = build();
-        _relement.create();
+        _relement = build().create();
         oldParent.children.remove(old);
         oldParent.children.insert(oldIndex, getElement);
         //iniEvent();
@@ -57,7 +57,7 @@ abstract class Rview extends Relement {
   }
 
   @override
-  Element get getElement => _relement.getElement;
+  Element get getElement => _relement;
 }
 
 //definition du type de
