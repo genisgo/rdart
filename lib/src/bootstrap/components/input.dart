@@ -27,6 +27,7 @@ enum InputType {
 
 class BsInput extends Relement {
   String? id;
+  String iconUrl;
   Relement? labelChild;
   String? label;
   bool readonly;
@@ -58,6 +59,7 @@ class BsInput extends Relement {
 
   BsInput({
     this.onChange,
+    this.iconUrl = "",
     this.requred = false,
     this.groupeMode = false,
     this.labelFloating = false,
@@ -171,7 +173,6 @@ class BsInput extends Relement {
       _input.className = [bform.range, ...inputStyle].join(" ");
       min ??= "0";
       max ??= "100";
-
       _input.min = min;
       _input.max = max;
       _input.step = step;
@@ -223,6 +224,8 @@ class BsInput extends Relement {
       //_div.children.clear();
       _div = _input;
     }
+    //Change icon
+    _input.style.setProperty("background-image", "url($iconUrl)");
     return _div;
   }
 
