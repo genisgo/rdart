@@ -500,7 +500,7 @@ class Divider extends Relement {
   Element create() {
     _div
       ..id = "divider$_idgenerate"
-      ..style.background = color.color
+      ..style.color = color.color
       ..style.width = width == null ? "-webkit-fill-available" : "${width}px"
       ..style.height = "${height}px";
 
