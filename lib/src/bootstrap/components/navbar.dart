@@ -330,9 +330,7 @@ class BsTab extends Relement {
 
     _li.className = "${bnav.item}";
 
-    _btn.className = [
-      bnav.link,
-    ].join(" ");
+    _btn.className = [bnav.link, ...style].join(" ");
 
     _btn.attributes
         .addAll({"role": "tab", "aria-selected": "$active", "type": "button"});
