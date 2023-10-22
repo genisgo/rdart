@@ -122,6 +122,7 @@ class Container extends Relement {
     this.style,
     this.width,
     this.height,
+    super.key,
     this.singleBootStrap = false,
   });
   var _div = Element.div();
@@ -129,6 +130,7 @@ class Container extends Relement {
   Element create() {
     ///if style is defind and [ height] , [width] is defind
     ///
+    if(key!=null) _div.id = key!;
     if (!singleBootStrap) _div.className = "container";
     if (style != null) {
       if (height != 0) style = style!.copyWith(height: height);
@@ -370,12 +372,14 @@ class Column extends Relement {
       this.mainAxisExpand = false,
       this.crossAxisExpand = true,
       this.bootstrap = const [],
+      super.key,
       this.singleBootStrap = true,
       this.crossAxisAlignment = AlignVertical.top,
       this.mainAxisAlignment = AlignHorizontal.left});
   final _div = Element.div();
   @override
   Element create() {
+    if(key!=null) _div.id =key!;
     if (!singleBootStrap) {
       _div
         ..className = "column"

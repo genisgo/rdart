@@ -164,6 +164,8 @@ class BsNavTabs extends Relement {
   List<Bootstrap> panelStyle;
   List<Bootstrap> contenairStyle;
 
+  ///Detatch
+  bool detachedPanel;
   List<BsTabPanel> panels;
 
   String? targetId;
@@ -177,6 +179,7 @@ class BsNavTabs extends Relement {
 
   BsNavTabs(
       {required this.tabs,
+      this.detachedPanel = false,
       this.navStyle = const [],
       this.type = BsTabType.tabs,
       this.panels = const [],
@@ -194,7 +197,7 @@ class BsNavTabs extends Relement {
   @override
   Element create() {
     ///if target is set
-    bool isTarget = targetId != null && panels.isEmpty;
+    //bool isTarget = targetId != null && panels.isEmpty;
 
     //nav
     _nav.id = id!;
@@ -210,13 +213,14 @@ class BsNavTabs extends Relement {
     var tabEelement = tabs.map((e) => e.create()).toList();
 
     //on set target id
-    if (isTarget) {
-      var querySelect = querySelector("#$targetId");
+    // if (isTarget) {
+    //   var querySelect = querySelector("#$targetId");
 
-      if (querySelect != null) contentElement = querySelect.children;
-    } else {
-      contentElement = panels.map((e) => e.create()).toList();
-    }
+    //   if (querySelect != null) contentElement = querySelect.children;
+    // } else {
+
+    // }
+    contentElement = panels.map((e) => e.create()).toList();
 
     assert(contentElement.length == tabs.length,
         "tabs and panel must be the same numbers");
@@ -224,7 +228,7 @@ class BsNavTabs extends Relement {
     for (var i = 0; i < tabEelement.length; i++) {
       var btn = tabEelement[i].children.first;
 
-      var content = contentElement[i];
+      var content = panels[i];
       //set tab index
       tabs[i].index = i;
 
@@ -237,10 +241,10 @@ class BsNavTabs extends Relement {
       //set content id to btn
       btn.dataset.addAll({"bs-target": "#${content.id}"});
 
-      btn.attributes.addAll({"aria-controls": content.id});
+      btn.attributes.addAll({"aria-controls": content.id!});
 
       //set aria-labelledby
-      content.attributes.addAll({"aria-labelledby": btn.id});
+      //content.addAll({"aria-labelledby": btn.id});
     }
 
 //content
@@ -250,13 +254,13 @@ class BsNavTabs extends Relement {
 
     _nav.children.addAll(tabEelement);
 
-    if (panels.isNotEmpty) {
+    if (panels.isNotEmpty && !detachedPanel) {
       _divPanels.children.addAll(contentElement);
     }
     _divContent.children.add(
       _nav,
     );
-    if (!isTarget) {
+    if (!detachedPanel) {
       _divContent.children.add(_divPanels);
     }
     _divContent.className = contenairStyle.join(" ");
@@ -361,11 +365,11 @@ class BsTabPanel extends Rview {
     required this.child,
     this.bootstrap = const [],
     this.id,
-  });
+  }) {
+    id ??= "tab-panel-$generateId";
+  }
   @override
   Relement build() {
-    id ??= "tab-panel-$generateId";
-
     return BsElement(
         child: child,
         bootstrap: [btabs.panel, bfade, ...bootstrap],
