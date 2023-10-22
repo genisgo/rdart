@@ -208,7 +208,7 @@ class BsNavTabs extends Relement {
     _nav.className = [bnav, navType, ...navStyle].join(" ");
 
     //BsTab & content
-    List<Element> contentElement = [];
+    //List<Element> contentElement = [];
 
     var tabEelement = tabs.map((e) => e.create()).toList();
 
@@ -220,9 +220,8 @@ class BsNavTabs extends Relement {
     // } else {
 
     // }
-    contentElement = panels.map((e) => e.create()).toList();
 
-    assert(contentElement.length == tabs.length,
+    assert(panels.length == tabs.length,
         "tabs and panel must be the same numbers");
 
     for (var i = 0; i < tabEelement.length; i++) {
@@ -255,7 +254,7 @@ class BsNavTabs extends Relement {
     _nav.children.addAll(tabEelement);
 
     if (panels.isNotEmpty && !detachedPanel) {
-      _divPanels.children.addAll(contentElement);
+      _divPanels.children.addAll(panels.map((e) => e.create()).toList());
     }
     _divContent.children.add(
       _nav,
