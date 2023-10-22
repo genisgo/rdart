@@ -100,8 +100,13 @@ class BsModalController {
   }
 
   hide() {
-    _controllModal ??= bjs.Modal('#$targetID', {});
-    _controllModal?.hide();
+    try {
+      _controllModal ??= bjs.Modal('#$targetID', {});
+      _controllModal?.hide();
+    } catch (e) {
+      log("Modal.hide is call in no showing Modal",
+          error: e, stackTrace: StackTrace.current);
+    }
   }
 }
 
