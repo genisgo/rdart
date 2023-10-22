@@ -8,13 +8,13 @@ class RButton extends Relement {
   bool singleBootStrap;
   Color? onMouseEnterColor;
   Color? onMouseDownColor;
-  BtnType? type;
+  BtnType type;
   Relement? child;
   Function(Relement relement)? onHover;
   Function(Relement relement)? onPress;
   RButton(
       {this.onPress,
-      this.type,
+      this.type = BtnType.button,
       this.singleBootStrap = false,
       this.style,
       this.onHover,
@@ -56,7 +56,8 @@ class RButton extends Relement {
 
     if (child != null) element.children.add(child!.getElement);
 
-    if (type != null) element.type = type!.name;
+    ///Set Button Type
+    element.type = type.name;
 
     ///Set default theme
     style ??= _currentTheme.buttonTheme.defaultStyle;

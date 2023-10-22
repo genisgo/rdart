@@ -1,12 +1,10 @@
 part of 'rview_bases.dart';
-
 abstract class Relement {
   static int registrerElementID = 0;
   //generate id
   static int _idgenerate = 0;
   final String? key;
   const Relement({this.key});
-  
   Element create();
 
   Future ondispose() {
@@ -20,7 +18,8 @@ abstract class Relement {
 abstract class Rview extends Relement {
   late Element _relement;
   Rview({String? key}) : super(key: key) {
-    ///ondispose est cree pour eviter l'attachement des element appres suppression
+    ///ondispose
+    /// est cree pour eviter l'attachement des element appres suppression
     ///Comme les listener [sEventListener]
 
     // Future.delayed(Duration.zero, () => initState());
