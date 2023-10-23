@@ -33,7 +33,7 @@ class ComboBox<T> extends Relement {
   final _select = SelectElement();
   @override
   SelectElement create() {
-    _select.className += bootstraps.join(" ");
+    _select.className = bootstraps.join(" ");
 
     
     //Item

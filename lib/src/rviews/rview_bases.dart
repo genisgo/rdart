@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:html';
 import 'package:rdart/src/bootstrap/js/bootrap.js.dart';
-import 'package:rdart/src/rviews/js/nativeJs.dart';
-
 import '../../themes.dart';
 import '../themes/data_themes.dart';
 import '../../bootstrap.dart';
