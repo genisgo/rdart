@@ -106,6 +106,7 @@ Add a close button and the .alert-dismissible class, which adds extra padding to
 On the close button, add the data-bs-dismiss="alert" attribute, which triggers the JavaScript functionality. Be sure to use the <button> element with it for proper behavior across all devices.
 To animate alerts when dismissing them, be sure to add the .fade and .show classes.
  */
+
   static const Bootstrap disimissible =
       BAlert._("alert-dismissible alert-dismissible fade show");
 }
@@ -248,7 +249,6 @@ class _DropdownMenuAlign extends Bootstrap implements Bscreen {
   }
 
   @override
-  // TODO: implement lg
   Bootstrap get lg => addScreen("lg");
 
   @override
@@ -256,15 +256,12 @@ class _DropdownMenuAlign extends Bootstrap implements Bscreen {
   Bootstrap get md => addScreen("md");
 
   @override
-  // TODO: implement sm
   Bootstrap get sm => addScreen("sm");
 
   @override
-  // TODO: implement xl
   Bootstrap get xl => addScreen("xl");
 
   @override
-  // TODO: implement xxl
   Bootstrap get xxl => addScreen("xxl");
 }
 
@@ -304,7 +301,6 @@ class _BListGroupeHorizontal extends Bootstrap implements Bscreen {
   const _BListGroupeHorizontal._(super.cname);
 
   @override
-  // TODO: implement lg
   Bootstrap get lg => addScreen("lg");
 
   @override
@@ -312,15 +308,12 @@ class _BListGroupeHorizontal extends Bootstrap implements Bscreen {
   Bootstrap get md => addScreen("md");
 
   @override
-  // TODO: implement sm
   Bootstrap get sm => addScreen("sm");
 
   @override
-  // TODO: implement xl
   Bootstrap get xl => addScreen("xl");
 
   @override
-  // TODO: implement xxl
   Bootstrap get xxl => addScreen("xxl");
 
   @override
@@ -439,22 +432,18 @@ class BModal extends Bootstrap implements Bscreen {
   }
 
   @override
-  // TODO: implement lg
   Bootstrap get lg => addScreen("lg");
 
   @override
   // TODO: implement md
   Bootstrap get md => addScreen("md");
   @override
-  // TODO: implement sm
   Bootstrap get sm => addScreen("sm");
 
   @override
-  // TODO: implement xl
   Bootstrap get xl => addScreen("xl");
 
   @override
-  // TODO: implement xxl
   Bootstrap get xxl => addScreen("xxl");
 }
 
@@ -468,23 +457,18 @@ class _BsModalScreen extends Bootstrap implements Bscreen {
   }
 
   @override
-  // TODO: implement lg
   Bootstrap get lg => addScreen("lg-down");
 
   @override
-  // TODO: implement md
   Bootstrap get md => addScreen("md-down");
 
   @override
-  // TODO: implement sm
   Bootstrap get sm => addScreen("sm-down");
 
   @override
-  // TODO: implement xl
   Bootstrap get xl => addScreen("xl-down");
 
   @override
-  // TODO: implement xxl
   Bootstrap get xxl => addScreen("xxl-down");
 }
 
@@ -521,7 +505,6 @@ class BnavbarExpand extends Bootstrap implements Bscreen {
   }
 
   @override
-  // TODO: implement lg
   Bootstrap get lg => addScreen("lg");
 
   @override
@@ -529,15 +512,12 @@ class BnavbarExpand extends Bootstrap implements Bscreen {
   Bootstrap get md => addScreen("md");
 
   @override
-  // TODO: implement sm
   Bootstrap get sm => addScreen("sm");
 
   @override
-  // TODO: implement xl
   Bootstrap get xl => addScreen("xl");
 
   @override
-  // TODO: implement xxl
   Bootstrap get xxl => addScreen("xxl");
 }
 
@@ -594,22 +574,18 @@ class BoffCanvas extends Bootstrap implements Bscreen {
   }
 
   @override
-  // TODO: implement lg
   Bootstrap get lg => addScreen("lg");
 
   @override
   // TODO: implement md
   Bootstrap get md => addScreen("md");
   @override
-  // TODO: implement sm
   Bootstrap get sm => addScreen("sm");
 
   @override
-  // TODO: implement xl
   Bootstrap get xl => addScreen("xl");
 
   @override
-  // TODO: implement xxl
   Bootstrap get xxl => addScreen("xxl");
 }
 
@@ -624,16 +600,14 @@ class BoffCanvasPosition {
   }
 
   static const position = BoffCanvasPosition("offcanvas");
-  // TODO: implement lg
+
   Bootstrap get start => addScreen("start");
 
   // TODO: implement md
   Bootstrap get end => addScreen("end");
 
-  // TODO: implement sm
   Bootstrap get top => addScreen("top");
 
-  // TODO: implement xl
   Bootstrap get bottom => addScreen("bottom");
 }
 
@@ -652,7 +626,6 @@ class Bpagination extends Bootstrap implements Bscreen {
   }
 
   @override
-  // TODO: implement lg
   Bootstrap get lg => addScreen("lg");
 
   @override
@@ -660,15 +633,12 @@ class Bpagination extends Bootstrap implements Bscreen {
   Bootstrap get md => addScreen("md");
 
   @override
-  // TODO: implement sm
   Bootstrap get sm => addScreen("sm");
 
   @override
-  // TODO: implement xl
   Bootstrap get xl => addScreen("xl");
 
   @override
-  // TODO: implement xxl
   Bootstrap get xxl => addScreen("xxl");
 }
 
@@ -687,7 +657,6 @@ class BPlaceHolder extends Bootstrap implements Bscreen {
   }
 
   @override
-  // TODO: implement lg
   Bootstrap get lg => addScreen("lg");
 
   @override
@@ -695,15 +664,12 @@ class BPlaceHolder extends Bootstrap implements Bscreen {
   Bootstrap get md => addScreen("md");
 
   @override
-  // TODO: implement sm
   Bootstrap get sm => addScreen("sm");
 
   @override
-  // TODO: implement xl
   Bootstrap get xl => addScreen("xl");
 
   @override
-  // TODO: implement xxl
   Bootstrap get xxl => addScreen("xxl");
 }
 
@@ -736,7 +702,6 @@ final class Bspinner extends Bootstrap implements Bscreen {
   }
 
   @override
-  // TODO: implement lg
   Bootstrap get lg => addScreen("lg");
 
   @override
@@ -744,15 +709,12 @@ final class Bspinner extends Bootstrap implements Bscreen {
   Bootstrap get md => addScreen("md");
 
   @override
-  // TODO: implement sm
   Bootstrap get sm => addScreen("sm");
 
   @override
-  // TODO: implement xl
   Bootstrap get xl => addScreen("xl");
 
   @override
-  // TODO: implement xxl
   Bootstrap get xxl => addScreen("xxl");
 }
 
@@ -766,4 +728,35 @@ class Btoast extends Bootstrap {
   Bootstrap get container => Btoast._("toast-container");
 
   Bootstrap get body => Btoast._("toast-body");
+}
+
+mixin BScreenMixin {
+  String get param;
+  int get insert => 1;
+  Bootstrap get sx => _defaultAddScreen("sx", param, insert);
+  Bootstrap get sm => _defaultAddScreen("sm", param, insert);
+  Bootstrap get md => _defaultAddScreen("md", param, insert);
+  Bootstrap get lg => _defaultAddScreen("lg", param, insert);
+  Bootstrap get xl => _defaultAddScreen("xl", param, insert);
+  Bootstrap get xxl => _defaultAddScreen("xxl", param, insert);
+}
+
+//////---------------Table------------------///
+final btable = Btable.table;
+final btableresponsive = Btable.tableResponsive;
+
+final class Btable extends Bootstrap with BScreenMixin {
+  const Btable._(super.cname);
+  static const table = Btable._("table");
+  static const tableResponsive = Btable._("table-responsive");
+  Bootstrap get headLight => Btable._("thead-light");
+  Bootstrap get headDark => Btable._("tthead-dark");
+  Bootstrap get striped => Btable._("table-striped");
+  Bootstrap get bordered => Btable._("table-bordered");
+  Bootstrap get hover => Btable._("table-hover");
+  Bootstrap get active => Btable._("table-active");
+  Btable get tableResponsivei => Btable._("table-responsive");
+  @override
+  // TODO: implement param
+  String get param => cname;
 }

@@ -1,3 +1,5 @@
+import 'dart:js_util';
+
 import 'package:rdart/rviews.dart';
 
 part '../bootstrap/css.class/utilities.dart';

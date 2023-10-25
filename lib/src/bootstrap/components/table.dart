@@ -1,0 +1,100 @@
+part of 'bs.components.dart';
+
+class BsTable extends Relement {
+  BsTableHeader header;
+  List<Bootstrap> style;
+  List<BsTableRow> rows;
+  BsTable({required this.header, required this.rows, this.style = const []});
+
+  var table = Element.table();
+  @override
+  Element create() {
+    ///Body prepare
+    var body = Element.tag("tbody");
+    var el = rows.map((e) => e.create());
+
+    body.children.addAll(el);
+    table.children.addAll([
+      header.create(),
+      body,
+    ]);
+    //applique style
+    table.className = [btable, ...style].join(" ");
+    table.style.setProperty("--bs-table-bg", "none");
+    return table;
+  }
+
+  @override
+  // TODO: implement getElement
+  Element get getElement => table;
+}
+
+class BsTableRow extends Relement {
+  List<BsTableCell> cells;
+  List<Bootstrap> style;
+  BsTableRow({required this.cells, this.style = const []});
+  final _row = Element.tr();
+  @override
+  Element create() {
+    _row.className = style.join(" ");
+    _row.children.addAll(cells.map((e) => e.create()));
+    return _row;
+  }
+
+  @override
+  // TODO: implement getElement
+  Element get getElement => _row;
+}
+
+class BsTableCell extends Relement {
+  Relement child;
+  bool scope;
+  List<Bootstrap> style;
+
+  BsTableCell({required this.child, this.scope = false, this.style = const []});
+  var _td = Element.td();
+  @override
+  Element create() {
+    if (scope) {
+      _td = Element.th();
+      _td.attributes.addAll({"scope": "row"});
+    }
+    _td.className = [...style].join(" ");
+    _td.children.add(child.create());
+    return _td;
+  }
+
+  @override
+  // TODO: implement getElement
+  Element get getElement => _td;
+}
+
+class BsTableHeader extends Relement {
+  List<Relement> cols;
+  List<Bootstrap> style;
+  BsTableHeader({required this.cols, this.style = const []});
+
+  final _header = Element.tag("thead");
+
+  @override
+  Element create() {
+    //th
+    var tr = Element.tr();
+    //tr
+    tr.children.addAll(cols.map((e) {
+      final th = Element.th();
+      th.attributes.addAll({"scope": "col"});
+      th.children.add(e.create());
+      return th;
+    }));
+//header
+    //_header.innerHtml = "  <thead> ${tr.innerHtml} </thead>";
+    _header.children.add(tr);
+    _header.className = [...style].join(" ");
+    return _header;
+  }
+
+  @override
+  // TODO: implement getElement
+  Element get getElement => _header;
+}

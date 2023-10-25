@@ -37,7 +37,7 @@ class Bcolumn extends Bootstrap implements Bscreen {
   @override
   Bcolumn get xl => addScreen("xl");
   @override
-  // TODO: implement xxl
+  
   Bootstrap get xxl => addScreen("xxl");
 
 //add Goutter
@@ -67,22 +67,22 @@ class Brow extends Bootstrap implements Bscreen {
   const Brow._col(int col) : super("row-cols-$col");
 
   @override
-  // TODO: implement lg
+  
   Brow get lg => addScreen("lg");
 
   @override
   Brow get md => addScreen("md");
 
   @override
-  // TODO: implement sm
+  
   Brow get sm => addScreen("sm");
 
   @override
-  // TODO: implement xl
+  
   Brow get xl => addScreen("xl");
 
   @override
-  // TODO: implement xxl
+  
   Bootstrap get xxl => addScreen("xxl");
 
   @override

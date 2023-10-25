@@ -37,7 +37,7 @@ class BsInputForm extends Bootstrap implements Bscreen {
   }
 
   @override
-  // TODO: implement lg
+  
   Bootstrap get lg => addScreen("lg");
 
   @override
@@ -45,15 +45,15 @@ class BsInputForm extends Bootstrap implements Bscreen {
   Bootstrap get md => addScreen("md");
 
   @override
-  // TODO: implement sm
+  
   Bootstrap get sm => addScreen("sm");
 
   @override
-  // TODO: implement xl
+  
   Bootstrap get xl => addScreen("xl");
 
   @override
-  // TODO: implement xxl
+  
   Bootstrap get xxl => addScreen("xxl");
 }
 
@@ -92,7 +92,7 @@ class BinputGroup extends Bootstrap implements Bscreen {
   }
 
   @override
-  // TODO: implement lg
+  
   Bootstrap get lg => throw UnimplementedError();
 
   @override
@@ -100,14 +100,14 @@ class BinputGroup extends Bootstrap implements Bscreen {
   Bootstrap get md => throw UnimplementedError();
 
   @override
-  // TODO: implement sm
+  
   Bootstrap get sm => throw UnimplementedError();
 
   @override
-  // TODO: implement xl
+  
   Bootstrap get xl => throw UnimplementedError();
 
   @override
-  // TODO: implement xxl
+  
   Bootstrap get xxl => throw UnimplementedError();
 }

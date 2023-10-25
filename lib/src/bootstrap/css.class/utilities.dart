@@ -301,7 +301,7 @@ class _TextAlign extends Bootstrap implements Bscreen {
   }
 
   @override
-  // TODO: implement lg
+  
   Bootstrap get lg => addScreen("lg");
 
   @override
@@ -309,15 +309,15 @@ class _TextAlign extends Bootstrap implements Bscreen {
   Bootstrap get md => addScreen("md");
 
   @override
-  // TODO: implement sm
+  
   Bootstrap get sm => addScreen("sm");
 
   @override
-  // TODO: implement xl
+  
   Bootstrap get xl => addScreen("xl");
 
   @override
-  // TODO: implement xxl
+  
   Bootstrap get xxl => addScreen("xxl");
 }
 
@@ -397,7 +397,7 @@ base class Bdisplay extends Bootstrap implements Bscreen {
   }
 
   @override
-  // TODO: implement lg
+  
   Bootstrap get lg => addScreen("lg");
 
   @override
@@ -405,15 +405,15 @@ base class Bdisplay extends Bootstrap implements Bscreen {
   Bootstrap get md => addScreen("md");
 
   @override
-  // TODO: implement sm
+  
   Bootstrap get sm => addScreen("sm");
 
   @override
-  // TODO: implement xl
+  
   Bootstrap get xl => addScreen("xl");
 
   @override
-  // TODO: implement xxl
+  
   Bootstrap get xxl => addScreen("xxl");
 
   Bootstrap get print => addScreen("print");
@@ -437,7 +437,7 @@ class BFlex extends Bootstrap implements Bscreen {
   }
 
   @override
-  // TODO: implement lg
+  
   Bootstrap get lg => addScreen("lg");
 
   @override
@@ -445,15 +445,15 @@ class BFlex extends Bootstrap implements Bscreen {
   Bootstrap get md => addScreen("md");
 
   @override
-  // TODO: implement sm
+  
   Bootstrap get sm => addScreen("sm");
 
   @override
-  // TODO: implement xl
+  
   Bootstrap get xl => addScreen("xl");
 
   @override
-  // TODO: implement xxl
+  
   Bootstrap get xxl => addScreen("xxl");
 }
 
@@ -472,7 +472,7 @@ class BAlignItem extends Bootstrap implements Bscreen {
   }
 
   @override
-  // TODO: implement lg
+  
   Bootstrap get lg => addScreen("lg");
 
   @override
@@ -480,15 +480,15 @@ class BAlignItem extends Bootstrap implements Bscreen {
   Bootstrap get md => addScreen("md");
 
   @override
-  // TODO: implement sm
+  
   Bootstrap get sm => addScreen("sm");
 
   @override
-  // TODO: implement xl
+  
   Bootstrap get xl => addScreen("xl");
 
   @override
-  // TODO: implement xxl
+  
   Bootstrap get xxl => addScreen("xxl");
 }
 
@@ -507,7 +507,7 @@ class BAlignSelf extends Bootstrap implements Bscreen {
   }
 
   @override
-  // TODO: implement lg
+  
   Bootstrap get lg => addScreen("lg");
 
   @override
@@ -515,15 +515,15 @@ class BAlignSelf extends Bootstrap implements Bscreen {
   Bootstrap get md => addScreen("md");
 
   @override
-  // TODO: implement sm
+  
   Bootstrap get sm => addScreen("sm");
 
   @override
-  // TODO: implement xl
+  
   Bootstrap get xl => addScreen("xl");
 
   @override
-  // TODO: implement xxl
+  
   Bootstrap get xxl => addScreen("xxl");
 }
 
@@ -542,7 +542,7 @@ class BJustifyContent extends Bootstrap implements Bscreen {
   }
 
   @override
-  // TODO: implement lg
+  
   Bootstrap get lg => addScreen("lg");
 
   @override
@@ -550,15 +550,15 @@ class BJustifyContent extends Bootstrap implements Bscreen {
   Bootstrap get md => addScreen("md");
 
   @override
-  // TODO: implement sm
+  
   Bootstrap get sm => addScreen("sm");
 
   @override
-  // TODO: implement xl
+  
   Bootstrap get xl => addScreen("xl");
 
   @override
-  // TODO: implement xxl
+  
   Bootstrap get xxl => addScreen("xxl");
 }
 
@@ -578,7 +578,7 @@ class BAlinContent extends Bootstrap implements Bscreen {
   }
 
   @override
-  // TODO: implement lg
+  
   Bootstrap get lg => addScreen("lg");
 
   @override
@@ -586,15 +586,15 @@ class BAlinContent extends Bootstrap implements Bscreen {
   Bootstrap get md => addScreen("md");
 
   @override
-  // TODO: implement sm
+  
   Bootstrap get sm => addScreen("sm");
 
   @override
-  // TODO: implement xl
+  
   Bootstrap get xl => addScreen("xl");
 
   @override
-  // TODO: implement xxl
+  
   Bootstrap get xxl => addScreen("xxl");
 }
 
@@ -682,7 +682,7 @@ class Bshadow extends Bootstrap implements Bscreen {
 
   Bootstrap get none => _BootStrapDefaultImp("$cname-none");
   @override
-  // TODO: implement lg
+  
   Bootstrap get lg => _BootStrapDefaultImp("$cname-lg");
 
   @override
@@ -690,15 +690,15 @@ class Bshadow extends Bootstrap implements Bscreen {
   Bootstrap get md => _BootStrapDefaultImp("$cname-md");
 
   @override
-  // TODO: implement sm
+  
   Bootstrap get sm => _BootStrapDefaultImp("$cname-sm");
 
   @override
-  // TODO: implement xl
+  
   Bootstrap get xl => _BootStrapDefaultImp("$cname-xl");
 
   @override
-  // TODO: implement xxl
+  
   Bootstrap get xxl => _BootStrapDefaultImp("$cname-xxl");
 }
 
@@ -788,7 +788,7 @@ class BfitBox extends Bootstrap implements Bscreen {
   }
 
   @override
-  // TODO: implement lg
+  
   Bootstrap get lg => _defaultAddScreen("lg", cname, 2);
 
   @override
@@ -796,14 +796,14 @@ class BfitBox extends Bootstrap implements Bscreen {
   Bootstrap get md => _defaultAddScreen("md", cname, 2);
 
   @override
-  // TODO: implement sm
+  
   Bootstrap get sm => _defaultAddScreen("sm", cname, 2);
 
   @override
-  // TODO: implement xl
+  
   Bootstrap get xl => _defaultAddScreen("xl", cname, 2);
 
   @override
-  // TODO: implement xxl
+  
   Bootstrap get xxl => _defaultAddScreen("xxl", cname, 2);
 }
