@@ -128,7 +128,7 @@ class Container extends Relement {
   Element create() {
     ///if style is defind and [ height] , [width] is defind
     ///
-    if(key!=null) _div.id = key!;
+    if (key != null) _div.id = key!;
     if (!singleBootStrap) _div.className = "container";
     if (style != null) {
       if (height != 0) style = style!.copyWith(height: height);
@@ -377,7 +377,7 @@ class Column extends Relement {
   final _div = Element.div();
   @override
   Element create() {
-    if(key!=null) _div.id =key!;
+    if (key != null) _div.id = key!;
     if (!singleBootStrap) {
       _div
         ..className = "column"
@@ -671,4 +671,21 @@ class DataList extends Relement {
   @override
   // TODO: implement getElement
   Element get getElement => datalist;
+}
+
+///////////////////RVIEW STYLE/////////////////////////////
+class RviewStyle extends Relement {
+  Relement child;
+  RStyle style;
+  RviewStyle({required this.child, required this.style});
+  late var _element;
+  @override
+  Element create() {
+    _element = style.createStyle(child.create());
+    return _element;
+  }
+
+  @override
+  // TODO: implement getElement
+  Element get getElement => _element;
 }

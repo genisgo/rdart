@@ -60,6 +60,8 @@ abstract class Style {
   Element createStyle(Element e);
 }
 
+
+
 class RStyle extends Style {
   final bool modeRatio;
 
@@ -124,7 +126,7 @@ class RStyle extends Style {
         decoration: decoration ?? this.decoration,
         expandHeight: expandHeight ?? this.expandHeight,
         expandWidth: expandWidth ?? this.expandWidth,
-        backgroundSize: backgroundSize??this.backgroundSize,
+        backgroundSize: backgroundSize ?? this.backgroundSize,
         height: height ?? this.height,
         margin: margin ?? this.margin,
         fontWeight: fontWeight ?? this.fontWeight,
