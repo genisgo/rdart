@@ -25,7 +25,7 @@ class BsNavbar extends Relement {
       this.toggleButton,
       this.useDefaultExpand = true,
       this.id})
-      : super(key: id) {
+      : super(id: id) {
     id ??= "nav$_idgenerate";
   }
   var idCollapse = "navcollapse$_idgenerate";
@@ -103,7 +103,7 @@ class BsNavMenu extends Rview {
   List<Bootstrap> style;
   String? id;
   BsNavMenu({required this.items, this.style = const [], this.id})
-      : super(key: id);
+      : super(id: id);
 
   @override
   Relement build() {
@@ -128,7 +128,7 @@ class BsNav extends Relement {
   List<Bootstrap> bootstrap;
   final _nav = Element.ul();
   BsNav({required this.items, this.bootstrap = const [], this.id})
-      : super(key: id) {
+      : super(id: id) {
     _idgenerate++;
     id ??= "nav$_idgenerate";
   }
@@ -189,7 +189,7 @@ class BsNavTabs extends Relement {
       this.vertacal = false,
       this.targetId,
       this.id})
-      : super(key: id) {
+      : super(id: id) {
     id ??= "nav-tabs-$generateId";
     _contentId = "content-$generateId";
   }

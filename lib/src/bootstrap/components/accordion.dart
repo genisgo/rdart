@@ -31,7 +31,7 @@ class BsAccordion extends Rview {
       required this.item,
       this.noUseParent = false,
       this.useFlush = false})
-      : super(key: id);
+      : super(id: id);
   @override
   Relement build() {
     return BsElement(
@@ -42,10 +42,10 @@ class BsAccordion extends Rview {
 
   @override
   void initState() {
-    getElement.id = key!;
+    getElement.id = id!;
     if (!noUseParent) {
       for (var element in item) {
-        element.parent = key!;
+        element.parent = id!;
       }
     }
     super.initState();
@@ -87,7 +87,7 @@ class BsAccordionItem extends Rview {
 
   @override
   void initState() {
-    body.headerKey = header.key!;
+    body.headerKey = header.id!;
     header.bodyKey = body.id!;
     //show
     if (show) {
@@ -164,7 +164,7 @@ class BsAccordionHeader extends Rview {
       String key = "",
       required this.child,
       this.activeColor})
-      : super(key: key);
+      : super(id: key);
 
   @override
   void initState() {
@@ -210,7 +210,7 @@ class BsAccordionHeader extends Rview {
     getElement.children.first.attributes.addAll({
       "aria-controls": bodykey,
     });
-    getElement.id = key!;
+    getElement.id = id!;
   }
 
   show() {

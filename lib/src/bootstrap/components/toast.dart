@@ -18,7 +18,7 @@ class BsToast extends Rview {
       this.style = const [],
       this.showHeader = true,
       this.headerStyle = const []})
-      : super(key: id);
+      : super(id: id);
   @override
   Relement build() {
     return BsElement(
