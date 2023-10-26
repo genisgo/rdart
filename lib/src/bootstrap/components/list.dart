@@ -97,6 +97,7 @@ class BsList extends Relement {
       {this.items = const [],
       this.style = const [],
       this.mouseHoverColor,
+      super.id,
       this.itemActiveColor});
   final _ol = Element.ol();
   @override
@@ -108,7 +109,8 @@ class BsList extends Relement {
     _ol.style
       ..setProperty("--bs-list-group-action-hover-bg", mouseHoverColor?.color)
       ..setProperty("--list-group-action-active-bg", mouseHoverColor?.color);
-
+    //Set ID
+    if (id != null) _ol.id = id!;
     return _ol;
   }
 
@@ -138,10 +140,11 @@ class BsListItem extends Relement {
   List<Bootstrap> style;
   BsListItem(
       {this.child,
+      super.id,
       this.active = false,
       this.disabled = false,
       this.style = const []});
-  final _li = Element.li();
+  var _li = Element.li();
   @override
   Element create() {
     var isActionItem = child is Link || child is RButton;
@@ -156,7 +159,11 @@ class BsListItem extends Relement {
       if (active) "aria-current": "true"
     });
     // _li.children.add(item.create());
-    return item.create(); //: _li;
+
+    _li = item.create(); //: _li;
+    //SET ID
+    if (id != null) _li.id = id!;
+    return _li;
   }
 
   @override

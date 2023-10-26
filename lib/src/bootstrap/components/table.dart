@@ -4,7 +4,11 @@ class BsTable extends Relement {
   BsTableHeader header;
   List<Bootstrap> style;
   List<BsTableRow> rows;
-  BsTable({required this.header, required this.rows, this.style = const []});
+  BsTable(
+      {required this.header,
+      required this.rows,
+      this.style = const [],
+      super.id});
 
   var table = Element.table();
   @override
@@ -21,6 +25,8 @@ class BsTable extends Relement {
     //applique style
     table.className = [btable, ...style].join(" ");
     table.style.setProperty("--bs-table-bg", "none");
+    //SET ID
+    if (id != null) table.id = id!;
     return table;
   }
 
@@ -32,12 +38,14 @@ class BsTable extends Relement {
 class BsTableRow extends Relement {
   List<BsTableCell> cells;
   List<Bootstrap> style;
-  BsTableRow({required this.cells, this.style = const []});
+  BsTableRow({required this.cells, this.style = const [], super.id});
   final _row = Element.tr();
   @override
   Element create() {
     _row.className = style.join(" ");
     _row.children.addAll(cells.map((e) => e.create()));
+    //SET ID
+    if (id != null) _row.id = id!;
     return _row;
   }
 
@@ -51,7 +59,11 @@ class BsTableCell extends Relement {
   bool scope;
   List<Bootstrap> style;
 
-  BsTableCell({required this.child, this.scope = false, this.style = const []});
+  BsTableCell(
+      {required this.child,
+      this.scope = false,
+      this.style = const [],
+      super.id});
   var _td = Element.td();
   @override
   Element create() {
@@ -61,6 +73,8 @@ class BsTableCell extends Relement {
     }
     _td.className = [...style].join(" ");
     _td.children.add(child.create());
+    //SET ID
+    if (id != null) _td.id = id!;
     return _td;
   }
 
@@ -72,7 +86,7 @@ class BsTableCell extends Relement {
 class BsTableHeader extends Relement {
   List<Relement> cols;
   List<Bootstrap> style;
-  BsTableHeader({required this.cols, this.style = const []});
+  BsTableHeader({required this.cols, this.style = const [], super.id});
 
   final _header = Element.tag("thead");
 
@@ -85,6 +99,8 @@ class BsTableHeader extends Relement {
       final th = Element.th();
       th.attributes.addAll({"scope": "col"});
       th.children.add(e.create());
+      //SET ID
+      if (id != null) th.id = id!;
       return th;
     }));
 //header

@@ -10,16 +10,17 @@ class BsAlert extends Rview {
       {Relement? child,
       this.dismissible = false,
       this.type,
-      this.bootstrap = const []})
+      this.bootstrap = const [],
+      super.id})
       : _child = child;
   @override
   Relement build() {
     return BsElement(
+        id: id,
         child: Column(
             singleBootStrap: true,
             children: [if (child != null) child!, if (dismissible) closeBtn()]),
-        bootstrap: 
-        [
+        bootstrap: [
           type ?? balert.info,
           BAlert.alert,
           if (dismissible) BAlert.disimissible,

@@ -72,7 +72,7 @@ class BsAccordionItem extends Rview {
   BsAccordionBody body;
   bool show;
   BsAccordionItem(
-      {required this.header, required this.body, this.show = false});
+      {required this.header, required this.body, this.show = false, super.id});
   @override
   Relement build() {
     return Column(
@@ -117,17 +117,15 @@ class BsAccordionItem extends Rview {
 ///     ])
 ///```
 class BsAccordionBody extends Rview {
-  static int _internalId = 0;
-  String? id;
   Relement child;
-  BsAccordionBody({required this.child, this.id}) {
-    _internalId++;
-  }
+  BsAccordionBody({required this.child, super.id});
 
   @override
   Relement build() {
-    id ??= "accoridonBody$_internalId";
+    //set
+    String ids = id ?? "accoridonBody$generateId";
     return BsElement(
+        id: ids,
         userParent: true,
         child:
             BsElement(child: child, bootstrap: [Baccordion.body], dataset: {}),
@@ -137,7 +135,7 @@ class BsAccordionBody extends Rview {
         ],
         dataset: {},
         attributes: {
-          "id": id!,
+          "id": ids,
         });
   }
 
@@ -160,11 +158,8 @@ class BsAccordionHeader extends Rview {
 
   Color? activeColor;
   BsAccordionHeader(
-      {this.padding = 4,
-      String key = "",
-      required this.child,
-      this.activeColor})
-      : super(id: key);
+      {this.padding = 4, String id = "", required this.child, this.activeColor})
+      : super(id: id);
 
   @override
   void initState() {
@@ -210,7 +205,7 @@ class BsAccordionHeader extends Rview {
     getElement.children.first.attributes.addAll({
       "aria-controls": bodykey,
     });
-    getElement.id = id!;
+    if (id != null) getElement.id = id!;
   }
 
   show() {

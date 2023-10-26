@@ -27,7 +27,8 @@ class BsOffcanvas extends Rview {
       this.center = true,
       this.static = false,
       this.transition = true,
-      this.style = const []}) {
+      this.style = const []})
+      : super(id: id) {
     _idgenerate++;
     id ??= "modal$_idgenerate";
   }
@@ -83,7 +84,8 @@ class BsOffcanvasControl extends Rview {
   Relement child;
   String targetID;
   String? data;
-  BsOffcanvasControl({required this.targetID, required this.child, this.data});
+  BsOffcanvasControl(
+      {required this.targetID, required this.child, this.data, super.id});
   @override
   Relement build() {
     return BsElement(child: child, bootstrap: [], dataset: {
@@ -121,6 +123,7 @@ class BsOffcanvasHeader extends Relement {
   BsOffcanvasHeader(
       {required this.title,
       this.close,
+      super.id,
       this.defaultClose = true,
       this.headerStye = const [],
       this.titleStye = const []});
@@ -148,6 +151,8 @@ class BsOffcanvasHeader extends Relement {
     header.className += [boffcanvas.header, ...headerStye].join(" ");
     header.children
         .addAll([title.getElement, if (close != null) close!.getElement]);
+    //SET ID
+    if (id != null) header.id = id!;
     return header;
   }
 
@@ -160,13 +165,14 @@ class BsoffcanvasCloseBtn extends Rview {
   Relement? child;
   List<Bootstrap> bootstrap;
   Function(Relement)? onPress;
-  BsoffcanvasCloseBtn({this.child, this.bootstrap = const [], this.onPress});
+  BsoffcanvasCloseBtn(
+      {this.child, this.bootstrap = const [], this.onPress, super.id});
   @override
   Relement build() {
     var defualtBtn =
         RButton(type: BtnType.button, singleBootStrap: true, onPress: onPress);
 
-    return BsElement(
+    return BsElement(id: id,
         child: child ?? defualtBtn,
         bootstrap: [],
         dataset: {"bs-dismiss": "offcanvas"});

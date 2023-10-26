@@ -1,7 +1,4 @@
-import 'dart:js_util';
-
 import 'package:rdart/rviews.dart';
-
 part '../bootstrap/css.class/utilities.dart';
 part '../bootstrap/css.class/layout.dart';
 part 'css.class/components.dart';
@@ -19,7 +16,6 @@ abstract class Bootstrap {
   String get cname => _cname!;
   @override
   String toString() {
-    // TODO: implement toString
     return cname;
   }
 }

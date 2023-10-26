@@ -15,6 +15,7 @@ class BsPagination extends Relement {
       this.style = const [],
       this.previous = true,
       this.onNext,
+      super.id,
       this.currentIndex = 0,
       this.onSelet,
       this.onPrevious,
@@ -49,6 +50,9 @@ class BsPagination extends Relement {
       ...itemElements,
       if (next) nextElement.getElement
     ]);
+
+    ///SEt ID
+    if (id != null) _page.id = id!;
     return _page;
   }
 
@@ -71,8 +75,7 @@ class BsPagination extends Relement {
       //set disable if min
       if (isMinIndex) {
         eprev.className += " $bdisable";
-      } else 
-      {
+      } else {
         eprev.className = eprev.className.replaceAll("$bdisable", "");
       }
       onPrevious?.call(selectIndex);
@@ -116,7 +119,7 @@ class BsPaginationItem extends Relement {
   bool active;
 
   BsPaginationItem(
-      {required this.link, this.style = const [], this.active = false});
+      {required this.link, this.style = const [], this.active = false,super.id});
 
   final item = Element.li();
   @override
@@ -128,6 +131,8 @@ class BsPaginationItem extends Relement {
     item.className =
         [bpagination.item, if (active) bactive, ...style].join(" ");
     item.children.add(link.getElement);
+    //SET ID
+    if (id != null) item.id = id!;
     return item;
   }
 

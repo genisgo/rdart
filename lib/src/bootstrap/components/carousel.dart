@@ -5,7 +5,6 @@ enum CarouselMode {
   fade;
 }
 
-
 ///Carousel use [bcarousel] or [Bcarousel.carousel]
 ///Example :
 ///```dart
@@ -41,7 +40,8 @@ class BsCarousel extends Rview {
       this.autoPlay = false,
       this.controler,
       this.mode = CarouselMode.slide,
-      this.bootstrap = const []}) {
+      this.bootstrap = const []})
+      : super(id: '') {
     _idgenerate++;
     //initialisation
     id ??= "carousel$_idgenerate";
@@ -96,6 +96,8 @@ class BsCarousel extends Rview {
 
 class BsCarouselIndicators extends Rview {
   BsCarousel? _parent;
+
+  BsCarouselIndicators({super.id});
   @override
   Relement build() {
     return BsElement(
@@ -192,22 +194,28 @@ class BsCarouselItem extends Rview {
   Relement child;
   bool active;
   int? animationTime;
-  List<Bootstrap> bootstrap; 
+  List<Bootstrap> bootstrap;
   BsCarouselItem(
       {required this.child,
       this.capitation,
       this.active = false,
-      this.animationTime,this.bootstrap=const []});
+      this.animationTime,
+      this.bootstrap = const [],
+      super.id});
 
   @override
   Relement build() {
     return BsElement(
+        id: id,
         child: Column(children: [
           child,
           if (capitation != null)
-            BsElement(child: capitation!, bootstrap: [bcarousel.caption],)
+            BsElement(
+              child: capitation!,
+              bootstrap: [bcarousel.caption],
+            )
         ]),
-        bootstrap: [bcarousel.item,...bootstrap, if (active) bcarousel.active],
+        bootstrap: [bcarousel.item, ...bootstrap, if (active) bcarousel.active],
         dataset: {if (animationTime != null) "bs-interval": "$animationTime"});
   }
 }

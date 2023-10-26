@@ -3,14 +3,16 @@ part of '../rview_bases.dart';
 class ComboItem<T> extends Relement {
   Relement title;
   T value;
-  ComboItem({required this.title, required this.value});
+  ComboItem({required this.title, super.id, required this.value});
 
   final _option = OptionElement();
   @override
   OptionElement create() {
+    if (id != null) _option.id = id!;
     _option.children.add(title.create());
     _option.value = "$value";
     _option.children.add(title.create());
+    //Set id
 
     return _option;
   }
@@ -27,6 +29,7 @@ class ComboBox<T> extends Relement {
   Function(ComboItem<T> item, int index)? onSelected;
   ComboBox(
       {required this.items,
+      super.id,
       this.orientation = Direction.verticale,
       this.bootstraps = const [],
       this.onSelected});
@@ -35,7 +38,6 @@ class ComboBox<T> extends Relement {
   SelectElement create() {
     _select.className = bootstraps.join(" ");
 
-    
     //Item
     for (var element in items) {
       element.create();
@@ -48,6 +50,8 @@ class ComboBox<T> extends Relement {
         onSelected!(items[selectIndex], selectIndex);
       });
     }
+    //Set id
+    if (id != null) _select.id = id!;
     return _select;
   }
 

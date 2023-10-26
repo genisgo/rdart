@@ -27,7 +27,6 @@ class BsFormController {
 }
 
 class BsForm extends Relement {
-  String? id;
   final _form = FormElement();
   BsFormController? controller;
   final bool needsValidat;
@@ -37,13 +36,14 @@ class BsForm extends Relement {
       {this.needsValidat = true,
       this.children = const [],
       this.controller,
-      this.id,
+      super.id,
       this.style = const []});
 
   @override
   Element create() {
-    id ??= "bsForm$generateId";
-    _form.id = id!;
+    //SET ID
+   String ids = id?? "bsForm$generateId";
+    _form.id = ids;
     //set Controller
     controller?.form = _form;
 

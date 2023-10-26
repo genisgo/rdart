@@ -26,7 +26,7 @@ enum InputType {
 }
 
 class BsInput extends Relement {
-  String? id;
+
   String iconUrl;
   Relement? labelChild;
   String? label;
@@ -66,7 +66,7 @@ class BsInput extends Relement {
     this.singleInput = false,
     this.btnCheck = false,
     this.checkSwitch = false,
-    this.id,
+    super.id,
     this.reversed = false,
     this.disable = false,
     this.fileAccept,
@@ -95,10 +95,10 @@ class BsInput extends Relement {
 
   @override
   Element create() {
-    id ??= "input$generateId";
+   String  ids =id?? "input$generateId";
     //label
     _labelElement.attributes.addAll({
-      "for": "$id",
+      "for": ids,
     });
 
     ///set Style
@@ -110,7 +110,7 @@ class BsInput extends Relement {
     _div.className = [if (groupeMode) binputGroup].join(" ");
     //input
     _input.type = type.name;
-    _input.id = id!;
+    _input.id = ids;
     _input.required = requred;
     _input.disabled = disable;
     //set placeholder
@@ -121,7 +121,7 @@ class BsInput extends Relement {
     _input.multiple = multiple;
     //set name
     if (name != null) _input.name = name;
-    _input.attributes.addAll({if (list != null) "list": list!.id});
+    _input.attributes.addAll({if (list != null) "list": "${list?.id}"});
 
     //set color class
     if (type == InputType.color) {

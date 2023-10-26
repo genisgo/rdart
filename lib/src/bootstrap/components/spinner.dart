@@ -13,11 +13,11 @@ class BsSpinner extends Rview {
   BsSpinner(
       {this.bootstraps = const [],
       this.type = BspinnerType.border,
-      this.child});
+      this.child,  super.id});
       
   @override
   Relement build() {
-    return BsElement(child: child, userParent: true, bootstrap: [
+    return BsElement(id: id, child: child, userParent: true, bootstrap: [
       switch (type) { BspinnerType.grow => bspinnerGrow, _ => bspinnerBorder },
       ...bootstraps
     ], attributes: {

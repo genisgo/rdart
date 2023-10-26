@@ -18,10 +18,12 @@ class BsCard extends Rview {
       this.bodyStyle = const [],
       this.footerStyle = const [],
       this.headerStyle = const [],
-      this.cardStyle = const []});
+      this.cardStyle = const [],
+      super.id});
   @override
   Relement build() {
     return BsElement(
+        id: id,
         child: Column(children: [
           if (header != null)
             _addBsInElement(bs: [bcard.header, ...headerStyle], rview: header),

@@ -26,7 +26,7 @@ class ListTitle extends Rview {
       this.selectedColor = const Colors.formRGB(66, 135, 245, 0.50),
       this.separtorColor = const Color("#e8e8e8"),
       this.background = Colors.transparent,
-      this.heigth}) {
+      this.heigth, super.id}) {
     RStyle(
       textSize: 14,
     ).createStyle(title!.create());

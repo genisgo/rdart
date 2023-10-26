@@ -10,7 +10,7 @@ class TabView extends Rview {
   ///au nombre de [Tab] de [tabBar]
   List<Relement> tabPage;
 
-  TabView({required this.tabBar, required this.tabPage})
+  TabView({required this.tabBar, required this.tabPage, super.id})
       : assert((tabBar.tabs.length == tabPage.length));
 
   Container currentPage = Container(
@@ -81,7 +81,8 @@ class TabBar extends Rview {
       this.defaultTabIndex = 0,
       this.selectorColor = Colors.white,
       this.titre,
-      this.flexContent});
+      this.flexContent,
+      super.id});
   @override
   Relement build() {
     return Container(
@@ -164,6 +165,7 @@ class Tab extends Relement {
   Tab({
     required this.child,
     this.color,
+    super.id,
     this.padding = REdgetInset.zero,
     this.height,
     this.width,
@@ -191,6 +193,8 @@ class Tab extends Relement {
 
   @override
   Element create() {
+    //set ID
+    if (id != null) _element.id = id!;
     _relement = RButton(
         child: child,
         onPress: (relement) {

@@ -1,24 +1,25 @@
 part of 'rview_bases.dart';
+
 abstract class Relement {
   static int registrerElementID = 0;
   //generate id
   static int _idgenerate = 0;
-  final String? key;
-  const Relement({this.key});
+  final String? id;
+  const Relement({required this.id});
   Element create();
 
-  Future ondispose() 
-  {
+  Future ondispose() {
     return Future.value();
-    }
-    
+  }
+
   Element get getElement;
   int get generateId => _idgenerate++;
 }
 
 abstract class Rview extends Relement {
   late Element _relement;
-  Rview({String? key}) : super(key: key) {
+  List<String> className;
+  Rview({String? id, this.className = const []}) : super(id: id) {
     ///ondispose
     /// est cree pour eviter l'attachement des element appres suppression
     ///Comme les listener [sEventListener]
@@ -35,7 +36,11 @@ abstract class Rview extends Relement {
   @override
   Element create() {
     _relement = build().create();
+    //Set id
+    if (id != null) _relement.id = id!;
     initState();
+    //set custom className
+    if (className.isNotEmpty) _relement.className += " ${className.join(" ")}";
     return _relement;
   }
 
@@ -67,6 +72,9 @@ abstract class BootStrapComponent extends Relement {
   final List<Bootstrap> bootstraps;
   final Map<String, String> dataset;
   final Map<String, String> attributes;
-  const BootStrapComponent(this.bootstraps, this.dataset, this.attributes);
+
+  const BootStrapComponent(
+      this.bootstraps, this.dataset, this.attributes, String? id)
+      : super(id: id);
   bootstrap();
 }

@@ -309,7 +309,7 @@ class BsTab extends Relement {
 
   Function(int? index)? onSelect;
 
-  String? id;
+  String? ids;
 
   int? index;
   final _li = Element.li();
@@ -322,14 +322,14 @@ class BsTab extends Relement {
       this.onSelect,
       this.addNavLink = false,
       this.title = "",
-      this.id,
+      super.id,
       this.active = false}) {
-    id ??= "tab-$generateId";
+    ids ??= id?? "tab-$generateId";
   }
 
   @override
   Element create() {
-    _btn.id = id!;
+    _btn.id = ids!;
 
     _li.className = "${bnav.item}";
 
@@ -364,7 +364,7 @@ class BsTabPanel extends Rview {
     required this.child,
     this.bootstrap = const [],
     this.id,
-  }) {
+  }) : super(id: id) {
     id ??= "tab-panel-$generateId";
   }
   @override
@@ -386,10 +386,10 @@ class BsNavMenuItem extends Rview {
       {required this.child,
       this.style = const [],
       this.addNavLink = false,
-      this.active = false});
+      this.active = false, super.id});
   @override
   Relement build() {
-    return BsElement(
+    return BsElement(id: id,
         child: child, bootstrap: [bnav.item, if (active) bactive, ...style]);
   }
 

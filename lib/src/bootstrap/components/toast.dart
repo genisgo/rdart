@@ -70,7 +70,7 @@ class BsToastClose extends Rview {
   Relement? child;
   List<Bootstrap> bootstrap;
   Function(Relement)? onPress;
-  BsToastClose({this.child, this.bootstrap = const [], this.onPress});
+  BsToastClose({this.child, this.bootstrap = const [], this.onPress, super.id});
   @override
   Relement build() {
     var defualtBtn = RButton(
@@ -79,7 +79,7 @@ class BsToastClose extends Rview {
         onPress: onPress,
         style: RStyle());
 
-    return BsElement(
+    return BsElement(id: id,
         child: child ?? defualtBtn,
         bootstrap: [...bootstrap, Btn.close],
         dataset: {"bs-dismiss": "toast"});

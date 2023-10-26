@@ -18,7 +18,7 @@ class Rapplication extends Relement {
       this.theme = Theme.defaultTheme,
       required this.router,
       this.bootstrap = true})
-      : super(key: "_app") {
+      : super(id: "_app") {
     _currentTheme = theme;
 
     //assert if router._homm && home is null
@@ -45,7 +45,7 @@ class Rapplication extends Relement {
 
   @override
   Element create() {
-    element?.id = key!;
+    element?.id = id!;
 
     //Add default fontFamily
     iniApp();

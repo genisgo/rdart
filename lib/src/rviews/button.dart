@@ -18,6 +18,7 @@ class RButton extends Relement {
       this.singleBootStrap = false,
       this.style,
       this.onHover,
+      super.id,
       this.onMouseDownColor,
       this.onMouseEnterColor,
       this.child,
@@ -49,7 +50,7 @@ class RButton extends Relement {
     }
     if (!singleBootStrap) {
       ///ajout de nom de classe
-      element.id = "btn_defaut";
+      element.id = id ?? "btn_defaut $generateId";
 
       element.className = "btn";
     }

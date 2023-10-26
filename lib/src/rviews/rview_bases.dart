@@ -41,6 +41,7 @@ class Page extends Relement {
       this.background,
       this.appBarStyle,
       this.bodyStyle,
+      super.id,
       this.singleBootStrap = false,
       this.bootstrap = const [],
       this.bottomStyle});
@@ -51,7 +52,7 @@ class Page extends Relement {
   Element create() {
     _element = DivElement();
     _element.className = "page ${bootstrap.join(" ")}";
-    _element.id = key ?? "page $generateId";
+    _element.id = id ?? "page $generateId";
     if (!singleBootStrap) {
       _element
         ..className = ClassName.page.name
@@ -120,7 +121,7 @@ class Container extends Relement {
     this.style,
     this.width,
     this.height,
-    super.key,
+    super.id,
     this.singleBootStrap = false,
   });
   var _div = Element.div();
@@ -128,7 +129,7 @@ class Container extends Relement {
   Element create() {
     ///if style is defind and [ height] , [width] is defind
     ///
-    if (key != null) _div.id = key!;
+    if (id != null) _div.id = id!;
     if (!singleBootStrap) _div.className = "container";
     if (style != null) {
       if (height != 0) style = style!.copyWith(height: height);
@@ -174,6 +175,7 @@ class AppBar extends Relement {
       this.boxShadow = const BoxShadow(),
       this.backup,
       this.actions = const [],
+      super.id,
       this.background,
       this.heigth = 45,
       this.onPress});
@@ -183,7 +185,7 @@ class AppBar extends Relement {
   @override
   Element create() {
     div
-      ..id = "appbar"
+      ..id = id ?? "appbar"
       ..style.height = "${heigth}px"
       ..style.width = "100%"
       ..style.padding = "4px 0px 0px 0px"
@@ -257,7 +259,8 @@ class Text extends Relement {
       this.size = 14,
       this.bootstrap = const [],
       this.style,
-      this.singleBootStrap = false});
+      this.singleBootStrap = false,
+      super.id});
   //Div element
   final div = Element.div();
   @override
@@ -282,7 +285,10 @@ class Text extends Relement {
 //Icon
 class Ricon extends Relement {
   const Ricon(
-      {this.unicode = "\u2003", this.color = Colors.White, this.size = 24})
+      {this.unicode = "\u2003",
+      this.color = Colors.White,
+      this.size = 24,
+      super.id})
       : super();
   final int size;
   final String unicode;
@@ -322,6 +328,7 @@ class Row extends Relement {
   List<Bootstrap> bootstrap;
   final bool singleBootStrap;
   Row({
+    super.id,
     this.children = const [],
     this.singleBootStrap = false,
     this.bootstrap = const [],
@@ -370,14 +377,14 @@ class Column extends Relement {
       this.mainAxisExpand = false,
       this.crossAxisExpand = true,
       this.bootstrap = const [],
-      super.key,
+      super.id,
       this.singleBootStrap = true,
       this.crossAxisAlignment = AlignVertical.top,
       this.mainAxisAlignment = AlignHorizontal.left});
   final _div = Element.div();
   @override
   Element create() {
-    if (key != null) _div.id = key!;
+    if (id != null) _div.id = id!;
     if (!singleBootStrap) {
       _div
         ..className = "column"
@@ -407,10 +414,7 @@ class RImage extends Relement {
 
   RStyle? style;
 
-  RImage({
-    this.url = "",
-    this.style,
-  });
+  RImage({this.url = "", this.style, super.id});
 
   var _image = Element.img();
   @override
@@ -438,6 +442,7 @@ class TextField extends Relement {
   TextField(
       {this.onChange,
       this.style,
+      super.id,
       this.hinterText = "",
       this.onFocusStyle,
       this.obscure = false,
@@ -447,7 +452,8 @@ class TextField extends Relement {
   Element create() {
     _div.placeholder = hinterText;
     _div.className = "textfeild";
-
+    //Set id
+    if (id != null) _div.id = id!;
 //Style
     style ??= RStyle(
         padding: REdgetInset.all(_currentTheme.defaultPadding),
@@ -494,14 +500,15 @@ class Divider extends Relement {
   double? width;
   Color color;
   static int _idgenerate = 0;
-  Divider({this.height = 1, this.color = Colors.gray, this.width}) {
+  Divider({this.height = 1, this.color = Colors.gray, this.width, super.id}) {
     _idgenerate++;
   }
   final Element _div = Element.hr();
   @override
   Element create() {
+    //Set id
     _div
-      ..id = "divider$_idgenerate"
+      ..id = id ?? "divider$_idgenerate"
       ..style.color = color.color
       ..style.width = width == null ? "-webkit-fill-available" : "${width}px"
       ..style.height = "${height}px";
@@ -527,6 +534,7 @@ class SizeBox extends Relement {
       {this.height,
       this.width,
       this.child,
+      super.id,
       this.bootstrap = const [],
       this.modeRatio = false,
       this.alignHorizontal = AlignHorizontal.center,
@@ -538,7 +546,7 @@ class SizeBox extends Relement {
   Element create() {
     if (child != null) _div.children.add(child!.create());
 
-    _div.id = "sizebox$_idgenerate";
+    _div.id = id ?? "sizebox$_idgenerate";
     _div.className = bootstrap.join(" ");
     if (bootstrap.isEmpty) {
       _div
@@ -570,11 +578,14 @@ class BsElement extends BootStrapComponent {
       required List<Bootstrap> bootstrap,
       Map<String, String> dataset = const {},
       Map<String, String> attributes = const {},
-      this.noUseChildClassName = false})
-      : super(bootstrap, dataset, attributes);
+      this.noUseChildClassName = false,
+      String? id})
+      : super(bootstrap, dataset, attributes, id);
   var _div = Element.div();
   @override
   Element create() {
+    //Set id
+
     if (child != null) {
       if (userParent) {
         _div.children.add(child!.create());
@@ -582,6 +593,8 @@ class BsElement extends BootStrapComponent {
         _div = child!.create();
       }
     }
+    //set ID
+    if (id != null) _div.id = id!;
     bootstrap();
     return _div;
   }
@@ -612,12 +625,15 @@ class Link extends Relement {
       {this.click,
       this.active = true,
       this.link,
+      super.id,
       this.label = "",
       this.child,
       this.bootstrap = const []});
   final _a = Element.a();
   @override
   Element create() {
+    //Set id
+    if (id != null) _a.id = id!;
     if (child != null) {
       _a.children.add(child!.create());
     } else {
@@ -644,10 +660,12 @@ class Link extends Relement {
 class DataListItem extends Relement {
   String data;
   String value;
-  DataListItem({required this.data, required this.value});
+  DataListItem({required this.data, required this.value, super.id});
   var option = OptionElement();
   @override
   Element create() {
+    //Set id
+    if (id != null) option.id = id!;
     option.value = value;
     return option;
   }
@@ -658,12 +676,13 @@ class DataListItem extends Relement {
 }
 
 class DataList extends Relement {
-  String id;
   List<DataListItem> options;
-  DataList({required this.options, required this.id});
+  DataList({required this.options, super.id});
   var datalist = DataListElement();
   @override
   Element create() {
+    ///Set id
+    if (id != null) datalist.id = id!;
     datalist.options?.addAll(options.map((e) => e.create()).toList());
     return datalist;
   }
@@ -677,10 +696,12 @@ class DataList extends Relement {
 class RviewStyle extends Relement {
   Relement child;
   RStyle style;
-  RviewStyle({required this.child, required this.style});
+  RviewStyle({required this.child, required this.style, super.id});
   late var _element;
   @override
   Element create() {
+    //Set id
+    if (id != null) _element.id = id!;
     _element = style.createStyle(child.create());
     return _element;
   }

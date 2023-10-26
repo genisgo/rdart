@@ -11,10 +11,11 @@ class BsTooltip extends Rview {
       {required this.child,
       required this.title,
       this.type = BsPopoversType.focus,
-      this.dicrection = BsPopoverDicrection.top});
+      this.dicrection = BsPopoverDicrection.top,
+      super.id});
   @override
   Relement build() {
-    return BsElement(child: child, bootstrap: [], dataset: {
+    return BsElement(id: id, child: child, bootstrap: [], dataset: {
       "bs-title": title,
       "bs-placement": dicrection.name,
       "bs-toggle": "tooltip",

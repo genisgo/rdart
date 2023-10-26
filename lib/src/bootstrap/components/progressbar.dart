@@ -4,10 +4,10 @@ class BsProgressBar extends Rview {
   int max;
   String label;
   List<Bootstrap> bootstraps;
-  BsProgressBar({this.max = 100, this.value = 50, this.label = "",this.bootstraps=const []});
+  BsProgressBar({this.max = 100, this.value = 50, this.label = "",this.bootstraps=const [], super.id});
   @override
   Relement build() {
-    return BsElement(
+    return BsElement(id: id,
         userParent: true,
         attributes: {
           "role": "progressbar",

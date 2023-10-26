@@ -110,6 +110,7 @@ class BsDropDown extends Relement {
       this.useSingleMenu = false,
       this.split = false,
       this.splitChild,
+      super.id,
       this.title,
       this.type = DropType.dropdown});
   final _menu = Element.ul();
@@ -149,7 +150,8 @@ class BsDropDown extends Relement {
     _drop.children.addAll([dropBtn.create(), _menu]);
 
     _dropContent = useSingleMenu ? _menu : _drop;
-
+    //SET ID
+    if (id != null) _dropContent.id = id!;
     return _dropContent;
   }
 
@@ -200,6 +202,7 @@ class BsDropDownItem extends Relement {
   BsDropDownItem(
       {required this.child,
       this.active = false,
+      super.id,
       this.disabled = false,
       this.style = const []});
   final _li = Element.li();
@@ -215,6 +218,8 @@ class BsDropDownItem extends Relement {
       if (active) "aria-current": "true"
     });
     _li.children.add(item.create());
+    //SET ID
+    if (id != null) _li.id = id!;
     return _li;
   }
 

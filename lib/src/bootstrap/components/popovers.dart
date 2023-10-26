@@ -40,10 +40,10 @@ class BsPopovers extends Rview {
       required this.content,
       this.onhover = true,
       this.type = BsPopoversType.focus,
-      this.dicrection = BsPopoverDicrection.top});
+      this.dicrection = BsPopoverDicrection.top, super.id});
   @override
   Relement build() {
-    return BsElement(child: child, bootstrap: [], dataset: {
+    return BsElement(id: id, child: child, bootstrap: [], dataset: {
       "bs-title": "$title",
       "bs-content": content,
       "bs-placement": dicrection.name,

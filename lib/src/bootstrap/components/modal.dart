@@ -24,7 +24,8 @@ class BsModalDialog extends Rview {
       this.scrollable = false,
       this.static = false,
       this.transition = true,
-      this.style = const []}) {
+      this.style = const []})
+      : super(id: id) {
     _idgenerate++;
     id ??= "modal$_idgenerate";
   }
@@ -79,7 +80,8 @@ class BsModalControl extends Rview {
   Relement child;
   String targetID;
   String? data;
-  BsModalControl({required this.targetID, required this.child, this.data});
+  BsModalControl(
+      {required this.targetID, required this.child, this.data, super.id});
   @override
   Relement build() {
     return BsElement(child: child, bootstrap: [], dataset: {
@@ -122,6 +124,7 @@ class BsModalHeader extends Relement {
   BsModalHeader(
       {required this.title,
       this.close,
+      super.id,
       this.defaultClose = true,
       this.headerStye = const [],
       this.titleStye = const []});
@@ -148,6 +151,8 @@ class BsModalHeader extends Relement {
     header.className += [bmodal.header, ...headerStye].join(" ");
     header.children
         .addAll([title.getElement, if (close != null) close!.getElement]);
+    //SET ID
+    if (id != null) header.id = id!;
     return header;
   }
 
@@ -159,7 +164,8 @@ class BsModalHeader extends Relement {
 class BsModalFooter extends Rview {
   List<Relement> childreen;
   List<Bootstrap> bootstrap;
-  BsModalFooter({this.childreen = const [], this.bootstrap = const []});
+  BsModalFooter(
+      {this.childreen = const [], this.bootstrap = const [], super.id});
 
   @override
   Relement build() {
@@ -174,7 +180,8 @@ class BsModalCloseBtn extends Rview {
   Relement? child;
   List<Bootstrap> bootstrap;
   Function(Relement)? onPress;
-  BsModalCloseBtn({this.child, this.bootstrap = const [], this.onPress});
+  BsModalCloseBtn(
+      {this.child, this.bootstrap = const [], this.onPress, super.id});
   @override
   Relement build() {
     var defualtBtn = RButton(

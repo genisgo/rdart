@@ -3,11 +3,13 @@ part of 'bs.components.dart';
 class Bsbreadcrumb extends Relement {
   List<BsbreadcrumbItem> items;
   String? divider;
-  Bsbreadcrumb({this.items = const [], this.divider});
+  Bsbreadcrumb({this.items = const [], this.divider,super.id});
   var ol = Element.ol();
   var nav = Element.nav();
   @override
   Element create() {
+    //set ID
+    if(id!=null) nav.id =id!;
     //set Divider
     if (divider != null) {
       nav.style.setProperty("--bs-breadcrumb-divider", "'$divider'");
@@ -35,10 +37,13 @@ class BsbreadcrumbItem extends Relement {
   BsbreadcrumbItem({
     required this.link,
     this.active = false,
+    super.id,
   });
   var li = Element.li();
   @override
   Element create() {
+    //set ID
+    if(id!=null) li.id =id!;
     li.className = bbreadcrumb.breadcrumbItem.cname;
 
     ///react link
