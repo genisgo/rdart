@@ -50,7 +50,6 @@ class RButton extends Relement {
     }
     if (!singleBootStrap) {
       ///ajout de nom de classe
-      element.id = id ?? "btn_defaut $generateId";
 
       element.className = "btn";
     }
@@ -93,7 +92,8 @@ class RButton extends Relement {
 
     ///add de style
     element = style?.createStyle(element) as ButtonElement;
-
+    //SET ID
+    if (id != null) element.id = id!;
     return element;
   }
 

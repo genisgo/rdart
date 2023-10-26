@@ -88,7 +88,7 @@ class BsAccordionItem extends Rview {
   @override
   void initState() {
     body.headerKey = header.id!;
-    header.bodyKey = body.id!;
+    header.bodyKey = body._ids;
     //show
     if (show) {
       body.show();
@@ -118,14 +118,17 @@ class BsAccordionItem extends Rview {
 ///```
 class BsAccordionBody extends Rview {
   Relement child;
-  BsAccordionBody({required this.child, super.id});
+  late String _ids;
+  BsAccordionBody({required this.child, super.id}) {
+    _ids = id ?? "accoridonBody$generateId";
+  }
 
   @override
   Relement build() {
     //set
-    String ids = id ?? "accoridonBody$generateId";
+
     return BsElement(
-        id: ids,
+        id: _ids,
         userParent: true,
         child:
             BsElement(child: child, bootstrap: [Baccordion.body], dataset: {}),
@@ -135,7 +138,7 @@ class BsAccordionBody extends Rview {
         ],
         dataset: {},
         attributes: {
-          "id": ids,
+          "id": _ids,
         });
   }
 
@@ -179,6 +182,7 @@ class BsAccordionHeader extends Rview {
     return Column(
         children: [
           BsElement(
+              id: id,
               child: RButton(
                   type: BtnType.button,
                   singleBootStrap: true,
