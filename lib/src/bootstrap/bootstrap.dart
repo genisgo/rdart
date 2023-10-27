@@ -3,6 +3,7 @@ part '../bootstrap/css.class/utilities.dart';
 part '../bootstrap/css.class/layout.dart';
 part 'css.class/components.dart';
 part '../bootstrap/css.class/forms.dart';
+part 'css.class/icons.dart';
 
 ///Const
 const bactive = _BootStrapDefaultImp("active");

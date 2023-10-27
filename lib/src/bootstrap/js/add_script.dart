@@ -11,8 +11,8 @@ List<ScriptElement> bootstrapScript() {
   bscript.setAttribute("data-requirecontext", "_");
   bscript.setAttribute("data-requiremodule", "packages/rdart/bootstrap");
   bscript.src = "packages/rdart/src/bootstrap/lib/js/bootstrap.bundle.min.js";
- 
-   //bscript.crossOrigin = "anonymous";
+
+  //bscript.crossOrigin = "anonymous";
   // poper.src =
   //     "https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js";
   // poper.integrity =
@@ -25,9 +25,14 @@ List<ScriptElement> bootstrapScript() {
 }
 
 void activeBootStrap() {
-  document.head?.children.addAll([
-    LinkElement()
-      ..href = "packages/rdart/src/bootstrap/lib/css/bootstrap.min.css"
-      ..rel = "stylesheet"
-  ]);
+  document.head?.children.insert(
+      0,
+      LinkElement()
+        ..href = "packages/rdart/src/bootstrap/lib/css/bootstrap.min.css"
+        ..rel = "stylesheet");
+  document.head?.children.insert(
+      1,
+      LinkElement()
+        ..href = "packages/rdart/src/bootstrap/lib/icons/bootstrap-icons.min.css"
+        ..rel = "stylesheet");
 }
