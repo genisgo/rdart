@@ -338,6 +338,9 @@ class Row extends Relement {
   final _div = Element.div();
   @override
   Element create() {
+    if(id!=null) {
+      _div.id=id!; 
+    }
     if (!singleBootStrap) _div.className = "row";
 
     _div.children.addAll(children.map((e) => e.create()));

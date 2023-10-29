@@ -137,10 +137,12 @@ class BsListItem extends Relement {
   bool active;
   Relement? child;
   bool disabled;
+  bool border;
   List<Bootstrap> style;
   BsListItem(
       {this.child,
       super.id,
+      this.border = true,
       this.active = false,
       this.disabled = false,
       this.style = const []});
@@ -158,9 +160,13 @@ class BsListItem extends Relement {
       if (disabled) "aria-disabled": "true",
       if (active) "aria-current": "true"
     });
+
     // _li.children.add(item.create());
 
     _li = item.create(); //: _li;
+    if (!border) {
+      _li.style.setProperty("--bs-list-group-border-color", "none");
+    }
     //SET ID
     if (id != null) _li.id = id!;
     return _li;

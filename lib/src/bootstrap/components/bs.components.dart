@@ -23,3 +23,4 @@ part 'tooltip.dart';
 part 'input.dart';
 part 'form.dart';
 part 'table.dart';
+part 'icon.dart';

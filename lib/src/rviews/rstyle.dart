@@ -37,6 +37,7 @@ abstract class Style {
   final EdgInset? padding;
   final OverFlow? overFlow;
   final String? backgroundSize;
+  final Color? color;
 
   ///[ratioWidth] make in % width *exemple* ratioWidth:true, width:100 (100%)
   final bool ratioWidth;
@@ -45,6 +46,7 @@ abstract class Style {
   final bool ratioHeight;
   const Style(
       {this.height,
+      this.color,
       this.width,
       this.maxHeight,
       this.maxWidth,
@@ -59,8 +61,6 @@ abstract class Style {
       this.expandWidth = false});
   Element createStyle(Element e);
 }
-
-
 
 class RStyle extends Style {
   final bool modeRatio;
@@ -85,6 +85,7 @@ class RStyle extends Style {
       super.overFlow,
       super.height,
       super.fontWeight,
+      super.color,
 
       ///[ratioWidth] make in % width *exemple* ratioWidth:true, width:100 (100%)
       super.width,
@@ -107,6 +108,7 @@ class RStyle extends Style {
       double? height,
       OverFlow? overFlow,
       List<Bootstrap>? bootstrap,
+      Color? color,
 
       ///[ratioWidth] make in % width *exemple* ratioWidth:true, width:100 (100%)
       double? width,
@@ -139,6 +141,7 @@ class RStyle extends Style {
         textAlign: textAlign ?? this.textAlign,
         overFlow: overFlow ?? this.overFlow,
         width: width ?? this.width,
+        color: color ?? this.color,
         bootstrap: bootstrap ?? this.bootstrap);
   }
 
@@ -210,6 +213,9 @@ class RStyle extends Style {
     if (textAlign != null) element.style.textAlign = textAlign!.value;
     element.style.fontSize = textSize.px;
     element.style.fontWeight = fontWeight?.value;
+
+    ///use color
+    element.style.color = color?.color;
 
     ///Set overflow or active scroll bar .
     element.style.overflow = overFlow?.name;
