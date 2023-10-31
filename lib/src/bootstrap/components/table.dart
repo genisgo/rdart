@@ -38,14 +38,19 @@ class BsTable extends Relement {
 class BsTableRow extends Relement {
   List<BsTableCell> cells;
   List<Bootstrap> style;
-  BsTableRow({required this.cells, this.style = const [], super.id});
-  final _row = Element.tr();
+  RStyle? rstyle;
+  BsTableRow(
+      {required this.cells, this.rstyle, this.style = const [], super.id});
+  var _row = Element.tr();
   @override
   Element create() {
     _row.className = style.join(" ");
     _row.children.addAll(cells.map((e) => e.create()));
     //SET ID
     if (id != null) _row.id = id!;
+    if (rstyle != null) {
+      _row = rstyle!.createStyle(_row);
+    }
     return _row;
   }
 

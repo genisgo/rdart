@@ -1,7 +1,7 @@
 part of 'rview_bases.dart';
 
 ///set extension ajoute extension px et pr sur toute les int? e
-extension Dimenssion on int? {
+extension Dimenssion on num? {
   String? get px => _getStringValue();
   String? get pr => "$this%";
 //
@@ -69,7 +69,7 @@ class RStyle extends Style {
   final AlignHorizontal? alignHorizontal;
   final AlignVertical? alignmentVertical;
   final TextAlign? textAlign;
-  final int? textSize;
+  final double? textSize;
   final List<Bootstrap> bootstrap;
   final Color? background;
   const RStyle(

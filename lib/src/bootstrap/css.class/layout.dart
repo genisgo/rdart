@@ -38,7 +38,7 @@ class Bcolumn extends Bootstrap implements Bscreen {
   Bcolumn get xl => addScreen("xl");
   @override
   
-  Bootstrap get xxl => addScreen("xxl");
+  Bcolumn get xxl => addScreen("xxl");
 
 //add Goutter
   Bcolumn bg(Bg value) => Bcolumn._("$cname ${value.cname}");

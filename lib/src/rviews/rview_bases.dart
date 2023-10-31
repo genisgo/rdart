@@ -252,7 +252,7 @@ class Text extends Relement {
   String text;
   Color color;
   RStyle? style;
-  final int size;
+  final double size;
   final bool singleBootStrap;
   Text(this.text,
       {this.color = Colors.Black,
@@ -525,8 +525,8 @@ class Divider extends Relement {
 }
 
 class SizeBox extends Relement {
-  int? height;
-  int? width;
+  double? height;
+  double? width;
   bool modeRatio;
   List<Bootstrap> bootstrap;
   AlignHorizontal alignHorizontal;
