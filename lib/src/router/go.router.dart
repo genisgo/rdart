@@ -32,16 +32,16 @@ class GoRouter extends Router {
       route.data = data;
       activeRoute.add(route);
     }
-    app.getElement.children.clear();
+    _app.getElement.children.clear();
 
     if (route.url == "/") {
-      app.getElement.children.add(route.page(data).create());
+      _app.getElement.children.add(route.page(data).create());
 
       return;
     }
 
     var routePage = route.page(route.data).create();
-    app.getElement.children.add(routePage);
+    _app.getElement.children.add(routePage);
   }
 
   @override

@@ -136,8 +136,8 @@ class BsInput extends Relement {
 
     //set input value
     final noUseDefaultValueIf =
-        [InputType.file, InputType.image, InputType].contains(type);
-    if (value != null && noUseDefaultValueIf) {
+        [InputType.file, InputType.image].contains(type);
+    if (value != null && !noUseDefaultValueIf) {
       _input.value = value;
     }
     //use floating label mode
