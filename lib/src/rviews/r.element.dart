@@ -29,6 +29,7 @@ abstract class Rview extends Relement {
 
   ///On initialized
   void initState() {}
+  void onUpdate(Element old) {}
 
   ///build creat Element
   Relement build();
@@ -45,20 +46,21 @@ abstract class Rview extends Relement {
   }
 
   void setState(void Function() state) {
+    Element old = getElement;
+    var oldParent = old.parent;
+    var oldIndex = oldParent!.children.indexOf(old);
     Future.delayed(
       Duration.zero,
       () {
-        Element old = getElement;
-        var oldParent = old.parent;
-        var oldIndex = oldParent!.children.indexOf(old);
-
         state();
         _relement = build().create();
         oldParent.children.remove(old);
         oldParent.children.insert(oldIndex, getElement);
         //iniEvent();
       },
-    );
+    ).then((value) {
+      onUpdate(old);
+    });
   }
 
   @override
