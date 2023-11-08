@@ -102,11 +102,11 @@ class BsInput extends Relement {
     });
 
     ///set Style
-    _labelElement.className += [
+    _labelElement.className = [
       if (groupeMode) binputGroup.text else bform.label,
       ...labelStyle
     ].join(" ");
-    _input.className += [bform, ...inputStyle].join(" ");
+    _input.className = [bform, ...inputStyle].join(" ");
     _div.className = [if (groupeMode) binputGroup].join(" ");
     //input
     _input.type = type.name;
@@ -187,7 +187,7 @@ class BsInput extends Relement {
     validedMessage?.getElement.className += " ${[bform.validFeed].join()}";
 
     //
-    if (label != null) _labelElement.innerText += label!;
+    if (label != null) _labelElement.innerText = label!;
     var content = [
       _labelElement,
       //Si singleInput est activer _input ne doit pas être ajouter a ce niveau
