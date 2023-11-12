@@ -13,6 +13,7 @@ class BsTable extends Relement {
   var table = Element.table();
   @override
   Element create() {
+    
     ///Body prepare
     var body = Element.tag("tbody");
     var el = rows.map((e) => e.create());

@@ -35,9 +35,7 @@ abstract class Rview extends Relement {
   @override
   Element create() {
     ///Clean for lastChildreen sinon cela cree des doublons d'objet souvent
-    try {
-      getElement.children.clear();
-    } catch(e) {}
+    _cleanRview();
 
     ///Cree une  de rview render
     _relement = build().create();
@@ -45,8 +43,22 @@ abstract class Rview extends Relement {
     if (id != null) _relement.id = id!;
     initState();
     //set custom className
-    if (className.isNotEmpty) _relement.className += " ${className.join(" ")}";
+    if (className.isNotEmpty) _relement.className = " ${className.join(" ")}";
     return _relement;
+  }
+
+//// netoyage des [Element] dont les enfants reste
+  ///attacher malgre la mise a zero par le [setState]
+  ///ceci est une solution temporaire
+  void _cleanRview() {
+    try {
+    getElement.children.clear();
+    } catch (e) {
+      log(
+        "$e",
+        error: e,
+      );
+    }
   }
 
   void setState(void Function() state) {
@@ -59,6 +71,7 @@ abstract class Rview extends Relement {
 
         state();
         _relement = build().create();
+        //dispose();
         var oldIndex = oldParent?.children.indexOf(old);
         oldParent?.children.remove(old);
         oldParent?.children.insert(oldIndex ?? -1, getElement);

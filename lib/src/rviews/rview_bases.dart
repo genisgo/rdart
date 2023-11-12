@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:html';
 import 'package:rdart/src/bootstrap/js/bootrap.js.dart';
 import '../../themes.dart';
@@ -326,7 +327,7 @@ class Row extends Relement {
   AlignHorizontal? mainAxisAlignment;
   AlignVertical? crossAxisAlignment;
   List<Bootstrap> bootstrap;
-  final bool singleBootStrap;
+  bool singleBootStrap;
   Row({
     super.id,
     this.children = const [],
@@ -335,26 +336,34 @@ class Row extends Relement {
     this.crossAxisAlignment,
     this.mainAxisAlignment,
   });
-  final _div = Element.div();
+
+  var _div = Element.div();
   @override
   Element create() {
-    if(id!=null) {
-      _div.id=id!; 
+   // dispose(); 
+    if (id != null) {
+      _div.id = id!;
     }
     if (!singleBootStrap) _div.className = "row";
 
     _div.children.addAll(children.map((e) => e.create()));
-    return RStyle(
+    _div = RStyle(
             alignHorizontal: mainAxisAlignment,
             alignmentVertical: crossAxisAlignment,
             bootstrap: bootstrap,
             expandWidth: !singleBootStrap)
         .createStyle(_div);
+    return _div;
   }
 
   @override
   // TODO: implement getElement
   Element get getElement => _div;
+ // @override
+  // dispose() {
+  //   getElement.children.clear();
+  //   return super.dispose();
+  // }
 }
 
 ///Colum Element
@@ -387,7 +396,6 @@ class Column extends Relement {
   var _div = Element.div();
   @override
   Element create() {
-   
     if (id != null) _div.id = id!;
     if (!singleBootStrap) {
       _div
@@ -396,8 +404,8 @@ class Column extends Relement {
         ..style.flexDirection = "column";
     }
 
-    _div.children.addAll(children.map((e) => e.create()));
-    return singleBootStrap
+    _div.children.addAll(children.map((e) => e.create()).toList());
+    _div = singleBootStrap
         ? RStyle(bootstrap: bootstrap).createStyle(_div)
         : RStyle(
                 bootstrap: bootstrap,
@@ -407,6 +415,7 @@ class Column extends Relement {
                 background: Colors.none,
                 alignmentVertical: crossAxisAlignment)
             .createStyle(_div);
+    return _div;
   }
 
   @override
