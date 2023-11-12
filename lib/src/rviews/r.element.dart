@@ -37,7 +37,7 @@ abstract class Rview extends Relement {
     ///Clean for lastChildreen sinon cela cree des doublons d'objet souvent
     try {
       getElement.children.clear();
-    } finally {}
+    } catch(e) {}
 
     ///Cree une  de rview render
     _relement = build().create();
