@@ -8,9 +8,7 @@ abstract class Relement {
   const Relement({required this.id});
   Element create();
 
-  Future ondispose() {
-    return Future.value();
-  }
+  dispose() {}
 
   Element get getElement;
   int get generateId => _idgenerate++;
@@ -36,6 +34,12 @@ abstract class Rview extends Relement {
 
   @override
   Element create() {
+    ///Clean for lastChildreen sinon cela cree des doublons d'objet souvent
+    try {
+      getElement.children.clear();
+    } finally {}
+
+    ///Cree une  de rview render
     _relement = build().create();
     //Set id
     if (id != null) _relement.id = id!;
@@ -47,15 +51,18 @@ abstract class Rview extends Relement {
 
   void setState(void Function() state) {
     Element old = getElement;
-    var oldParent = old.parent;
-    var oldIndex = oldParent!.children.indexOf(old);
+
     Future.delayed(
       Duration.zero,
       () {
+        var oldParent = old.parent;
+
         state();
         _relement = build().create();
-        oldParent.children.remove(old);
-        oldParent.children.insert(oldIndex, getElement);
+        var oldIndex = oldParent?.children.indexOf(old);
+        oldParent?.children.remove(old);
+        oldParent?.children.insert(oldIndex ?? -1, getElement);
+        if (oldParent != null) {}
         //iniEvent();
       },
     ).then((value) {

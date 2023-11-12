@@ -122,8 +122,8 @@ class RButton extends Relement {
   //   });
   // }
   @override
-  ondispose() {
+  dispose() {
     // events.map((e) => e?.cancel());
-    return super.ondispose();
+    return super.dispose();
   }
 }

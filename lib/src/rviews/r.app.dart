@@ -92,10 +92,10 @@ final class Rapplication extends Relement {
   Element get getElement => element!;
 
   @override
-  ondispose() {
-    home?.ondispose();
+  dispose() {
+    home?.dispose();
     getElement.children.clear();
-    return super.ondispose();
+    return super.dispose();
   }
 
   Future use<T extends Usable>(T use) async {

@@ -117,9 +117,10 @@ class BsAccordionItem extends Rview {
 ///     ])
 ///```
 class BsAccordionBody extends Rview {
+  List<Bootstrap> style;
   Relement child;
   late String _ids;
-  BsAccordionBody({required this.child, super.id}) {
+  BsAccordionBody({required this.child, super.id, this.style = const []}) {
     _ids = id ?? "accoridonBody$generateId";
   }
 
@@ -135,6 +136,7 @@ class BsAccordionBody extends Rview {
         bootstrap: [
           Baccordion.collapse,
           Bcollapse.collapse,
+          ...style
         ],
         dataset: {},
         attributes: {

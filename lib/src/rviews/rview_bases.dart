@@ -88,11 +88,11 @@ class Page extends Relement {
   @override
   Element get getElement => _element;
   @override
-  ondispose() {
-    appBar?.ondispose();
-    body?.ondispose();
-    bottom?.ondispose();
-    return super.ondispose();
+  dispose() {
+    appBar?.dispose();
+    body?.dispose();
+    bottom?.dispose();
+    return super.dispose();
   }
 }
 
@@ -384,9 +384,10 @@ class Column extends Relement {
       this.singleBootStrap = true,
       this.crossAxisAlignment = AlignVertical.top,
       this.mainAxisAlignment = AlignHorizontal.left});
-  final _div = Element.div();
+  var _div = Element.div();
   @override
   Element create() {
+   
     if (id != null) _div.id = id!;
     if (!singleBootStrap) {
       _div
