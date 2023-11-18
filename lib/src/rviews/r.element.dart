@@ -56,7 +56,7 @@ abstract class Rview extends Relement {
     } catch (e) {
       log(
         "$e",
-        error: e,
+        error: e,stackTrace: StackTrace.current
       );
     }
   }

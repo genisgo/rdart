@@ -158,7 +158,7 @@ class RStyle extends Style {
     ///BootStrap active
     if (bootstrap.isNotEmpty) {
       String bootclass = " ${bootstrap.map((e) => e.cname).join(" ")}";
-      print(bootclass);
+     
 
       element.className += bootclass;
     }

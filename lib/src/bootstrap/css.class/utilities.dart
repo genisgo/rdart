@@ -270,8 +270,8 @@ class Btext extends Bootstrap {
   static const lowercase = Btext._("text-lowercase");
 }
 
-///Generale constant use [ textOverFlow.auto] or [Btext.overflow.auto]
-const textOverFlow = BTextOverFlow._();
+///Generale constant use [ btextOverFlow.auto] or [Btext.overflow.auto]
+const btextOverFlow = BTextOverFlow._();
 
 ///TextOverFlow
 base class BTextOverFlow {

@@ -24,12 +24,14 @@ class ComboItem<T> extends Relement {
 
 class ComboBox<T> extends Relement {
   List<ComboItem<T>> items;
+  T? initialValue;
   Direction orientation;
   List<Bootstrap> bootstraps;
   Function(ComboItem<T> item, int index)? onSelected;
   ComboBox(
       {required this.items,
       super.id,
+      this.initialValue,
       this.orientation = Direction.verticale,
       this.bootstraps = const [],
       this.onSelected});
@@ -49,6 +51,14 @@ class ComboBox<T> extends Relement {
         int selectIndex = _select.selectedIndex ?? 0;
         onSelected!(items[selectIndex], selectIndex);
       });
+    }
+    //active initial value
+    if (initialValue != null) 
+    {
+      var iniElementIndex =
+          items.indexWhere((element) => element.value == initialValue);
+      (_select.children[iniElementIndex] as OptionElement).selected = true;
+      onSelected?.call(items[iniElementIndex], iniElementIndex);
     }
     //Set id
     if (id != null) _select.id = id!;

@@ -135,7 +135,6 @@ class Container extends Relement {
     if (style != null) {
       if (height != 0) style = style!.copyWith(height: height);
       if (width != 0) style = style!.copyWith(width: width);
-      print(style?.bootstrap.length);
 
       ///create the new style
       _div = style!.createStyle(_div);

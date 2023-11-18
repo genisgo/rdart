@@ -82,7 +82,6 @@ class GoRouter extends Router {
         break;
       }
     }
-    print("fist ----- $url ${routes.first.url}");
     //if routne no exist
     //  if (newRoute == null) _setDefaultRoute();
   }

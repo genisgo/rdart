@@ -51,7 +51,7 @@ class BsToastController {
   bjs.Toast? _controllModal;
   show() {
     _controllModal ??= bjs.Toast('#$targetID', {});
-    print("toast show"); 
+  
     _controllModal?.show();
   }
 
