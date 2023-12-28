@@ -8,7 +8,7 @@ class BsProgressBar extends Rview {
   @override
   Relement build() {
     return BsElement(id: id,
-        userParent: true,
+        userParent: false,
         attributes: {
           "role": "progressbar",
           "aria-label": "",
@@ -18,7 +18,7 @@ class BsProgressBar extends Rview {
         dataset: {
           
         },
-        child: BsElement(
+        child: BsElement(child: Text(label,singleBootStrap: true),
           bootstrap: [bprogress.bar,...bootstraps],
           userParent: true,
           attributes: {"style": "width: $value%"},
@@ -30,7 +30,7 @@ class BsProgressBar extends Rview {
 
   @override
   void initState() {
-    getElement.children.first.innerText = label;
+  //  getElement.children.first.innerText = label;
 
     super.initState();
   }

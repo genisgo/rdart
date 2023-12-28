@@ -5,6 +5,7 @@ import 'package:rdart/src/bootstrap/js/bootrap.js.dart';
 import '../../themes.dart';
 import '../themes/data_themes.dart';
 import '../../bootstrap.dart';
+import '../utils/convert.dart';
 part 'r.element.dart';
 part 'rcolor.dart';
 part 'border.dart';
@@ -715,6 +716,33 @@ class RviewStyle extends Relement {
     //Set id
     if (id != null) _element.id = id!;
     _element = style.createStyle(child.create());
+    return _element;
+  }
+
+  @override
+  // TODO: implement getElement
+  Element get getElement => _element;
+}
+
+class HtmlInnert extends Relement {
+  String _html;
+  HtmlInnert({required String html, super.id}) : _html = html;
+
+  String get gethtml => _html;
+
+  set html(String value) {
+    _html = value;
+  }
+
+  final _element = Element.div();
+  @override
+  Element create() {
+    final parse = Element.div();
+    final cleanHtml = StringBuffer(decodeHtmlEntities(_html)).toString();
+    parse.innerHtml = cleanHtml;
+    _element.contentEditable = "true";
+    _element.children.add(parse);
+
     return _element;
   }
 
