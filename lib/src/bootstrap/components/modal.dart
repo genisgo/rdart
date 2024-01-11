@@ -11,6 +11,7 @@ class BsModalDialog extends Rview {
   bool static;
   bool scrollable;
   bool center;
+  BsModalController? _controller;
   List<Bootstrap> style;
   List<Bootstrap> dialogStyle;
 
@@ -19,15 +20,18 @@ class BsModalDialog extends Rview {
       this.dialogStyle = const [],
       this.id,
       this.body,
+      BsModalController? controller,
       this.footer,
       this.center = true,
       this.scrollable = false,
       this.static = false,
       this.transition = true,
       this.style = const []})
-      : super(id: id) {
+      : _controller = controller,
+        super(id: id) {
     _idgenerate++;
     id ??= "modal$_idgenerate";
+    _controller?.targetID = id!;
   }
   @override
   Relement build() {
@@ -93,8 +97,8 @@ class BsModalControl extends Rview {
 }
 
 class BsModalController {
-  String targetID;
-  BsModalController({required this.targetID});
+  String? targetID;
+  BsModalController({this.targetID});
   bjs.Modal? _controllModal;
   show() {
     _controllModal ??= bjs.Modal('#$targetID', {});

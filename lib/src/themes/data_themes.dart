@@ -54,6 +54,4 @@ abstract class TextDataTheme {
     required this.body1,
     required this.body2,
   });
-
-  //
-}
+  }
