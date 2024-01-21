@@ -740,7 +740,6 @@ class HtmlInnert extends Relement {
     final parse = Element.div();
     final cleanHtml = StringBuffer(decodeHtmlEntities(_html)).toString();
     parse.innerHtml = cleanHtml;
-    _element.contentEditable = "true";
     _element.children.add(parse);
 
     return _element;

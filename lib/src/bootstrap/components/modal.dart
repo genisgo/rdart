@@ -30,7 +30,7 @@ class BsModalDialog extends Rview {
       : _controller = controller,
         super(id: id) {
     _idgenerate++;
-    id ??= "modal$_idgenerate";
+    id ??= "modal$_idgenerate${Object.hashAll([this])}";
     _controller?.targetID = id!;
   }
   @override
