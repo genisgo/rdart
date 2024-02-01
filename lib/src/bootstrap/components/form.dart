@@ -21,13 +21,12 @@ class BsFormController {
       // event.stopPropagation();
       return false;
     }
-    
+
     return true;
   }
 }
 
 class BsForm extends Relement {
-  final _form = FormElement();
   BsFormController? controller;
   final bool needsValidat;
   List<Bootstrap> style;
@@ -39,17 +38,23 @@ class BsForm extends Relement {
       super.id,
       this.style = const []});
 
+  var _form = FormElement();
   @override
   Element create() {
     //SET ID
-   String ids = id?? "bsForm$generateId";
+    var ids = id ?? "bsForm$generateId";
+    
     _form.id = ids;
     //set Controller
     controller?.form = _form;
 
     _form.className = [bform.needsValidation, ...style].join(" ");
     _form.noValidate = needsValidat;
-    _form.children.addAll(children.map((e) => e.create()));
+    print("ssett ${children.last}");
+    var chs = children.map((e) => e.create());
+
+    _form.children.addAll(chs);
+    print("ssett ${_form.innerHtml}");
 
 //Validate event
     if (needsValidat) {
@@ -68,4 +73,5 @@ class BsForm extends Relement {
   @override
   // TODO: implement getElement
   Element get getElement => _form;
+  
 }

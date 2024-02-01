@@ -11,11 +11,14 @@ class BsTable extends Relement {
       super.id});
 
   var table = Element.table();
+  var body = Element.tag("tbody");
+
   @override
   Element create() {
-    
+    table.children.clear();
+    body.children.clear();
+
     ///Body prepare
-    var body = Element.tag("tbody");
     var el = rows.map((e) => e.create());
 
     body.children.addAll(el);
@@ -45,8 +48,12 @@ class BsTableRow extends Relement {
   var _row = Element.tr();
   @override
   Element create() {
+    _row.children.clear();
+
     _row.className = style.join(" ");
-    _row.children.addAll(cells.map((e) => e.create()));
+    _row.children.addAll(cells.map((e) {
+      return e.create();
+    }));
     //SET ID
     if (id != null) _row.id = id!;
     if (rstyle != null) {
@@ -73,6 +80,7 @@ class BsTableCell extends Relement {
   var _td = Element.td();
   @override
   Element create() {
+    _td.children.clear();
     if (scope) {
       _td = Element.th();
       _td.attributes.addAll({"scope": "row"});
@@ -83,10 +91,12 @@ class BsTableCell extends Relement {
     if (id != null) _td.id = id!;
     return _td;
   }
+  
 
   @override
   // TODO: implement getElement
   Element get getElement => _td;
+
 }
 
 class BsTableHeader extends Relement {
@@ -98,11 +108,12 @@ class BsTableHeader extends Relement {
 
   @override
   Element create() {
+    _header.children.clear();
     //th
     var tr = Element.tr();
     //tr
     tr.children.addAll(cols.map((e) {
-      final th = Element.th();
+      var th = Element.th();
       th.attributes.addAll({"scope": "col"});
       th.children.add(e.create());
       //SET ID

@@ -82,9 +82,7 @@ final class Rapplication extends Relement {
 
     ///Add native Script
     document.head!.children.addAll(bootstrapScript());
-    //document.body!.children.add(getEventListeners());
-    ///Execute usables
-    //_iniUsables();
+
   }
 
   @override

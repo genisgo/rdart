@@ -340,7 +340,8 @@ class Row extends Relement {
   var _div = Element.div();
   @override
   Element create() {
-   // dispose(); 
+    dispose();
+    //_div.children.clear();
     if (id != null) {
       _div.id = id!;
     }
@@ -357,9 +358,14 @@ class Row extends Relement {
   }
 
   @override
+  dispose() {
+    _div.children.clear();
+  }
+
+  @override
   // TODO: implement getElement
   Element get getElement => _div;
- // @override
+  // @override
   // dispose() {
   //   getElement.children.clear();
   //   return super.dispose();
@@ -737,6 +743,9 @@ class HtmlInnert extends Relement {
   final _element = Element.div();
   @override
   Element create() {
+    //Delete all old children.
+    _element.children.clear();
+
     final parse = Element.div();
     final cleanHtml = StringBuffer(decodeHtmlEntities(_html)).toString();
     parse.innerHtml = cleanHtml;

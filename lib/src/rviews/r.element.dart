@@ -3,15 +3,17 @@ part of 'rview_bases.dart';
 abstract class Relement {
   static int registrerElementID = 0;
   //generate id
-  static int _idgenerate = 0;
+  // static int _idgenerate = 0;
   final String? id;
   const Relement({required this.id});
   Element create();
 
-  dispose() {}
+  dispose() {
+  //getElement.children.clear();
+  }
 
   Element get getElement;
-  int get generateId => _idgenerate++;
+  int get generateId => Object.hashAll([this]);
 }
 
 abstract class Rview extends Relement {
@@ -52,12 +54,9 @@ abstract class Rview extends Relement {
   ///ceci est une solution temporaire
   void _cleanRview() {
     try {
-    getElement.children.clear();
+      getElement.children.clear();
     } catch (e) {
-      log(
-        "$e",
-        error: e,stackTrace: StackTrace.current
-      );
+      log("$e", error: e, stackTrace: StackTrace.current);
     }
   }
 
