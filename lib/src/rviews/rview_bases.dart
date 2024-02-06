@@ -130,7 +130,7 @@ class Container extends Relement {
   @override
   Element create() {
     ///if style is defind and [ height] , [width] is defind
-    ///
+    _div.children.clear();
     if (id != null) _div.id = id!;
     if (!singleBootStrap) _div.className = "container";
     if (style != null) {
@@ -584,7 +584,7 @@ class SizeBox extends Relement {
 }
 
 class BsElement extends BootStrapComponent {
-  final Relement? child;
+  Relement? child;
   bool noUseChildClassName;
 
   /// Permet d'utiliser[BsElement] comme parent de [child]
@@ -604,7 +604,7 @@ class BsElement extends BootStrapComponent {
   @override
   Element create() {
     //Set id
-
+    _div.children.clear();
     if (child != null) {
       if (userParent) {
         _div.children.add(child!.create());

@@ -26,7 +26,6 @@ enum InputType {
 }
 
 class BsInput extends Relement {
-
   String iconUrl;
   Relement? labelChild;
   String? label;
@@ -89,13 +88,14 @@ class BsInput extends Relement {
     this.maxLength,
     this.value,
   });
-  final _labelElement = LabelElement();
-  final _input = InputElement();
+  var _labelElement = LabelElement();
+  var _input = InputElement();
   var _div = Element.div();
 
   @override
   Element create() {
-   String  ids =id?? "input$generateId";
+    _div.children.clear();
+    String ids = id ?? "input$generateId";
     //label
     _labelElement.attributes.addAll({
       "for": ids,

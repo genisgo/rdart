@@ -43,14 +43,15 @@ class BsForm extends Relement {
   Element create() {
     //SET ID
     var ids = id ?? "bsForm$generateId";
-    
+
+    ///Initialise element
+    _form.children.clear();
     _form.id = ids;
     //set Controller
     controller?.form = _form;
 
     _form.className = [bform.needsValidation, ...style].join(" ");
     _form.noValidate = needsValidat;
-    print("ssett ${children.last}");
     var chs = children.map((e) => e.create());
 
     _form.children.addAll(chs);
@@ -73,5 +74,4 @@ class BsForm extends Relement {
   @override
   // TODO: implement getElement
   Element get getElement => _form;
-  
 }

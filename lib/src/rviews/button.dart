@@ -28,10 +28,13 @@ class RButton extends Relement {
 
   @override
   Element create() {
+    element.children.clear();
+
     ///Crete child
     ///
     // ondispon
     // ondispose();
+
     child?.create();
 
     /// set animation for child on [onMouseEnter] event.

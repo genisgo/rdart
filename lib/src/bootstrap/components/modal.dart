@@ -14,7 +14,6 @@ class BsModalDialog extends Rview {
   BsModalController? _controller;
   List<Bootstrap> style;
   List<Bootstrap> dialogStyle;
-
   BsModalDialog(
       {this.header,
       this.dialogStyle = const [],
@@ -36,16 +35,10 @@ class BsModalDialog extends Rview {
   @override
   Relement build() {
     //set Modal bootstrap style
-    final modalStyle = [bmodal, if (transition) bmodal.fade, ...style];
+    var modalStyle = [bmodal, if (transition) bmodal.fade, ...style];
     //set body class
 
-    final modalContentElements = [
-      if (header != null) header!,
-      if (body != null) BsElement(child: body!, bootstrap: [bmodal.body]),
-      if (footer != null) footer!
-    ];
-
-    final fulldialogStyle = [
+    var fulldialogStyle = [
       bmodal.dialog,
       if (scrollable) bmodal.dialogScrollable,
       if (center) bmodal.dialogCentered,
@@ -53,14 +46,20 @@ class BsModalDialog extends Rview {
     ];
 
     ///Attribute if modal is [static] are true
-    const staticAttribut = {"bs-backdrop": "static", "bs-keyboard": "false"};
+    var staticAttribut = {"bs-backdrop": "static", "bs-keyboard": "false"};
 
     return BsElement(
+        id: id,
         userParent: true,
         child: BsElement(
             userParent: true,
             child: Column(
-                children: modalContentElements,
+                children: [
+                  if (header != null) header!,
+                  if (body != null)
+                    BsElement(child: body!, bootstrap: [bmodal.body]),
+                  if (footer != null) footer!
+                ],
                 singleBootStrap: true,
                 bootstrap: [bmodal.content]),
             bootstrap: fulldialogStyle),
