@@ -175,9 +175,10 @@ class BsInput extends Relement {
       max ??= "100";
       _input.min = min;
       _input.max = max;
-      _input.step = step;
     }
 
+    ///set Step
+    _input.step = step;
     //add elements
     if (labelChild != null) _labelElement.children.add(labelChild!.create());
     //create relement
