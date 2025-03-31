@@ -16,14 +16,18 @@ class BsPopoersController {
   bjs.Popover? _controllModal;
   show()
   {
-    _controllModal ??= bjs.Popover('#$targetID', {});
+    js.JSString elementOrSelector = '#$targetID'.toJS;
+    js.JSObject config  = {}.toJSBox;
+    _controllModal ??= bjs.Popover(elementOrSelector, config);
     _controllModal?.show();
   }
 
   hide()
   {
-    _controllModal ??= bjs.Popover('#$targetID', {});
-    _controllModal?.hide();
+    js.JSString elementOrSelector = '#$targetID'.toJS;
+    js.JSObject config  = {}.toJSBox;
+    _controllModal ??= bjs.Popover(elementOrSelector, config); 
+       _controllModal?.hide();
   }
 }
 
@@ -54,7 +58,8 @@ class BsPopovers extends Rview {
 
   @override
   void initState() {
-    bjs.Popover(getElement, {});
+    js.JSObject config  = {}.toJSBox;
+    bjs.Popover(getElement.toJSBox, config);
     super.initState();
   }
 }
