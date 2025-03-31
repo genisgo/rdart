@@ -94,6 +94,7 @@ class BsInput extends Relement {
 
   @override
   Element create() {
+
     _div.children.clear();
     String ids = id ?? "input$generateId";
     //label

@@ -54,7 +54,7 @@ class BsNavbar extends Relement {
     //default btn
     //Title create
     title?.create();
-    title?.getElement.className += " " + [bnavbar.brand].join(" ");
+    title?.getElement.className += " ${[bnavbar.brand].join(" ")}";
     var defaultToggleBtn = BsElement(
         child: RButton(
           singleBootStrap: true,

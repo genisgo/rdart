@@ -402,6 +402,7 @@ class Column extends Relement {
   var _div = Element.div();
   @override
   Element create() {
+    _div.children?.clear(); 
     if (id != null) _div.id = id!;
     if (!singleBootStrap) {
       _div
@@ -432,16 +433,19 @@ class RImage extends Relement {
   String url;
 
   RStyle? style;
-
-  RImage({this.url = "", this.style, super.id});
+  List<String> className;
+  RImage({this.url = "", this.style, super.id, this.className = const []});
 
   var _image = Element.img();
+
   @override
   Element create() {
-    _image.attributes.addAll({"src": url});
+    
+    _image.attributes.addAll({"src": url, "crossOrigin": "anonymous"});
     if (style != null) {
       _image = style!.createStyle(_image);
     }
+    _image.className += " " + className.join(" ");
     return _image;
   }
 
@@ -573,6 +577,7 @@ class SizeBox extends Relement {
         ..style.alignItems = alignVertical.value
         ..style.display = "flex"
         ..style.width = width.px
+        ..style.padding = 0.px
         ..style.height = height.px;
     }
     return _div;
