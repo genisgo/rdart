@@ -750,7 +750,7 @@ final class Btable extends Bootstrap with BScreenMixin {
   static const table = Btable._("table");
   static const tableResponsive = Btable._("table-responsive");
   Bootstrap get headLight => Btable._("thead-light");
-  Bootstrap get headDark => Btable._("tthead-dark");
+  Bootstrap get headDark => Btable._("thead-dark");
   Bootstrap get striped => Btable._("table-striped");
   Bootstrap get bordered => Btable._("table-bordered");
   Bootstrap get hover => Btable._("table-hover");
