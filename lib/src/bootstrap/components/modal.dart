@@ -100,19 +100,29 @@ class BsModalController {
   BsModalController({this.targetID});
   bjs.Modal? _controllModal;
   show() {
-    _controllModal ??= bjs.Modal('#$targetID', {});
+    
+   String dartString = '#$targetID';
+   print(dartString);
+   js.JSAny jsString = dartString.jsify()!; 
+   js.JSObject config = {}.toJSBox;
+   
+    _controllModal ??= bjs.Modal(jsString,config);
     _controllModal?.show();
   }
 
   hide() {
+        String dartString = '#$targetID';
+
+  // Convertir la chaîne Dart en JSString
+  JSString jsString = dartString.toJS;
     try {
-      _controllModal ??= bjs.Modal('#$targetID', {});
+      _controllModal ??= bjs.Modal(jsString);
       _controllModal?.hide();
     } catch (e) {
       log("Modal.hide is call in no showing Modal",
           error: e, stackTrace: StackTrace.current);
     }
-  }
+  } 
 }
 
 class BsModalHeader extends Relement {
