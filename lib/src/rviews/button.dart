@@ -15,7 +15,7 @@ class RButton extends Relement {
   RButton(
       {this.onPress,
       this.type = BtnType.button,
-      this.singleBootStrap = false,
+      this.singleBootStrap = true,
       this.style,
       this.onHover,
       super.id,

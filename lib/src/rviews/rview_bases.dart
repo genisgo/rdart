@@ -6,6 +6,7 @@ import '../../themes.dart';
 import '../themes/data_themes.dart';
 import '../../bootstrap.dart';
 import '../utils/convert.dart';
+
 part 'components/page.dart';
 part 'components/container.dart';
 part 'components/text.dart';
@@ -23,6 +24,7 @@ part 'components/datalist.dart';
 part 'components/rview_style.dart';
 part 'components/htmlinnert.dart';
 part 'components/appbar.dart';
+part 'r.app_new_api.dart';
 part 'r.element.dart';
 part 'rcolor.dart';
 part 'border.dart';
@@ -35,9 +37,9 @@ part 'enum.dart';
 part '../router/r.router.dart';
 part '../router/router.dart';
 part '../router/go.router.dart';
-part 'bases/tabview.dart';
-part 'bases/listview.dart';
-part 'bases/combobox.dart';
+part 'components/tabview.dart';
+part 'components/listview.dart';
+part 'components/combobox.dart';
 
 ///CurrentTheme qui doit etres initialiser dans [Rapplication]
 late DataTheme _currentTheme;

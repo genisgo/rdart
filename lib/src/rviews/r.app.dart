@@ -4,7 +4,7 @@ part of 'rview_bases.dart';
 late final Router rnavigator;
 late final Rapplication _app;
 
-final class Rapplication extends Relement {
+sealed class Rapplication extends Relement {
   final Relement? home;
 
   final DataTheme theme;
@@ -13,7 +13,7 @@ final class Rapplication extends Relement {
 
   final bool bootstrap;
   //Usable
-  List<Usable> _usables = [];
+   List<Usable> _usables = [];
   Rapplication(
       {this.home,
       this.theme = Theme.defaultTheme,
@@ -125,3 +125,4 @@ abstract class Usable {
   void preoloaded();
   Future<void> execute();
 }
+
