@@ -283,7 +283,8 @@ class BsNavTabs extends Relement {
       Duration.zero,
       () {
         final tab = tabs[index];
-        final tabjs = bjs.Tab("#${tab.id}");
+        js.JSString elementOrSelector = "#${tab.id}".toJS;
+        final tabjs = bjs.Tab(elementOrSelector);
         if (tab.active) {
           tabjs.show();
         } else {

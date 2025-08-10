@@ -101,12 +101,14 @@ class BsOffcanvasController {
   BsOffcanvasController({required this.targetID});
   bjs.Offcanvas? _controllModal;
   show() {
-    _controllModal ??= bjs.Offcanvas('#$targetID');
+    js.JSString elementOrSelector = '#$targetID'.toJS;
+    _controllModal ??= bjs.Offcanvas(elementOrSelector);
     _controllModal?.show();
   }
 
   hide() {
-    _controllModal ??= bjs.Offcanvas('#$targetID');
+    js.JSString elementOrSelector = '#$targetID'.toJS;
+    _controllModal ??= bjs.Offcanvas(elementOrSelector);
     _controllModal?.hide();
   }
 }
