@@ -4,7 +4,7 @@ part of 'rview_bases.dart';
 late final Router rnavigator;
 late final Rapplication _app;
 
-sealed class Rapplication extends Relement {
+ class Rapplication extends Relement {
   final Relement? home;
 
   final DataTheme theme;

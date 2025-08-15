@@ -34,7 +34,7 @@ class Page extends Relement {
         ..className = ClassName.page.name
         ..style.width = "100%"
         ..style.height = "100%"
-        ..style.display = "grid"
+        // ..style.display = "grid"
         ..style.background =
             background?.color ?? _currentTheme.background.color;
     }

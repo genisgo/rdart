@@ -24,7 +24,7 @@ class Column extends Relement {
       this.crossAxisExpand = true,
       this.bootstrap = const [],
       super.id,
-      this.singleBootStrap = true,
+      this.singleBootStrap = false,
       this.crossAxisAlignment = AlignVertical.top,
       this.mainAxisAlignment = AlignHorizontal.left});
   var _div = Element.div();
