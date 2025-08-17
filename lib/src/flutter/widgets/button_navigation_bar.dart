@@ -1,26 +1,26 @@
 part of 'widgets.dart';
 
-
 /// ------------------- BOTTOM NAVIGATION BAR -------------------
 
 class BottomNavItem {
   final String label;
-  final String? iconHtml; // tu peux injecter un <i class="..."></i> si tu veux
-  BottomNavItem({required this.label, this.iconHtml});
+  final BsIcon? icon; // tu peux injecter un <i class="..."></i> si tu veux
+  BottomNavItem({required this.label, this.icon});
 }
 
-class DefaultBottomNavigationBar extends BottomNavigationBarI {
+class BottomNavigationBar extends BottomNavigationBarI {
   final List<BottomNavItem> items;
   @override
   int currentIndex;
   final void Function(int index)? onTap;
-  final List<String> bootstrap; // ex: ['nav','nav-pills','justify-content-around']
+  final List<Bootstrap>
+  bootstrap; // ex: ['nav','nav-pills','justify-content-around']
 
-  DefaultBottomNavigationBar({
+  BottomNavigationBar({
     required this.items,
     this.onTap,
     this.currentIndex = 0,
-    this.bootstrap = const ['nav', 'nav-pills', 'justify-content-around', 'py-2'],
+    this.bootstrap = const [],
     super.id,
   }) : assert(items.isNotEmpty, 'BottomNavigationBar requires at least 1 item');
 
@@ -29,7 +29,10 @@ class DefaultBottomNavigationBar extends BottomNavigationBarI {
   @override
   Element create() {
     _root.id = id ?? 'bnav-${DateTime.now().microsecondsSinceEpoch}';
-    _root.classes.addAll(bootstrap);
+    _root.classes.addAll([
+      ...['nav', 'nav-pills', 'justify-content-around', 'py-2'],
+      ...bootstrap.map((e) => e.cname),
+    ]);
     _root.style
       ..display = 'flex'
       ..gap = '4px';
@@ -37,18 +40,20 @@ class DefaultBottomNavigationBar extends BottomNavigationBarI {
     _root.children.clear();
     for (var i = 0; i < items.length; i++) {
       final it = items[i];
-      final a = AnchorElement(href: '#')
-        ..classes.addAll([
-          'nav-link',
-          if (i == currentIndex) 'active',
-        ])
-        ..style.display = 'flex'
-        ..style.flexDirection = 'column'
-        ..style.alignItems = 'center'
-        ..style.gap = '2px';
+      final a =
+          AnchorElement(href: '#')
+            ..classes.addAll(['nav-link', if (i == currentIndex) 'active'])
+            ..style.display = 'flex'
+            ..style.flexDirection = 'column'
+            ..style.alignItems = 'center'
+            ..style.gap = '2px';
 
-      if (it.iconHtml != null) {
-        final icon = SpanElement()..setInnerHtml(it.iconHtml!, treeSanitizer: NodeTreeSanitizer.trusted);
+      if (it.icon != null) {
+        final icon =
+            SpanElement()..setInnerHtml(
+              it.icon?.create().outerHtml,
+              treeSanitizer: NodeTreeSanitizer.trusted,
+            );
         a.children.add(icon);
       }
       a.appendText(it.label);
@@ -76,23 +81,22 @@ class DefaultBottomNavigationBar extends BottomNavigationBarI {
   Element get getElement => _root;
 }
 
-
 /// -------------------- FLOATING ACTION BUTTON -----------------
 
-class DefaultFloatingActionButton extends FloatingActionButtonI {
+class FloatingActionButton extends FloatingActionButtonI {
   @override
   final VoidCallback? onPressed;
   final String? tooltip;
-  final String? iconHtml; // ex: '<i class="bi bi-plus"></i>'
-  final String? label;    // si tu veux un mini-extended FAB
-  final List<String> bootstrap; // ex: ['btn','btn-primary','rounded-circle']
+  final BsIcon? icon; // ex: '<i class="bi bi-plus"></i>'
+  final String? label; // si tu veux un mini-extended FAB
+  final List<Bootstrap> bootstrap; // ex: ['btn','btn-primary','rounded-circle']
 
-  DefaultFloatingActionButton({
+  FloatingActionButton({
     this.onPressed,
     this.tooltip,
-    this.iconHtml = '<span style="font-size:20px;line-height:1;">＋</span>',
+    this.icon ,
     this.label,
-    this.bootstrap = const ['btn', 'btn-primary', 'rounded-circle', 'shadow'],
+    this.bootstrap = const [],
     super.id,
   });
 
@@ -103,7 +107,10 @@ class DefaultFloatingActionButton extends FloatingActionButtonI {
     _btn
       ..id = id ?? 'fab-${DateTime.now().microsecondsSinceEpoch}'
       ..title = tooltip ?? ''
-      ..classes.addAll(bootstrap)
+      ..classes.addAll([
+         ...['btn', 'btn-primary', 'rounded-circle', 'shadow'],
+         ...bootstrap.map((e) => e.cname,)
+      ])
       ..style.width = label == null ? '56px' : 'auto'
       ..style.height = '56px'
       ..style.display = 'inline-flex'
@@ -114,16 +121,17 @@ class DefaultFloatingActionButton extends FloatingActionButtonI {
       ..onClick.listen((_) => onPressed?.call());
 
     // contenu : icône + label optionnel (extended FAB)
-    final icon = SpanElement();
-    if (iconHtml != null) {
-      icon.setInnerHtml(iconHtml!, treeSanitizer: NodeTreeSanitizer.trusted);
+    final iconSpan = SpanElement();
+    if (icon != null) {
+      iconSpan.setInnerHtml(icon!.create().outerHtml, treeSanitizer: NodeTreeSanitizer.trusted);
     }
-    _btn.children.add(icon);
+    _btn.children.add(iconSpan);
 
     if (label != null) {
-      final txt = SpanElement()
-        ..text = label!
-        ..style.fontWeight = '600';
+      final txt =
+          SpanElement()
+            ..text = label!
+            ..style.fontWeight = '600';
       _btn.children.add(txt);
     }
 

@@ -1,6 +1,6 @@
-
-import 'package:rdart/rviews.dart';
+import 'package:rdart/rviews.dart' hide SizedBox, Text;
 import 'package:rdart/bootstrap.dart';
+import 'package:rdart/flutter_widgets.dart' hide Column;
 
 class SimpleCounterPage extends Rview {
   SimpleCounterPage();
@@ -10,14 +10,14 @@ class SimpleCounterPage extends Rview {
   @override
   Relement build() {
     return Page(
-      appBar: AppBar(text: "Simple Compteur"),
+      appBar: AppBar(title: "Simple Compteur"),
       body: Column(
         crossAxisAlignment: AlignVertical.center,
         mainAxisAlignment: AlignHorizontal.center,
         children: [
           Text(
             "Valeur du compteur : $count",
-            style: RStyle(textSize: 28, bootstrap: [Bcolor.bgPrimary.text]),
+            bootstrap: [Bcolor.bgPrimary.text],
           ),
           SizedBox(height: 24),
           RButton(

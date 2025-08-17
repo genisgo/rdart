@@ -2,6 +2,7 @@ part of '../rview_bases.dart';
 
 // ///Colum Element
 
+@Deprecated("Bientôt cette classe sera remplacer par le Column de Flutter Widget")
 class Column extends Relement {
   ///Les elements de la colone
   List<Relement> children;

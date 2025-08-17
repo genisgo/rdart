@@ -1,17 +1,15 @@
 import 'package:rdart/bootstrap.dart';
-import 'package:rdart/rviews.dart';
+import 'package:rdart/rviews.dart' hide Text;
+import 'package:rdart/flutter_widgets.dart' hide Column;
+
 void main() {
   int counter = 0;
 
-  final counterStyle = RStyle(
-    textSize: 24,
-    color: Colors.primary,
-    bootstrap: [],
-  );
-
+ 
   final counterText = Text(
     'Compteur : $counter',
-    style: counterStyle,
+    fontSize: 24,
+    color: Colors.primary,
     id: 'counterText',
   );
 
@@ -23,7 +21,7 @@ void main() {
 
   incrementButton.create().onClick.listen((event) {
     counter++;
-    counterText.text = 'Compteur : $counter';
+    counterText.data = 'Compteur : $counter';
     counterText.create();
   });
 
@@ -34,11 +32,11 @@ void main() {
   );
 
   aboutButton.create().onClick.listen((event) {
-   rnavigator.push('/about');
+    rnavigator.push('/about');
   });
 
   final homePage = Page(
-    appBar: AppBar(title: Text('Démo Compteur', style: RStyle(textSize: 18))),
+    appBar: AppBar(title: 'Démo Compteur'),
     body: Column(
       children: [
         counterText,
@@ -54,8 +52,8 @@ void main() {
   );
 
   final aboutPage = Page(
-    appBar: AppBar(title: Text('À propos', style: RStyle(textSize: 18))),
-    body: Text('Ceci est la page à propos.', style: RStyle(textSize: 20)),
+    appBar: AppBar(title: 'À propos'),
+    body: Text('Ceci est la page à propos.', fontSize: 20),
     bootstrap: [],
   );
 

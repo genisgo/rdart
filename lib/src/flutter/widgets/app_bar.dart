@@ -1,18 +1,18 @@
 part of 'widgets.dart';
-class DefaultAppBar extends AppBarI {
+class AppBar extends AppBarI {
   final String title;
   final Relement? leading;
   final List<Relement> actions;
-  final List<String> bootstrap; // ex: ['navbar','navbar-light','bg-light']
+  final List<Bootstrap> bootstrap; // ex: ['navbar','navbar-light','bg-light']
   final String? backgroundColor; // override CSS rapide
   final bool elevated;
 
-  DefaultAppBar({
+  AppBar({
     required this.title,
     this.leading,
     this.actions = const [],
-    this.bootstrap = const ['navbar', 'navbar-expand', 'bg-white', 'shadow-sm'],
-    this.backgroundColor,
+    this.bootstrap = const [Bcolor.bgWhite] ,
+    this.backgroundColor, 
     this.elevated = true,
     super.id,
   });
@@ -22,14 +22,19 @@ class DefaultAppBar extends AppBarI {
   @override
   Element create() {
     _root.id = id ?? 'appbar-${DateTime.now().microsecondsSinceEpoch}';
-    _root.classes.addAll(bootstrap);
+    _root.classes.addAll([
+      ...['navbar', 'navbar-expand',
+      if(elevated) bshadow.cname
+      ],
+      ...bootstrap.map((e) => e.cname,)
+    ]);
     _root.style
       ..display = 'flex'
       ..alignItems = 'center'
       ..gap = '8px'
       ..padding = '8px 12px';
     if (backgroundColor != null) _root.style.backgroundColor = backgroundColor!;
-    if (!elevated) _root.style.boxShadow = 'none';
+    // if (!elevated) _root.style.boxShadow = 'none';
 
     // leading
     if (leading != null) {

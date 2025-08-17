@@ -1,6 +1,6 @@
 part of '../rview_bases.dart';
 
-class AppBar extends Relement {
+class AppBarNatif extends Relement {
   final Relement? title;
   final Relement? backup;
   final int heigth;
@@ -10,7 +10,7 @@ class AppBar extends Relement {
   final BoxShadow boxShadow;
   final RelementCallBack? onPress;
   Color? background;
-  AppBar(
+  AppBarNatif(
       {this.title,
       this.alginVertical = AlignVertical.center,
       this.text = "",

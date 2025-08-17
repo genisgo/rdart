@@ -87,7 +87,7 @@ abstract class Rview extends Relement {
 }
 
 //definition du type de
-typedef RelementCallBack(Relement element);
+typedef RelementCallBack = Function(Relement element);
 
 abstract class BootStrapComponent extends Relement {
   final List<Bootstrap> bootstraps;

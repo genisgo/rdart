@@ -12,6 +12,7 @@ abstract class RDrawer extends Relement {
   /// pour demander la fermeture du drawer.
   DrawerVoidCallback? get onRequestClose;
   set onRequestClose(DrawerVoidCallback? cb);
+  
 }
 
 /// EndDrawer abstrait (côté droit, comme Flutter `endDrawer:`)
