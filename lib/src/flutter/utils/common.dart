@@ -27,3 +27,6 @@ class BorderSide {
     }
   }
 }
+
+///Convertir [BsIcon] en html
+String iconToHtml(BsIcon icon) => icon.create().outerHtml!;

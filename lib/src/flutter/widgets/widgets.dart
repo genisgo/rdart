@@ -42,3 +42,4 @@ part 'switch.dart';
 part 'check_box.dart';
 part 'radio.dart';
 part 'slider.dart';
+part 'forms_widgets.dart';
