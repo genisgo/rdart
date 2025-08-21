@@ -1,5 +1,7 @@
 part of 'widgets.dart';
 
+enum ButtonType { button, sumit }
+
 class ElevatedButton extends ButtonI {
   @override
   final VoidCallback? onPressed;
@@ -8,15 +10,16 @@ class ElevatedButton extends ButtonI {
 
   final String label;
   final String? tooltip;
-  final String? leftIconHtml;
-  final String? rightIconHtml;
+  final BsIcon? leftIcon;
+  final BsIcon? rightIcon;
 
   final ElevatedVariant variant;
   final ButtonSize size;
   final bool fullWidth;
-  final List<String> bootstrap; // s'ajoute à ['btn', elevClass, size, 'shadow']
+  final List<Bootstrap>
+  bootstrap; // s'ajoute à ['btn', elevClass, size, 'shadow']
 
-  final String type; // 'button' | 'submit'
+  final ButtonType type; // 'button' | 'submit'
   final String? ariaLabel;
 
   bool _enabled;
@@ -27,19 +30,19 @@ class ElevatedButton extends ButtonI {
     this.onPressed,
     this.onLongPress,
     this.tooltip,
-    this.leftIconHtml,
-    this.rightIconHtml,
+    this.leftIcon,
+    this.rightIcon,
     this.variant = ElevatedVariant.primary,
     this.size = ButtonSize.medium,
     this.fullWidth = false,
-    this.bootstrap = const ['shadow'],
-    this.type = 'button',
+    this.bootstrap = const [bshadow],
+    this.type = ButtonType.button,
     this.ariaLabel,
     bool enabled = true,
     bool loading = false,
     super.id,
-  })  : _enabled = enabled,
-        _loading = loading;
+  }) : _enabled = enabled,
+       _loading = loading;
 
   final ButtonElement _btn = ButtonElement();
   Timer? _lpTimer;
@@ -50,14 +53,14 @@ class ElevatedButton extends ButtonI {
 
     _btn
       ..id = id ?? 'elevbtn-${DateTime.now().microsecondsSinceEpoch}'
-      ..type = type
+      ..type = type.name
       ..title = tooltip ?? ''
       ..setAttribute('aria-label', ariaLabel ?? label)
       ..classes.addAll(['btn', buttonElevClass(variant)]);
 
     final sz = buttonSizeClass(size);
     if (sz.isNotEmpty) _btn.classes.add(sz);
-    _btn.classes.addAll(bootstrap);
+    _btn.classes.addAll(bootstrap.map((e) => e.cname));
     if (fullWidth) _btn.classes.add('w-100');
 
     _renderContent();
@@ -71,30 +74,39 @@ class ElevatedButton extends ButtonI {
     _btn.children.clear();
 
     if (_loading) {
-      final spinner = SpanElement()
-        ..classes.addAll(['spinner-border', 'spinner-border-sm'])
-        ..setAttribute('role', 'status')
-        ..style.marginRight = '6px';
+      final spinner =
+          SpanElement()
+            ..classes.addAll(['spinner-border', 'spinner-border-sm'])
+            ..setAttribute('role', 'status')
+            ..style.marginRight = '6px';
       if (spinner.getComputedStyle().borderTopColor.isEmpty) {
         spinner.classes
           ..clear()
           ..add('rdart-spinner');
       }
       _btn.children.add(spinner);
-    } else if (leftIconHtml != null) {
-      final left = SpanElement()
-        ..setInnerHtml(leftIconHtml!, treeSanitizer: NodeTreeSanitizer.trusted)
-        ..style.marginRight = '6px';
+    } else if (leftIcon != null) {
+      final left =
+          SpanElement()
+            ..setInnerHtml(
+              iconToHtml(leftIcon!),
+              treeSanitizer: NodeTreeSanitizer.trusted,
+            )
+            ..style.marginRight = '6px';
       _btn.children.add(left);
     }
 
     final text = SpanElement()..text = label;
     _btn.children.add(text);
 
-    if (!_loading && rightIconHtml != null) {
-      final right = SpanElement()
-        ..setInnerHtml(rightIconHtml!, treeSanitizer: NodeTreeSanitizer.trusted)
-        ..style.marginLeft = '6px';
+    if (!_loading && rightIcon != null) {
+      final right =
+          SpanElement()
+            ..setInnerHtml(
+              iconToHtml(rightIcon!),
+              treeSanitizer: NodeTreeSanitizer.trusted,
+            )
+            ..style.marginLeft = '6px';
       _btn.children.add(right);
     }
   }
@@ -111,7 +123,10 @@ class ElevatedButton extends ButtonI {
     _btn.onMouseDown.listen((_) {
       if (!_enabled || _loading || onLongPress == null) return;
       _lpTimer?.cancel();
-      _lpTimer = Timer(const Duration(milliseconds: 500), () => onLongPress?.call());
+      _lpTimer = Timer(
+        const Duration(milliseconds: 500),
+        () => onLongPress?.call(),
+      );
     });
     _btn.onMouseUp.listen((_) => _lpTimer?.cancel());
     _btn.onMouseLeave.listen((_) => _lpTimer?.cancel());

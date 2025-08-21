@@ -4,17 +4,24 @@ class Card extends Relement {
   final Relement? child;
   final EdgeInsets? padding;
   final EdgeInsets? margin;
-  final List<String> bootstrap; // ex: ['shadow-sm']
+  final List<Bootstrap> bootstrap; // ex: ['shadow-sm']
+  final RStyle? style;
+  Card({
+    this.child,
+    this.padding,
+    this.margin,
+    this.bootstrap = const [],
+    this.style,
+    super.id,
+  });
 
-  Card({this.child, this.padding, this.margin, this.bootstrap = const [], super.id});
-
-  late final DivElement _root = DivElement();
+  late Element _root = DivElement();
 
   @override
   Element create() {
     _root
       ..id = id ?? 'card-${DateTime.now().microsecondsSinceEpoch}'
-      ..classes.addAll(['rd-card', ...bootstrap]);
+      ..classes.addAll(['rd-card', ...bootstrap.map((e) => e.cname)]);
     _ensureCardStyles();
     _root.children.clear();
 
@@ -26,6 +33,8 @@ class Card extends Relement {
     }
 
     if (margin != null) _root.style.margin = margin!.toCss();
+
+    if (style != null) _root = style!.createStyle(_root);
     return _root;
   }
 
@@ -36,9 +45,10 @@ class Card extends Relement {
   static void _ensureCardStyles() {
     if (_cssInjected) return;
     _cssInjected = true;
-    final style = StyleElement()
-      ..id = 'rdart-card-styles'
-      ..text = '''
+    final style =
+        StyleElement()
+          ..id = 'rdart-card-styles'
+          ..text = '''
 .rd-card{
   background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:12px;
   box-shadow:0 8px 24px rgba(0,0,0,.06);

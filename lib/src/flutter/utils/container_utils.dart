@@ -8,7 +8,7 @@ class EdgeInsets {
   const EdgeInsets._(this.top, this.right, this.bottom, this.left);
 
   factory EdgeInsets.all(double v) => EdgeInsets._(v, v, v, v);
-  factory EdgeInsets.symmetric({double vertical = 0, double horizontal = 0}) =>
+  factory EdgeInsets.symmetric({ double vertical = 0, double horizontal = 0}) =>
       EdgeInsets._(vertical, horizontal, vertical, horizontal);
   factory EdgeInsets.only({double top = 0, double right = 0, double bottom = 0, double left = 0}) =>
       EdgeInsets._(top, right, bottom, left);
@@ -76,7 +76,7 @@ class BoxShadow {
 }
 
 class LinearGradient {
-  final List<String> colors;    // ex: ['#ff6b6b', '#feca57']
+  final List<Color> colors;    // ex: ['#ff6b6b', '#feca57']
   final List<double>? stops;    // 0..1 (optionnel)
   final double angleDeg;        // 0=to right, 90=to bottom (CSS deg)
   const LinearGradient({required this.colors, this.stops, this.angleDeg = 180});
@@ -86,11 +86,11 @@ class LinearGradient {
       final parts = <String>[];
       for (var i = 0; i < colors.length; i++) {
         final pct = (stops![i] * 100).clamp(0, 100).toStringAsFixed(2);
-        parts.add('${colors[i]} $pct%');
+        parts.add('${colors[i].color} $pct%');
       }
       return 'linear-gradient(${angleDeg}deg, ${parts.join(', ')})';
     }
-    return 'linear-gradient(${angleDeg}deg, ${colors.join(', ')})';
+    return 'linear-gradient(${angleDeg}deg, ${colors.map((e) => e.color,).join(', ')})';
   }
 }
 
