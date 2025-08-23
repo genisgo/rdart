@@ -57,7 +57,7 @@ class UnderlineInputBorder extends InputBorder {
 }
 
 class NoInputBorder extends InputBorder {
-  const NoInputBorder() : super(borderRadius: 0, borderSide: const BorderSide(color: 'transparent', width: 0));
+  const NoInputBorder() : super(borderRadius: 0, borderSide: const BorderSide(color: Color('transparent'), width: 0));
 
   @override
   void applyTo(DivElement el) {

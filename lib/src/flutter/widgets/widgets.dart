@@ -56,3 +56,4 @@ part 'image_widgets.dart';
 part 'video_player.dart';
 part 'video_player_plus.dart';
 part 'carousel.dart';
+part 'toast.dart';

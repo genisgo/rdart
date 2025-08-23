@@ -428,14 +428,14 @@ class TextField extends Relement {
       case InputVariant.outline:
         return OutlineInputBorder(
           borderRadius: decoration.borderRadius ?? borderRadius,
-          borderSide: BorderSide(color: color.color, width: 1),
+          borderSide: BorderSide(color: color, width: 1),
         );
       case InputVariant.underline:
         return UnderlineInputBorder(
-          borderSide: BorderSide(color: color.color, width: 1),
+          borderSide: BorderSide(color: color, width: 1),
         );
       case InputVariant.filled:
-        final c = (focused || error) ? color.color : 'transparent';
+        final c = (focused || error) ? color : Color('transparent');
         return OutlineInputBorder(
           borderRadius: decoration.borderRadius ?? borderRadius,
           borderSide: BorderSide(color: c, width: 1),

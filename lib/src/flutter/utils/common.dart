@@ -4,11 +4,11 @@ enum BorderStyleCss { none, solid, dashed, dotted }
 
 class BorderSide {
   final double width;
-  final String color; // CSS color
+  final Color color; // CSS color
   final BorderStyleCss style;
   const BorderSide({
     this.width = 1,
-    this.color = 'rgba(0,0,0,.15)',
+    this.color =const Color('rgba(0,0,0,.15)'),
     this.style = BorderStyleCss.solid,
   });
 

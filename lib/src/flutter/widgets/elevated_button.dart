@@ -8,7 +8,7 @@ class ElevatedButton extends ButtonI {
   @override
   final VoidCallback? onLongPress;
 
-  final String label;
+  final Relement label;
   final String? tooltip;
   final BsIcon? leftIcon;
   final BsIcon? rightIcon;
@@ -96,8 +96,8 @@ class ElevatedButton extends ButtonI {
       _btn.children.add(left);
     }
 
-    final text = SpanElement()..text = label;
-    _btn.children.add(text);
+    // final text = SpanElement()..text = label;
+    _btn.children.add(label.create());
 
     if (!_loading && rightIcon != null) {
       final right =

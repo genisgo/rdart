@@ -281,7 +281,7 @@ mixin _DecoratedHost on Relement {
           decoration.border ??
           OutlineInputBorder(
             borderRadius: decoration.borderRadius ?? radius,
-            borderSide: BorderSide(color: errorColor.color, width: 2),
+            borderSide: BorderSide(color: errorColor, width: 2),
           );
     }
     if (isFocused) {
@@ -290,7 +290,7 @@ mixin _DecoratedHost on Relement {
           decoration.border ??
           OutlineInputBorder(
             borderRadius: decoration.borderRadius ?? radius,
-            borderSide: BorderSide(color: focusColor.color, width: 2),
+            borderSide: BorderSide(color: focusColor, width: 2),
           );
     }
     return decoration.enabledBorder ??
@@ -1431,7 +1431,7 @@ class TextAreaFormField extends Relement implements FieldApi {
                 decoration.border ??
                 OutlineInputBorder(
                   borderRadius: decoration.borderRadius ?? 10,
-                  borderSide: const BorderSide(color: '#dc3545', width: 2),
+                  borderSide: const BorderSide(color: Color( '#dc3545'), width: 2),
                 );
           }
           if (_focused) {
@@ -1440,7 +1440,7 @@ class TextAreaFormField extends Relement implements FieldApi {
                 decoration.border ??
                 OutlineInputBorder(
                   borderRadius: decoration.borderRadius ?? 10,
-                  borderSide: const BorderSide(color: '#0d6efd', width: 2),
+                  borderSide: const BorderSide(color: Color('#0d6efd'), width: 2),
                 );
           }
           return decoration.enabledBorder ??
