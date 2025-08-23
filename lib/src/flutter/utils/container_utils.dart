@@ -127,15 +127,15 @@ class Alignment {
 }
 
 class BoxDecoration {
-  final String? color;
+  final Color? color;
   final LinearGradient? gradient;
   final Border? border;
   final BorderRadius? borderRadius;
   final List<BoxShadow>? boxShadow;
   final String? backgroundImageUrl;
-  final String backgroundSize;     // 'cover' | 'contain' | 'auto ...'
-  final String backgroundPosition; // 'center' | 'top left' ...
-  final String backgroundRepeat;   // 'no-repeat' | 'repeat' ...
+  final BackgroundSize backgroundSize;
+  final BackgroundPosition backgroundPosition;
+  final BackgroundRepeat backgroundRepeat;
 
   const BoxDecoration({
     this.color,
@@ -144,13 +144,13 @@ class BoxDecoration {
     this.borderRadius,
     this.boxShadow,
     this.backgroundImageUrl,
-    this.backgroundSize = 'cover',
-    this.backgroundPosition = 'center',
-    this.backgroundRepeat = 'no-repeat',
+    this.backgroundSize = BackgroundSize.cover,
+    this.backgroundPosition = BackgroundPosition.center,
+    this.backgroundRepeat = BackgroundRepeat.noRepeat,
   });
 
   void applyTo(CssStyleDeclaration s) {
-    if (color != null) s.backgroundColor = color!;
+    if (color != null) s.backgroundColor = color!.color;
     if (gradient != null) s.backgroundImage = gradient!.toCss();
     if (borderRadius != null) s.borderRadius = borderRadius!.toCss();
     if (boxShadow != null && boxShadow!.isNotEmpty) {
@@ -159,9 +159,32 @@ class BoxDecoration {
     if (border != null) border!.applyTo(s);
     if (backgroundImageUrl != null) {
       s.backgroundImage = 'url("$backgroundImageUrl")${gradient != null ? ', ${s.backgroundImage}' : ''}';
-      s.backgroundSize = backgroundSize;
-      s.backgroundPosition = backgroundPosition;
-      s.backgroundRepeat = backgroundRepeat;
+      s.backgroundSize = bgSizeToCss(backgroundSize);
+      s.backgroundPosition = bgPosToCss(backgroundPosition);
+      s.backgroundRepeat = bgRepeatToCss(backgroundRepeat);
     }
+  }
+  BoxDecoration copyWith({
+    Color? color,
+    BorderRadius? borderRadius,
+    Border? border,
+    double? borderWidth,
+    List<BoxShadow>? boxShadow,
+    String? backgroundImageUrl,
+    BackgroundSize? backgroundSize,
+    BackgroundPosition? backgroundPosition,
+    BackgroundRepeat? backgroundRepeat,
+  }) {
+    return BoxDecoration(
+      color: color ?? this.color,
+      borderRadius: borderRadius ?? this.borderRadius,
+      border: border ?? this.border,
+     
+      boxShadow: boxShadow ?? this.boxShadow,
+      backgroundImageUrl: backgroundImageUrl ?? this.backgroundImageUrl,
+      backgroundSize: backgroundSize ?? this.backgroundSize,
+      backgroundPosition: backgroundPosition ?? this.backgroundPosition,
+      backgroundRepeat: backgroundRepeat ?? this.backgroundRepeat,
+    );
   }
 }

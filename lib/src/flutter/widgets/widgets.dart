@@ -1,12 +1,17 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:rdart/bootstrap.dart' hide InputType;
 import 'package:rdart/src/flutter/utils/utils.dart';
+
 
 import '../../../rviews.dart' hide TextAlign, BorderSide;
 import '../interfaces/interfaces.dart';
 import 'dart:html';
 import 'dart:js_util' as js_util;
+import 'dart:convert' as conv;
+import 'dart:typed_data' as typed;
+
 part 'app_bar.dart';
 part 'app_bar_action_button.dart';
 part 'button_navigation_bar.dart';
@@ -47,3 +52,7 @@ part 'alert_dialog.dart';
 part 'material_button.dart';
 part 'animated_widgets.dart';
 part 'expanded_panel.dart';
+part 'image_widgets.dart';
+part 'video_player.dart';
+part 'video_player_plus.dart';
+part 'carousel.dart';

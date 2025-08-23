@@ -376,55 +376,6 @@ class Hero extends Relement {
   Element get getElement => _root;
 }
 
-// Helper: lit un border-radius effectif en px, via CSS Typed OM si dispo, sinon fallback
-String _effectiveBorderRadiusPxString(Element el) {
-  try {
-    final styleMap = js_util.callMethod(el, 'computedStyleMap', []);
-
-    double? readCorner(String prop) {
-      final v = js_util.callMethod(styleMap, 'get', [prop]);
-      if (v == null) return null;
-      final unit = js_util.getProperty(v, 'unit');
-      final value = js_util.getProperty(v, 'value');
-      if (unit is String && unit == 'px' && value is num) return value.toDouble();
-      final x = js_util.getProperty(v, 'x');
-      if (x != null) {
-        final u = js_util.getProperty(x, 'unit');
-        final val = js_util.getProperty(x, 'value');
-        if (u is String && u == 'px' && val is num) return val.toDouble();
-        if (u is String && u == '%' && val is num) {
-          final rect = el.getBoundingClientRect();
-          return rect.width * (val / 100.0);
-        }
-      }
-      if (unit is String && unit == '%' && value is num) {
-        final rect = el.getBoundingClientRect();
-        return rect.width * (value / 100.0);
-      }
-      return null;
-    }
-
-    final props = const [
-      'border-top-left-radius',
-      'border-top-right-radius',
-      'border-bottom-right-radius',
-      'border-bottom-left-radius',
-    ];
-    final vals = <double>[];
-    for (final p in props) {
-      final v = readCorner(p);
-      if (v != null) vals.add(v);
-    }
-    if (vals.isNotEmpty) {
-      final max = vals.reduce((a, b) => a > b ? a : b);
-      return '${max.toStringAsFixed(2)}px';
-    }
-  } catch (_) {}
-  final r = el.style.borderRadius;
-  return (r.isEmpty) ? '0px' : r;
-}
-
-
 class HeroAnimator {
   static Future<void> transition({
     required Element fromPage,
@@ -449,7 +400,7 @@ class HeroAnimator {
       ..opacity = '0'
       ..visibility = 'hidden'
       ..pointerEvents = 'none';
-    document.body?.append(toPage);
+    // document.body?.append(toPage);
 
     // Laisser le layout se stabiliser
     await _nextFrame();
@@ -542,3 +493,4 @@ class HeroAnimator {
     return c.future;
   }
 }
+

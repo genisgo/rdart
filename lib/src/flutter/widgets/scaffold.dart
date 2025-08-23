@@ -9,7 +9,7 @@ part of 'widgets.dart';
 /// - floatingActionButton : bouton flottant en bas à droite
 ///
 /// Méthodes utiles : openDrawer(), closeDrawer(), openEndDrawer(), closeEndDrawer(), toggleDrawer(), toggleEndDrawer()
-class Scafolld extends Relement {
+class Scaffold extends Relement {
   final AppBarI? appBar;
   final Relement? body;
   final RDrawer? drawer;
@@ -27,7 +27,7 @@ class Scafolld extends Relement {
   /// Si true, clic sur le scrim (fond assombri) ferme le drawer
   final bool scrimDismissible;
 
-  Scafolld({
+  Scaffold({
     this.appBar,
     this.body,
     this.drawer,
@@ -282,9 +282,9 @@ class Scafolld extends Relement {
 }
 
 class DrawerController {
-  Scafolld? _scafoled;
+  Scaffold? _scafoled;
 
-  set scafoled(Scafolld scafoled) {
+  set scafoled(Scaffold scafoled) {
     _scafoled = scafoled;
   }
 

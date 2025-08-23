@@ -23,7 +23,7 @@ class SizedBox extends Relement {
   @override
   Element create() {
     _root
-      ..id = id ?? 'sizedbox-${DateTime.now().microsecondsSinceEpoch}'
+      // ..id = id ?? 'sizedbox-${DateTime.now().microsecondsSinceEpoch}'
       ..classes.addAll(['rd-sizedbox', ...bootstrap]);
 
     final s = _root.style

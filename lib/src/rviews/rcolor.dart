@@ -55,7 +55,7 @@ class MaterialColor implements Color {
   final double a;
   const MaterialColor(this.r, this.g, this.b, [this.a = 1.0]);
 
-  factory MaterialColor.fromHex(String hex) {
+   factory MaterialColor.fromHex(String hex) {
     var h = hex.replaceAll('#', '').trim();
     if (h.length == 3) {
       // #RGB → #RRGGBB
