@@ -1,39 +1,123 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# 🌐 Rdart
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+**Rdart** est un framework UI expérimental en **Dart** inspiré de **Flutter**, mais conçu pour le **Web**.  
+Il fournit une API déclarative (`Rview`, `Relement`) et des composants modernes (`Scaffold`, `AppBar`, `Form`, `Toast`, etc.) rendus directement dans le navigateur.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+⚠️ **Rdart est en développement actif et n’est pas encore publié sur [pub.dev](https://pub.dev).**  
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+---
 
-## Features
+## Objectifs
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- Reprendre la **philosophie Flutter** (widgets déclaratifs, arbre de vues, état réactif).  
+- Fournir des **composants prêts à l’emploi** pour le web : navigation, formulaires, toasts, carrousels.  
+- Permettre une **interopérabilité facile avec le DOM et JavaScript** (`dart:html`, `package:web`).  
+- Être **léger et extensible** pour des projets modernes en Dart web.
 
-## Getting started
+---
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+## Installation
 
-## Usage
+Comme Rdart n’est pas encore publié sur `pub.dev`, ajoute-le directement depuis GitHub dans ton `pubspec.yaml` :
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
-```dart
-const like = 'sample';
+```yaml
+dependencies:
+  rdart:
+    git:
+      url: https://github.com/genisgo/rdart.git
 ```
 
-## Additional information
+Puis :
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+```bash
+dart pub get
+```
+
+---
+
+## ⚡ Exemple rapide
+
+### `main.dart`
+```dart
+import 'package:rdart/rviews.dart';
+import 'package:rdart/bootstrap.dart';
+
+class CounterPage extends Rview {
+  static final String url = "counter";
+  int count = 0;
+
+  @override
+  Relement build() {
+    return Scaffold(
+      appBar: AppBar(title: "Compteur"),
+      body: Center(
+        child: Column(
+          gap: 16,
+          children: [
+            Text("Valeur : $count", fontSize: 24),
+            ElevatedButton(
+              label: Text("Incrémenter"),
+              onPressed: () {
+                count++;
+                setState(() {});
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+void main(List<String> args) {
+  Rapp(
+    router: GoRouter(
+      routes: [
+        Rroute(url: CounterPage.url, page: (_) => CounterPage()),
+      ],
+      home: Rroute(url: "/", page: (_) => CounterPage()),
+    ),
+  );
+}
+```
+
+---
+
+## 📚 Composants déjà disponibles
+
+- **Structure** : `Scaffold`, `AppBar`, `Drawer`, `BottomNavigationBar`.  
+- **UI** : `Button`, `Toast`, `Dialog`, `ProgressIndicator`, `Carousel`.  
+- **Formulaires** : `TextField`, `DropdownFormField`, `CheckBox`, `RadioGroup`, `Slider`.  
+- **Layout** : `Row`, `Column`, `Stack`, `Align`, `Center`, `Wrap`.  
+
+---
+
+## 📂 Exemples
+
+➡️ Voir le dépôt compagnon [rdart-exemple](https://github.com/genisgo/rdart-exemple) pour une galerie complète de composants en action :  
+- Boutons  
+- Formulaires  
+- Toasts  
+- Carrousels  
+- Dialogs  
+- Layouts  
+
+---
+
+## 🛣️ Roadmap
+
+- [ ] Stabiliser les API de base (`Rview`, `Relement`, `Scaffold`).  
+- [ ] Améliorer les formulaires (validation, contrôleurs).  
+- [ ] Ajouter plus de composants Material/Bootstrap.  
+- [ ] Publier sur **pub.dev** 🎉  
+
+---
+
+## 📜 Licence
+
+Projet open-source sous licence **MIT**.  
+Libre à vous de l’utiliser et de contribuer.
+
+---
+
+👉 Avec **Rdart**, construis des applications Web modernes en Dart, en gardant la simplicité de Flutter 🚀.
