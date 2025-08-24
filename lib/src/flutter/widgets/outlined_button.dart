@@ -9,16 +9,16 @@ class OutlinedButton extends ButtonI {
   @override
   final VoidCallback? onLongPress;
 
-  final String label;
+  final Relement label;
   final String? tooltip;
-  final String? leftIconHtml;
-  final String? rightIconHtml;
+  final BsIcon? leftIcon;
+  final BsIcon? rightIcon;
 
   final ElevatedVariant variant; // réutilise la palette
   final ButtonSize size;
   final bool fullWidth;
   final List<String> bootstrap; // extras (ex: 'shadow-sm')
-  final String type; // 'button' | 'submit'
+  final ButtonType type; // 'button' | 'submit'
   final String? ariaLabel;
 
   bool _enabled;
@@ -29,13 +29,13 @@ class OutlinedButton extends ButtonI {
     this.onPressed,
     this.onLongPress,
     this.tooltip,
-    this.leftIconHtml,
-    this.rightIconHtml,
+    this.leftIcon,
+    this.rightIcon,
     this.variant = ElevatedVariant.primary,
     this.size = ButtonSize.medium,
     this.fullWidth = false,
     this.bootstrap = const [],
-    this.type = 'button',
+    this.type = ButtonType.button,
     this.ariaLabel,
     bool enabled = true,
     bool loading = false,
@@ -52,7 +52,7 @@ class OutlinedButton extends ButtonI {
 
     _btn
       ..id = id ?? 'outbtn-${DateTime.now().microsecondsSinceEpoch}'
-      ..type = type
+      ..type = type.name
       ..title = tooltip ?? ''
       ..setAttribute('aria-label', ariaLabel ?? label)
       ..classes.addAll(['btn', 'btn-outline-${_variantName(variant)}']);
@@ -84,24 +84,24 @@ class OutlinedButton extends ButtonI {
           ..add('rdart-spinner');
       }
       _btn.children.add(spinner);
-    } else if (leftIconHtml != null) {
+    } else if (leftIcon != null) {
       final left =
           SpanElement()
             ..setInnerHtml(
-              leftIconHtml!,
+              iconToHtml(leftIcon!),
               treeSanitizer: NodeTreeSanitizer.trusted,
             )
             ..style.marginRight = '6px';
       _btn.children.add(left);
     }
 
-    _btn.children.add(SpanElement()..text = label);
+    _btn.children.add(label.create());
 
-    if (!_loading && rightIconHtml != null) {
+    if (!_loading && rightIcon != null) {
       final right =
           SpanElement()
             ..setInnerHtml(
-              rightIconHtml!,
+             iconToHtml( rightIcon!),
               treeSanitizer: NodeTreeSanitizer.trusted,
             )
             ..style.marginLeft = '6px';

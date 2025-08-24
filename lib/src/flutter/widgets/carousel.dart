@@ -15,7 +15,7 @@ part of 'widgets.dart';
 // -----------------------------------------------------------------------------
 // enum Axis { horizontal, vertical }
 
-typedef PageBuilder = Rview Function(int index);
+typedef PageBuilder = Relement Function(int index);
 
 defaultCurve(num t) => t * t * (3 - 2 * t); // easeInOut simple (smoothstep)
 
