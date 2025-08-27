@@ -1,4 +1,4 @@
-part of  'widgets.dart';
+part of 'widgets.dart';
 
 /// On suppose que `Relement`, `Alignment`, `AlignX`, `AlignY` existent déjà.
 /// abstract class Relement { String? id; Relement({this.id}); Element create(); Element get getElement; }
@@ -6,21 +6,23 @@ part of  'widgets.dart';
 /// =============================================================
 /// Align (Flutter-like)
 /// =============================================================
+enum AlignExpand { width, height, all, none }
+
 class Align extends Relement {
-  final Alignment alignment;     // ex: Alignment.center, .topLeft...
+  final Alignment alignment; // ex: Alignment.center, .topLeft...
   final Relement? child;
-  final double? width;           // px (optionnel)
-  final double? height;          // px (optionnel)
-  final bool expand;             // si true: width/height 100% (prend toute la place)
-  final bool clip;               // masque le dépassement
-  final List<String> bootstrap;  // classes additionnelles
+  final double? width; // px (optionnel)
+  final double? height; // px (optionnel)
+  final AlignExpand expand; // si true: width/height 100% (prend toute la place)
+  final bool clip; // masque le dépassement
+  final List<String> bootstrap; // classes additionnelles
 
   Align({
     this.alignment = Alignment.center,
     this.child,
     this.width,
     this.height,
-    this.expand = false,
+    this.expand = AlignExpand.none,
     this.clip = false,
     this.bootstrap = const [],
     super.id,
@@ -34,20 +36,32 @@ class Align extends Relement {
       ..id = id ?? 'align-${DateTime.now().microsecondsSinceEpoch}'
       ..classes.addAll(['rd-align', ...bootstrap]);
 
-    final s = _root.style
-      ..display = 'flex'
-      ..flexDirection = 'row' // peu importe, un seul enfant
-      ..justifyContent = _cssJustify(alignment.x)
-      ..alignItems = _cssAlign(alignment.y);
+    final s =
+        _root.style
+          ..display = 'flex'
+          ..flexDirection =
+              'row' // peu importe, un seul enfant
+          ..justifyContent = _cssJustify(alignment.x)
+          ..alignItems = _cssAlign(alignment.y);
 
-    if (expand) {
-      s
-        ..width = '100%'
-        ..height = '100%';
-    } else {
-      if (width != null) s.width = '${width}px';
-      if (height != null) s.height = '${height}px';
+    switch (expand) {
+      case AlignExpand.all || AlignExpand.height:
+        s.height = "100%";
+      case AlignExpand.all || AlignExpand.width:
+        s.width = "100%";
+        break;
+      default:
+        if (width != null) s.width = '${width}px';
+        if (height != null) s.height = '${height}px';
     }
+    // if (AlignExpand.none != null) {
+    //   s
+    //     ..width = '100%'
+    //     ..height = '100%';
+    // } else {
+    //   if (width != null) s.width = '${width}px';
+    //   if (height != null) s.height = '${height}px';
+    // }
 
     if (clip) s.overflow = 'hidden';
 
@@ -68,19 +82,27 @@ class Align extends Relement {
 
   String _cssJustify(AlignX x) {
     switch (x) {
-      case AlignX.start:   return 'flex-start';
-      case AlignX.center:  return 'center';
-      case AlignX.end:     return 'flex-end';
-      case AlignX.stretch: return 'stretch'; // rare en justify, mais ok
+      case AlignX.start:
+        return 'flex-start';
+      case AlignX.center:
+        return 'center';
+      case AlignX.end:
+        return 'flex-end';
+      case AlignX.stretch:
+        return 'stretch'; // rare en justify, mais ok
     }
   }
 
   String _cssAlign(AlignY y) {
     switch (y) {
-      case AlignY.start:   return 'flex-start';
-      case AlignY.center:  return 'center';
-      case AlignY.end:     return 'flex-end';
-      case AlignY.stretch: return 'stretch';
+      case AlignY.start:
+        return 'flex-start';
+      case AlignY.center:
+        return 'center';
+      case AlignY.end:
+        return 'flex-end';
+      case AlignY.stretch:
+        return 'stretch';
     }
   }
 }

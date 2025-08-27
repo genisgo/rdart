@@ -308,26 +308,48 @@ mixin _DecoratedHost on Relement {
 // ============================================================================
 // 1) Dropdown (Select) + DropdownFormField<T>
 // ============================================================================
-class DropdownMenuItem<T> {
+
+// -----------------------------------------------------------------------------
+// dropdown_field.dart
+// Dépend de : Relement, _DecoratedHost, FormController, FieldApi, AutovalidateMode, InputDecoration, FieldSize, Color, etc.
+
+// -----------------------------------------------------------------------------
+// Modèle d'item riche (le contenu d'une option est un Relement)
+// -----------------------------------------------------------------------------
+class DropdownItem<T> {
   final T value;
-  final String label;
-  final bool disabled;
-  DropdownMenuItem({
+  final Relement child;
+  final bool enabled;
+  const DropdownItem({
     required this.value,
-    required this.label,
-    this.disabled = false,
+    required this.child,
+    this.enabled = true,
   });
 }
 
+enum DropdownAlign { left, right }
+
+// -----------------------------------------------------------------------------
+// Champ dropdown (non-Form) — utilise votre _DecoratedHost
+// -----------------------------------------------------------------------------
 class DropdownField<T> extends Relement with _DecoratedHost {
-  final List<DropdownMenuItem<T>> items;
+  final List<DropdownItem<T>> items;
   T? value;
   final void Function(T? v)? onChanged;
+
+  // UX
+  final Relement? hint;              // placeholder custom (sinon decoration.hintText)
+  final DropdownAlign align;
+  final double menuMaxHeight;        // px
 
   DropdownField({
     required this.items,
     this.value,
     this.onChanged,
+    this.hint,
+    this.align = DropdownAlign.left,
+    this.menuMaxHeight = 280,
+    // stylage via _DecoratedHost / InputDecoration
     InputDecoration decoration = const InputDecoration(),
     FieldSize size = FieldSize.medium,
     bool enabled = true,
@@ -352,83 +374,239 @@ class DropdownField<T> extends Relement with _DecoratedHost {
     this.fill = fill;
   }
 
-  final SelectElement _select = SelectElement();
-  final SpanElement _arrow =
-      SpanElement()
-        ..classes.add('ff-select-arrow')
-        ..text = '▾';
+  // DOM / état
+  LabelElement? _labelEl;         // garder une référence au label
+  late final DivElement _tapZone; // zone cliquable/focusable
+  DivElement? _menu;              // overlay
+  bool _open = false;
+  int _activeIndex = -1;
+  List<StreamSubscription> _outsideSubs = [];
 
   @override
   Element create() {
     initHost(kindClass: 'dropdown');
 
-    _select
-      ..classes.add('ff-select')
-      ..disabled = !enabled;
+    // Zone interactive (affiche la sélection ou le hint)
+    _tapZone = DivElement()
+      ..classes.add('ff-selectlike')
+      ..style.display = 'flex'
+      ..style.alignItems = 'center'
+      ..style.gap = '8px'
+      ..style.width = '100%'
+      ..style.cursor = enabled ? 'pointer' : 'not-allowed'
+      ..tabIndex = enabled ? 0 : -1
+      ..setAttribute('role', 'combobox')
+      ..setAttribute('aria-expanded', 'false');
 
-    // Padding
-    final pad =
-        decoration.contentPadding ??
-        EdgeInsets.symmetric(horizontal: 12, vertical: 12);
-    _select.style.padding = pad.toCss();
-
-    // Label (non flottant -> juste en haut)
+    // Label : on le construit ici et on l'inclut dans assembleHost (pour ne pas être écrasé)
     if (decoration.labelText != null && decoration.labelText!.isNotEmpty) {
-      final lab =
-          LabelElement()
-            ..classes.add('ff-label')
-            ..text = decoration.labelText!;
-      ffCenter.children.add(lab);
+      _labelEl = LabelElement()
+        ..classes.add('ff-label')
+        ..text = decoration.labelText!;
     }
 
-    // Options
-    _select.children.clear();
-    for (var i = 0; i < items.length; i++) {
-      final it = items[i];
-      final opt = OptionElement(data: it.label, value: '$i')
-        ..disabled = it.disabled;
-      _select.children.add(opt);
-      if (value != null && it.value == value) _select.selectedIndex = i;
+    // Contenu sélectionné ou hint
+    _renderSelected();
+
+    // Caret si pas de suffixIcon demandé dans la déco
+    if (decoration.suffixIcon == null) {
+      final caret = SpanElement()
+        ..classes.add('ff-affix')
+        ..text = '▾';
+      ffRight.children.add(caret);
     }
 
-    _select.onChange.listen((_) {
-      final idx = _select.selectedIndex ?? -1;
-      final v = (idx >= 0 && idx < items.length) ? items[idx].value : null;
-      value = v;
-      onChanged?.call(v);
-    });
+    // Interactions
+    if (enabled) {
+      _tapZone.onClick.listen((_) => _toggle());
+      _tapZone.onKeyDown.listen(_onKeyDown);
+      _tapZone.onFocus.listen((_) { isFocused = true; _applyBorder(); });
+      _tapZone.onBlur.listen((_)  { isFocused = false; _applyBorder(); });
+    }
 
-    _select.onFocus.listen((_) {
-      isFocused = true;
-      _applyBorder();
-    });
-    _select.onBlur.listen((_) {
-      isFocused = false;
-      _applyBorder();
-    });
-
-    assembleHost([_select]);
-    // put suffix arrow (pure visuel)
-    ffRight.children.add(_arrow);
+    // ⚠️ Assembler label + zone cliquable ENSEMBLE pour éviter qu'ils soient effacés
+    final center = <Element>[
+      if (_labelEl != null) _labelEl!,
+      _tapZone,
+    ];
+    assembleHost(center);
     return ffRoot;
+  }
+
+  // Reconstruit le contenu affiché dans la zone (valeur choisie ou hint/placeholder)
+  void _renderSelected() {
+    _tapZone.children.clear();
+
+    final sel = (value == null)
+        ? null
+        : items.cast<DropdownItem<T>?>().firstWhere(
+              (it) => it != null && it.value == value,
+              orElse: () => null,
+            );
+
+    if (sel != null) {
+      _tapZone.append(sel.child.create());
+    } else if (hint != null) {
+      _tapZone.append(hint!.create());
+    } else if (decoration.hintText != null && decoration.hintText!.isNotEmpty) {
+      _tapZone.append(SpanElement()
+        ..style.color = hintColor.color
+        ..text = decoration.hintText!);
+    } else {
+      _tapZone.append(SpanElement()..text = 'Sélectionner…');
+    }
+  }
+
+  void _toggle() => _open ? _closeMenu() : _openMenu();
+
+  void _openMenu() {
+    if (_open) return; _open = true;
+
+    final rect = ffWrap.getBoundingClientRect();
+
+    _menu = DivElement()
+      ..style.position = 'fixed'
+      ..style.zIndex = '10000'
+      ..style.minWidth = '${rect.width}px'
+      ..style.maxWidth = '${rect.width}px'
+      ..style.maxHeight = '${menuMaxHeight}px'
+      ..style.overflowY = 'auto'
+      ..style.backgroundColor = '#0b1220'
+      ..style.border = '1px solid rgba(255,255,255,.10)'
+      ..style.borderRadius = '12px'
+      ..style.boxShadow = '0 20px 50px -20px rgba(0,0,0,.65)'
+      ..style.padding = '6px'
+      ..style.opacity = '0'
+      ..style.transform = 'translateY(6px)'
+      ..style.transition = 'opacity 140ms ease, transform 160ms cubic-bezier(.2,.7,.2,1)';
+
+    final left = (align == DropdownAlign.left) ? rect.left : (rect.right - rect.width);
+    _menu!.style.left = '${left}px';
+    _menu!.style.top  = '${rect.bottom + 8}px';
+
+    _activeIndex = -1;
+
+    for (final it in items) {
+      final row = DivElement()
+        ..tabIndex = 0
+        ..style.display = 'flex'
+        ..style.alignItems = 'center'
+        ..style.gap = '10px'
+        ..style.padding = '8px 10px'
+        ..style.borderRadius = '10px'
+        ..style.cursor = it.enabled ? 'pointer' : 'not-allowed'
+        ..style.opacity = it.enabled ? '1' : '.6';
+
+      row.append(it.child.create());
+      row.onMouseOver.listen((_) => row.style.backgroundColor = 'rgba(79,70,229,.18)');
+      row.onMouseOut.listen((_)  => row.style.backgroundColor = 'transparent');
+      if (it.enabled) {
+        row.onClick.listen((_) => _choose(it));
+      }
+      _menu!.append(row);
+    }
+
+    document.body!.append(_menu!);
+
+    // Entrée animée
+    window.requestAnimationFrame((_) {
+      _menu!..style.opacity = '1'..style.transform = 'translateY(0)';
+    });
+
+    // Écouteurs extérieurs (fermeture / reposition)
+    _outsideSubs = [
+      document.onMouseDown.listen((e) {
+        if (_menu == null) return;
+        final target = e.target as Node?;
+        if (!_menu!.contains(target) && !ffRoot.contains(target)) _closeMenu();
+      }),
+      window.onScroll.listen((_) => _reposition()),
+      window.onResize.listen((_) => _reposition()),
+    ];
+
+    _tapZone.setAttribute('aria-expanded', 'true');
+  }
+
+  void _reposition() {
+    if (_menu == null) return;
+    final rect = ffWrap.getBoundingClientRect();
+    final left = (align == DropdownAlign.left) ? rect.left : (rect.right - rect.width);
+    _menu!
+      ..style.left = '${left}px'
+      ..style.top  = '${rect.bottom + 8}px'
+      ..style.minWidth = '${rect.width}px'
+      ..style.maxWidth = '${rect.width}px';
+  }
+
+  void _closeMenu() {
+    if (!_open) return; _open = false;
+    for (final s in _outsideSubs) s.cancel();
+    _outsideSubs.clear();
+    _menu?.remove();
+    _menu = null;
+    _tapZone.setAttribute('aria-expanded', 'false');
+
+    // ✅ S’assurer que le hint/label réapparaît si rien n’a été choisi
+    _renderSelected();
+  }
+
+  void _onKeyDown(KeyboardEvent e) {
+    if (!_open && (e.key == ' ' || e.key == 'Enter' || e.key == 'ArrowDown')) {
+      e.preventDefault(); _openMenu(); return;
+    }
+    if (!_open) return;
+    if (e.key == 'Escape')     { e.preventDefault(); _closeMenu(); return; }
+    if (e.key == 'ArrowDown')  { e.preventDefault(); _moveActive(1); return; }
+    if (e.key == 'ArrowUp')    { e.preventDefault(); _moveActive(-1); return; }
+    if (e.key == 'Enter')      { e.preventDefault(); _selectActive(); return; }
+  }
+
+  void _moveActive(int dir) {
+    final len = items.length; if (len == 0 || _menu == null) return;
+    _activeIndex = (_activeIndex + dir) % len; if (_activeIndex < 0) _activeIndex += len;
+    final node = _menu!.children[_activeIndex] as Element;
+    node.scrollIntoView();
+  }
+
+  void _selectActive() {
+    if (_activeIndex >= 0 && _activeIndex < items.length) {
+      final it = items[_activeIndex];
+      if (it.enabled) _choose(it);
+    }
+  }
+
+  void _choose(DropdownItem<T> it) {
+    _closeMenu();
+    value = it.value;
+    onChanged?.call(value);
+    _renderSelected(); // met à jour l’affichage dans le champ
   }
 
   @override
   Element get getElement => ffRoot;
 }
 
+// -----------------------------------------------------------------------------
+// Version FormField — s'enregistre auprès du FormController, gère validator
+// -----------------------------------------------------------------------------
 class DropdownFormField<T> extends Relement implements FieldApi {
   final FormController controller;
-  final List<DropdownMenuItem<T>> items;
+  final List<DropdownItem<T>> items;
   T? value;
+
+  // Form API
   final String? Function(T? value)? validator;
   final void Function(T? value)? onSaved;
   final void Function(T? value)? onChanged;
   final AutovalidateMode? autovalidateMode;
 
+  // Stylage
   final InputDecoration decoration;
   final FieldSize size;
   final bool enabled;
+  final Relement? hint;
+  final DropdownAlign align;
+  final double menuMaxHeight;
 
   DropdownFormField({
     required this.controller,
@@ -441,6 +619,9 @@ class DropdownFormField<T> extends Relement implements FieldApi {
     this.decoration = const InputDecoration(),
     this.size = FieldSize.medium,
     this.enabled = true,
+    this.hint,
+    this.align = DropdownAlign.left,
+    this.menuMaxHeight = 280,
     super.id,
   });
 
@@ -453,8 +634,6 @@ class DropdownFormField<T> extends Relement implements FieldApi {
     _field = DropdownField<T>(
       items: items,
       value: value,
-      enabled: enabled,
-      decoration: decoration,
       onChanged: (v) {
         value = v;
         _userInteracted = true;
@@ -465,12 +644,19 @@ class DropdownFormField<T> extends Relement implements FieldApi {
         }
         onChanged?.call(v);
       },
+      hint: hint,
+      decoration: decoration,
+      size: size,
+      enabled: enabled,
+      align: align,
+      menuMaxHeight: menuMaxHeight,
     );
 
-    _host.classes.add('ff-host');
-    _host.children
-      ..clear()
-      ..add(_field.create());
+    _host
+      ..classes.add('ff-host')
+      ..children.clear()
+      ..append(_field.create());
+
     controller._register(this);
     return _host;
   }
@@ -489,6 +675,8 @@ class DropdownFormField<T> extends Relement implements FieldApi {
     _userInteracted = false;
     value = null;
     _field.setErrorText(null);
+    // et on remet l'affichage (hint)
+    // (la valeur étant nulle, _renderSelected sera rappelé au prochain rebuild du champ)
   }
 
   bool _applyValidation() {
@@ -696,101 +884,336 @@ class ComboBoxFormField extends Relement implements FieldApi {
     return err == null || err.isEmpty;
   }
 }
+// MultiSelect moderne (Rdart) — items = Relement, intégré au système Form existant
+// ----------------------------------------------------------------------------
+// ✓ Chaque option est un Relement riche (avatar + textes, etc.)
+// ✓ Design moderne : carte, ombre, radius, hover, caret ▾, chips amovibles
+// ✓ Overlay positionné sous le champ, fermeture clic extérieur / scroll / resize
+// ✓ Clavier : Enter/Espace (ouvrir), ↑/↓ (naviguer), Espace/Enter (toggle), Esc (fermer)
+// ✓ Intégration complète avec votre Form / FormController / FieldApi / _DecoratedHost
+// ✓ Validation (validator), autovalidateMode, onSaved, reset
+// ----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+// Modèle d'item riche
+class MultiSelectItem<T> {
+  final T value;
+  final Relement child;    // rendu dans la liste et dans la zone sélectionnée
+  final bool enabled;
+  MultiSelectItem({required this.value, required this.child, this.enabled = true});
+}
 
-// ============================================================================
-// 3) MultiSelect (select multiple) + FormField
-// ============================================================================
+// enum DropdownAlign { left, right }
+
+// enum AutovalidateMode { disabled, onUserInteraction, always }
+
+// -----------------------------------------------------------------------------
+// Champ de base (non-Form) — utilise _DecoratedHost fourni par l'app
 class MultiSelectField<T> extends Relement with _DecoratedHost {
-  final List<DropdownMenuItem<T>> items;
-  final List<T> values;
+  final List<MultiSelectItem<T>> items;
+  final List<T> values;                  // sélection actuelle
   final void Function(List<T> v)? onChanged;
+
+  // UX
+  final Relement? hint;                  // placeholder custom (sinon decoration.hintText)
+  final DropdownAlign align;
+  final double menuMaxHeight;            // px
+  final bool showChips;                  // affiche des chips pour les valeurs
 
   MultiSelectField({
     required this.items,
     List<T>? values,
     this.onChanged,
+    this.hint,
+    this.align = DropdownAlign.left,
+    this.menuMaxHeight = 320,
+    this.showChips = true,
+    // stylage via _DecoratedHost / InputDecoration
     InputDecoration decoration = const InputDecoration(),
     FieldSize size = FieldSize.medium,
     bool enabled = true,
+    double radius = 10,
+    Color textColor = const Color('#0f172a'),
+    Color hintColor = const Color('#94a3b8'),
+    Color focusColor = const Color('#0d6efd'),
+    Color errorColor = const Color('#dc3545'),
+    Color disabledColor = const Color('rgba(0,0,0,.38)'),
+    Color fill = const Color('transparent'),
     super.id,
-  }) : values = values ?? [];
+  }) : values = List<T>.from(values ?? const [] ) {
+    this.decoration = decoration;
+    this.size = size;
+    this.enabled = enabled;
+    this.radius = radius;
+    this.textColor = textColor;
+    this.hintColor = hintColor;
+    this.focusColor = focusColor;
+    this.errorColor = errorColor;
+    this.disabledColor = disabledColor;
+    this.fill = fill;
+  }
 
-  final SelectElement _select = SelectElement()..multiple = true;
+  // DOM
+  late final DivElement _tapZone;   // zone cliquable/focusable du champ
+  DivElement? _menu;                // overlay menu
+  bool _open = false;
+  int _activeIndex = -1;
+  List<StreamSubscription> _outsideSubs = [];
 
   @override
   Element create() {
     initHost(kindClass: 'multiselect');
 
-    _select
-      ..classes.add('ff-select')
-      ..disabled = !enabled;
+    // zone centrale interactive
+    _tapZone = DivElement()
+      ..classes.add('ff-selectlike')
+      ..style.display = 'flex'
+      ..style.alignItems = 'center'
+      ..style.flexWrap = 'wrap'
+      ..style.rowGap = '6px'
+      ..style.columnGap = '6px'
+      ..style.width = '100%'
+      ..style.cursor = enabled ? 'pointer' : 'not-allowed'
+      ..tabIndex = enabled ? 0 : -1
+      ..setAttribute('role', 'combobox')
+      ..setAttribute('aria-expanded', 'false');
 
-    final pad =
-        decoration.contentPadding ??
-        EdgeInsets.symmetric(horizontal: 12, vertical: 12);
-    _select.style.padding = pad.toCss();
-
+    // label (optionnel, non flottant)
     if (decoration.labelText != null && decoration.labelText!.isNotEmpty) {
-      final lab =
-          LabelElement()
-            ..classes.add('ff-label')
-            ..text = decoration.labelText!;
+      final lab = LabelElement()
+        ..classes.add('ff-label')
+        ..text = decoration.labelText!;
       ffCenter.children.add(lab);
     }
 
-    _select.children.clear();
-    for (var i = 0; i < items.length; i++) {
-      final it = items[i];
-      final opt =
-          OptionElement(data: it.label, value: '$i')
-            ..disabled = it.disabled
-            ..selected = values.contains(it.value);
-      _select.children.add(opt);
+    // contenu sélectionné ou hint
+    _renderSelectedChips();
+
+    // caret par défaut si pas de suffixIcon
+    if (decoration.suffixIcon == null) {
+      final caret = SpanElement()
+        ..classes.add('ff-affix')
+        ..text = '▾';
+      ffRight.children.add(caret);
     }
 
-    _select.onChange.listen((_) {
-      final selected = <T>[];
-      for (var i = 0; i < _select.options.length; i++) {
-        final o = _select.options[i];
-        if (o.selected) {
-          final val = items[int.parse(o.value)].value;
-          selected.add(val);
-        }
-      }
-      values
-        ..clear()
-        ..addAll(selected);
-      onChanged?.call(List<T>.from(values));
-    });
+    // interactions
+    if (enabled) {
+      _tapZone.onClick.listen((_) => _toggle());
+      _tapZone.onKeyDown.listen(_onKeyDown);
+      _tapZone.onFocus.listen((_) { isFocused = true; _applyBorder(); });
+      _tapZone.onBlur.listen((_) { isFocused = false; _applyBorder(); });
+    }
 
-    _select.onFocus.listen((_) {
-      isFocused = true;
-      _applyBorder();
-    });
-    _select.onBlur.listen((_) {
-      isFocused = false;
-      _applyBorder();
-    });
-
-    assembleHost([_select]);
+    // assemble le champ décoré
+    assembleHost([_tapZone]);
     return ffRoot;
+  }
+
+  void _renderSelectedChips() {
+    _tapZone.children.clear();
+
+    if (values.isEmpty) {
+      if (hint != null) {
+        _tapZone.append(hint!.create());
+      } else if (decoration.hintText != null && decoration.hintText!.isNotEmpty) {
+        _tapZone.append(SpanElement()
+          ..style.color = hintColor.color
+          ..text = decoration.hintText!);
+      } else {
+        _tapZone.append(SpanElement()..text = 'Sélectionner…');
+      }
+      return;
+    }
+
+    // Chips de sélection
+    for (final v in values) {
+      final it = items.firstWhere((e) => e.value == v, orElse: () => items.first);
+      if (!showChips) { _tapZone.append(it.child.create()); continue; }
+
+      final chip = DivElement()
+        ..style.display = 'inline-flex'
+        ..style.alignItems = 'center'
+        ..style.gap = '6px'
+        ..style.padding = '4px 8px'
+        ..style.borderRadius = '999px'
+        ..style.backgroundColor = 'rgba(79,70,229,.12)'
+        ..style.border = '1px solid rgba(79,70,229,.35)';
+      chip.append(it.child.create());
+      final x = SpanElement()
+        ..text = '×'
+        ..style.cursor = 'pointer';
+      x.onClick.listen((e) {
+        e.stopPropagation();
+        values.remove(v);
+        onChanged?.call(List<T>.from(values));
+        _renderSelectedChips();
+      });
+      chip.append(x);
+      _tapZone.append(chip);
+    }
+  }
+
+  void _toggle() => _open ? _closeMenu() : _openMenu();
+
+  void _openMenu() {
+    if (_open) return; _open = true;
+
+    final rect = ffWrap.getBoundingClientRect();
+    _menu = DivElement()
+      ..style.position = 'fixed'
+      ..style.zIndex = '10000'
+      ..style.minWidth = '${rect.width}px'
+      ..style.maxWidth = '${rect.width}px'
+      ..style.maxHeight = '${menuMaxHeight}px'
+      ..style.overflowY = 'auto'
+      ..style.backgroundColor = '#0b1220'
+      ..style.border = '1px solid rgba(255,255,255,.10)'
+      ..style.borderRadius = '12px'
+      ..style.boxShadow = '0 20px 50px -20px rgba(0,0,0,.65)'
+      ..style.padding = '6px'
+      ..style.opacity = '0'
+      ..style.transform = 'translateY(6px)'
+      ..style.transition = 'opacity 140ms ease, transform 160ms cubic-bezier(.2,.7,.2,1)';
+
+    final left = (align == DropdownAlign.left) ? rect.left : (rect.right - rect.width);
+    _menu!.style.left = '${left}px';
+    _menu!.style.top = '${rect.bottom + 8}px';
+
+    _activeIndex = -1;
+    for (final it in items) {
+      final row = DivElement()
+        ..tabIndex = 0
+        ..style.display = 'flex'
+        ..style.alignItems = 'center'
+        ..style.gap = '10px'
+        ..style.padding = '8px 10px'
+        ..style.borderRadius = '10px'
+        ..style.cursor = it.enabled ? 'pointer' : 'not-allowed'
+        ..style.opacity = it.enabled ? '1' : '.6';
+
+      final cb = InputElement(type: 'checkbox')
+        ..checked = values.contains(it.value)
+        ..disabled = !it.enabled
+        ..style.marginRight = '6px';
+      row.append(cb);
+
+      row.append(it.child.create());
+
+      row.onMouseOver.listen((_) => row.style.backgroundColor = 'rgba(79,70,229,.18)');
+      row.onMouseOut.listen((_) => row.style.backgroundColor = 'transparent');
+
+      void toggle() {
+        if (!it.enabled) return;
+        if (values.contains(it.value)) {
+          values.remove(it.value);
+        } else {
+          values.add(it.value);
+        }
+        cb.checked = values.contains(it.value);
+        onChanged?.call(List<T>.from(values));
+        _renderSelectedChips();
+      }
+
+      cb.onChange.listen((_) => toggle());
+      row.onClick.listen((_) => toggle());
+
+      _menu!.append(row);
+    }
+
+    document.body!.append(_menu!);
+    // entrée animée
+    window.requestAnimationFrame((_) {
+      _menu!..style.opacity = '1'..style.transform = 'translateY(0)';
+    });
+
+    // extérieurs
+    _outsideSubs = [
+      document.onMouseDown.listen((e) {
+        if (_menu == null) return;
+        final target = e.target as Node?;
+        if (!_menu!.contains(target) && !ffRoot.contains(target)) _closeMenu();
+      }),
+      window.onScroll.listen((_) => _reposition()),
+      window.onResize.listen((_) => _reposition()),
+    ];
+
+    _tapZone.setAttribute('aria-expanded', 'true');
+  }
+
+  void _reposition() {
+    if (_menu == null) return;
+    final rect = ffWrap.getBoundingClientRect();
+    final left = (align == DropdownAlign.left) ? rect.left : (rect.right - rect.width);
+    _menu!..style.left = '${left}px'..style.top = '${rect.bottom + 8}px'..style.minWidth = '${rect.width}px'..style.maxWidth = '${rect.width}px';
+  }
+
+  void _closeMenu() {
+    if (!_open) return; _open = false;
+    for (final s in _outsideSubs) s.cancel();
+    _outsideSubs.clear();
+    _menu?.remove();
+    _menu = null;
+    _tapZone.setAttribute('aria-expanded', 'false');
+  }
+
+  void _onKeyDown(KeyboardEvent e) {
+    if (!_open && (e.key == ' ' || e.key == 'Enter' || e.key == 'ArrowDown')) {
+      e.preventDefault(); _openMenu(); return;
+    }
+    if (!_open) return;
+    if (e.key == 'Escape') { e.preventDefault(); _closeMenu(); return; }
+    if (e.key == 'ArrowDown') { e.preventDefault(); _moveActive(1); return; }
+    if (e.key == 'ArrowUp') { e.preventDefault(); _moveActive(-1); return; }
+    if (e.key == ' ' || e.key == 'Enter') { e.preventDefault(); _toggleActive(); return; }
+  }
+
+  void _moveActive(int dir) {
+    final len = items.length; if (len == 0 || _menu == null) return;
+    _activeIndex = (_activeIndex + dir) % len; if (_activeIndex < 0) _activeIndex += len;
+    final node = _menu!.children[_activeIndex] as Element;
+    node.scrollIntoView();
+  }
+
+  void _toggleActive() {
+    if (_activeIndex >= 0 && _activeIndex < items.length) {
+      final it = items[_activeIndex];
+      if (it.enabled) {
+        if (values.contains(it.value)) values.remove(it.value); else values.add(it.value);
+        onChanged?.call(List<T>.from(values));
+        _renderSelectedChips();
+        // coche visuelle
+        final row = _menu!.children[_activeIndex] as Element;
+        final cb = row.querySelector('input[type="checkbox"]') as InputElement?;
+        if (cb != null) cb.checked = values.contains(it.value);
+      }
+    }
   }
 
   @override
   Element get getElement => ffRoot;
 }
 
+// -----------------------------------------------------------------------------
+// Version FormField — s'enregistre auprès du FormController, gère validator
 class MultiSelectFormField<T> extends Relement implements FieldApi {
   final FormController controller;
-  final List<DropdownMenuItem<T>> items;
+  final List<MultiSelectItem<T>> items;
   final List<T> values;
+
+  // Form API
   final String? Function(List<T> values)? validator;
   final void Function(List<T> values)? onSaved;
   final void Function(List<T> values)? onChanged;
   final AutovalidateMode? autovalidateMode;
+
+  // Stylage
   final InputDecoration decoration;
   final FieldSize size;
   final bool enabled;
+  final Relement? hint;
+  final DropdownAlign align;
+  final double menuMaxHeight;
+  final bool showChips;
 
   MultiSelectFormField({
     required this.controller,
@@ -803,8 +1226,12 @@ class MultiSelectFormField<T> extends Relement implements FieldApi {
     this.decoration = const InputDecoration(),
     this.size = FieldSize.medium,
     this.enabled = true,
+    this.hint,
+    this.align = DropdownAlign.left,
+    this.menuMaxHeight = 320,
+    this.showChips = true,
     super.id,
-  }) : values = values ?? [];
+  }) : values = List<T>.from(values ?? const []);
 
   late final MultiSelectField<T> _field;
   bool _userInteracted = false;
@@ -815,6 +1242,10 @@ class MultiSelectFormField<T> extends Relement implements FieldApi {
     _field = MultiSelectField<T>(
       items: items,
       values: values,
+      hint: hint,
+      align: align,
+      menuMaxHeight: menuMaxHeight,
+      showChips: showChips,
       decoration: decoration,
       size: size,
       enabled: enabled,
@@ -831,9 +1262,12 @@ class MultiSelectFormField<T> extends Relement implements FieldApi {
         onChanged?.call(List<T>.from(values));
       },
     );
-    _host.children
-      ..clear()
-      ..add(_field.create());
+
+    _host
+      ..classes.add('ff-host')
+      ..children.clear()
+      ..append(_field.create());
+
     controller._register(this);
     return _host;
   }

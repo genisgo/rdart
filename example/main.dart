@@ -5,7 +5,6 @@ import 'package:rdart/flutter_widgets.dart' hide Column;
 void main() {
   int counter = 0;
 
- 
   final counterText = Text(
     'Compteur : $counter',
     fontSize: 24,
@@ -36,7 +35,7 @@ void main() {
   });
 
   final homePage = Page(
-    appBar: AppBar(title: 'Démo Compteur'),
+    appBar: AppBar(title: Text('Démo Compteur')),
     body: Column(
       children: [
         counterText,
@@ -52,7 +51,7 @@ void main() {
   );
 
   final aboutPage = Page(
-    appBar: AppBar(title: 'À propos'),
+    appBar: AppBar(title: Text('À propos')),
     body: Text('Ceci est la page à propos.', fontSize: 20),
     bootstrap: [],
   );

@@ -27,7 +27,7 @@ class TextTheme extends TextDataTheme {
       {super.header1 = const RStyle(textSize: 22),
       super.header2 = const RStyle(textSize: 20),
       super.header3 = const RStyle(textSize: 18),
-      super.headerDefaulColor = Colors.Black,
+      super.headerDefaulColor = Colors.black,
       super.body1 = const RStyle(textSize: 14),
       super.body2 = const RStyle(textSize: 12)});
 }

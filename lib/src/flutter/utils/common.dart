@@ -12,7 +12,7 @@ class BorderSide {
     this.style = BorderStyleCss.solid,
   });
 
-  String toCss() => '${width}px ${_cssStyle(style)} $color';
+  String toCss() => '${width}px ${_cssStyle(style)} ${color.color}';
 
   String _cssStyle(BorderStyleCss s) {
     switch (s) {

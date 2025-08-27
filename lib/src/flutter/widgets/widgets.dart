@@ -54,7 +54,6 @@ part 'animated_widgets.dart';
 part 'expanded_panel.dart';
 part 'image_widgets.dart';
 part 'video_player.dart';
-part 'video_player_plus.dart';
 part 'carousel.dart';
 part 'toast.dart';
 part 'table_view.dart';

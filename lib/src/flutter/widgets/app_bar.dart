@@ -1,6 +1,6 @@
 part of 'widgets.dart';
 class AppBar extends AppBarI {
-  final String title;
+  final Relement title;
   final Relement? leading;
   final List<Relement> actions;
   final List<Bootstrap> bootstrap; // ex: ['navbar','navbar-light','bg-light']
@@ -44,13 +44,14 @@ class AppBar extends AppBarI {
     }
 
     // title (prend l'espace)
-    final titleEl = DivElement()
-      ..classes.add('rd-appbar-title')
-      ..style.flex = '1 1 auto'
-      ..style.fontWeight = '600'
-      ..style.fontSize = '1.05rem'
-      ..text = title;
-    _root.children.add(titleEl);
+    // final titleEl = DivElement()
+    //   ..classes.add('rd-appbar-title')
+    //   ..style.flex = '1 1 auto'
+    //   ..style.fontWeight = '600'
+    //   ..style.fontSize = '1.05rem'
+    //   ..text = title;
+
+    _root.children.add(title.create());
 
     // actions
     if (actions.isNotEmpty) {

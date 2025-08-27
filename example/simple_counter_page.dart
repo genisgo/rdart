@@ -10,7 +10,7 @@ class SimpleCounterPage extends Rview {
   @override
   Relement build() {
     return Page(
-      appBar: AppBar(title: "Simple Compteur"),
+      appBar: AppBar(title: Text("Simple Compteur")),
       body: Column(
         crossAxisAlignment: AlignVertical.center,
         mainAxisAlignment: AlignHorizontal.center,

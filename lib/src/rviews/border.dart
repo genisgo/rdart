@@ -34,7 +34,7 @@ class BorderSide {
   final BorderStyle style;
   static const none = BorderSide();
   const BorderSide(
-      {this.color = Colors.Black,
+      {this.color = Colors.black,
       this.side = 1,
       this.style = BorderStyle.none});
   @override

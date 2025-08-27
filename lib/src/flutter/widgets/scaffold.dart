@@ -86,9 +86,11 @@ class Scaffold extends Relement {
     _bodyHost.classes.add('rd-body');
     _bodyHost.style
       ..flex = '1 1 auto'
-      ..display="flex"
+      ..display = "flex"
       ..position = 'relative';
+    //specification pour le widget center
     if (body != null) _bodyHost.children.add(body!.create());
+    
     _root.children.add(_bodyHost);
 
     // Bottom bar
@@ -223,9 +225,10 @@ class Scaffold extends Relement {
     if (_stylesInjected) return;
     _stylesInjected = true;
 
-    final style = StyleElement()
-      ..id = 'rdart-scaffold-styles'
-      ..text = '''
+    final style =
+        StyleElement()
+          ..id = 'rdart-scaffold-styles'
+          ..text = '''
 /* ----- rdart Scaffold ----- */
 .rd-drawer {
   position: fixed;
@@ -303,7 +306,8 @@ class DrawerController {
   void closeEndDrawer() {
     _scafoled?.closeEndDrawer();
   }
-  void toggleDrawer(){
+
+  void toggleDrawer() {
     _scafoled?.toggleDrawer();
   }
 }

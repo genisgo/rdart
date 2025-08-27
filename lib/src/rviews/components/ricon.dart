@@ -5,7 +5,7 @@ part of '../rview_bases.dart';
 class Ricon extends Relement {
   const Ricon(
       {this.unicode = "\u2003",
-      this.color = Colors.White,
+      this.color = Colors.white,
       this.size = 24,
       super.id})
       : super();
@@ -34,6 +34,6 @@ enum Ricons {
 
   const Ricons(this.iconCode);
   final String iconCode;
-  Ricon getIcon({int size = 24, Color color = Colors.White}) =>
+  Ricon getIcon({int size = 24, Color color = Colors.white}) =>
       Ricon(color: color, size: size, unicode: iconCode);
 }

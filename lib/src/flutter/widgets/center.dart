@@ -6,7 +6,7 @@ part of 'widgets.dart';
 class Center extends Align {
   Center({
     Relement? child,
-    bool expand = false,
+    AlignExpand expand = AlignExpand.all,
     String? id,
     List<String> bootstrap = const [],
   }) : super(

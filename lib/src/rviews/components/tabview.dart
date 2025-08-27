@@ -76,7 +76,7 @@ class TabBar extends Rview {
       {required this.tabs,
       this.elevation = 4,
       this.height,
-      this.shadowColor = Colors.grays,
+      this.shadowColor = Colors.gray,
       this.background,
       this.defaultTabIndex = 0,
       this.selectorColor = Colors.white,

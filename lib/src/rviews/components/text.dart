@@ -8,7 +8,7 @@ class Text extends Relement {
   final double size;
   final bool singleBootStrap;
   Text(this.text,
-      {this.color = Colors.Black,
+      {this.color = Colors.black,
       this.size = 14,
       this.bootstrap = const [],
       this.style,
