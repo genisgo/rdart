@@ -1955,11 +1955,11 @@ class FilePickerFormField extends Relement implements FieldApi {
         if (mode != AutovalidateMode.disabled) _applyValidation();
         _setError(null);
       }
-      _renderList();
+      // _renderList();
       onChanged?.call(List<File>.from(files));
     });
 
-    _renderList();
+    // _renderList();
 
     _root.children
       ..clear()
@@ -1977,16 +1977,16 @@ class FilePickerFormField extends Relement implements FieldApi {
   @override
   Element get getElement => _root;
 
-  void _renderList() {
-    _list.children.clear();
-    for (final f in files) {
-      _list.children.add(
-        LIElement()
-          ..text =
-              '${f.name} (${(f.size / 1024 / 1024).toStringAsFixed(2)} MB)',
-      );
-    }
-  }
+  // void _renderList() {
+  //   _list.children.clear();
+  //   for (final f in files) {
+  //     _list.children.add(
+  //       LIElement()
+  //         ..text =
+  //             '${f.name} (${(f.size / 1024 / 1024).toStringAsFixed(2)} MB)',
+  //     );
+  //   }
+  // }
 
   String? _localRules() {
     if (maxFiles != null && files.length > maxFiles!) {
@@ -2020,7 +2020,7 @@ class FilePickerFormField extends Relement implements FieldApi {
   void reset() {
     files.clear();
     _input.value = '';
-    _renderList();
+    // _renderList();
     _setError(null);
   }
 

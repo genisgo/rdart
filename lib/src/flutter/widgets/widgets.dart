@@ -57,3 +57,5 @@ part 'video_player.dart';
 part 'carousel.dart';
 part 'toast.dart';
 part 'table_view.dart';
+part 'color_animation.dart';
+part 'size_animation.dart';
