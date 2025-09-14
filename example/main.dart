@@ -1,6 +1,5 @@
-import 'package:rdart/bootstrap.dart';
-import 'package:rdart/rviews.dart' hide Text;
-import 'package:rdart/flutter_widgets.dart' hide Column;
+
+import 'package:rdart/rdart.dart';
 
 void main() {
   int counter = 0;
@@ -44,8 +43,8 @@ void main() {
         SizeBox(height: 20),
         aboutButton,
       ],
-      mainAxisAlignment: AlignHorizontal.center,
-      crossAxisAlignment: AlignVertical.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
     ),
     bootstrap: [],
   );

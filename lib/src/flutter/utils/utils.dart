@@ -3,7 +3,7 @@ import 'dart:html';
 import 'dart:html';
 import 'dart:js_util' as js;
 
-import 'package:rdart/rviews.dart';
+import '../../rviews/rview_bases.dart';
 import 'package:rdart/src/bootstrap/components/bs.components.dart';
 import '../interfaces/interfaces.dart';
 part 'column_utils.dart';

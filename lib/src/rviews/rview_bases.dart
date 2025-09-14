@@ -4,7 +4,7 @@ import 'dart:html';
 import 'package:rdart/src/bootstrap/js/bootrap.js.dart';
 import '../../themes.dart';
 import '../themes/data_themes.dart';
-import '../../bootstrap.dart';
+import '../bootstrap/bootstrap.dart';
 import '../utils/convert.dart';
 
 part 'components/page.dart';

@@ -1,4 +1,4 @@
-import "../../../rviews.dart" hide BorderSide;
+import "../../rviews/rview_bases.dart" hide BorderSide;
 import 'dart:html';
 
 import '../utils/utils.dart';

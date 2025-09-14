@@ -1,4 +1,4 @@
-import 'package:rdart/rviews.dart';
+import '../rviews/rview_bases.dart';
 part '../bootstrap/css.class/utilities.dart';
 part '../bootstrap/css.class/layout.dart';
 part 'css.class/components.dart';
