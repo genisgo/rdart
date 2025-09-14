@@ -22,3 +22,5 @@ export 'src/flutter/extensions/extensions.dart';
 //Bootstrap-Like
 export 'src/bootstrap/bootstrap.dart';
 export 'src/bootstrap/components/bs.components.dart' hide InputType;
+
+export 'src/themes/themes.dart';
