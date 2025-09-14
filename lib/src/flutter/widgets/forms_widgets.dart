@@ -1680,6 +1680,106 @@ class SliderFormField extends Relement implements FieldApi {
     _err.classes.toggle('is-error', has);
   }
 }
+// ============================================================================
+// TextFormField – input texte relié au système de Form (autovalidate)
+// ============================================================================
+class TextFormField extends Relement implements FieldApi {
+  final FormController controller;
+
+  // Valeur et logique
+  String value;
+  final String? Function(String value)? validator;
+  final void Function(String value)? onSaved;
+  final void Function(String value)? onChanged;
+  final AutovalidateMode? autovalidateMode;
+
+  // Décor / style / habilitation
+  final InputDecoration decoration;
+  final FieldSize size;
+  final bool enabled;
+
+  // Type du champ (email, number, etc.)
+  final InputType inputType;
+
+  // Facilité: possibilité d’injecter un TextEditingController
+  final TextEditingController? textController;
+
+  TextFormField({
+    required this.controller,
+    this.value = '',
+    this.validator,
+    this.onSaved,
+    this.onChanged,
+    this.autovalidateMode,
+    this.decoration = const InputDecoration(),
+    this.size = FieldSize.medium,
+    this.enabled = true,
+    this.inputType = InputType.text,
+    this.textController,
+    super.id,
+  });
+
+  final _host = DivElement();
+  late final TextEditingController _tec;
+  late final TextField _field;
+  bool _userInteracted = false;
+
+  @override
+  Element create() {
+    _ensureFormFieldCss(); // si besoin de styles communs
+
+    // Contrôleur: on part de value si aucun controller fourni
+    _tec = textController ?? TextEditingController(value);
+
+    _field = TextField(
+      controller: _tec,
+      inputType: inputType,
+      enabled: enabled,
+      decoration: decoration,
+      size: size,
+      onChanged: (v) {
+        value = v;
+        _userInteracted = true;
+        final mode = autovalidateMode ?? controller.autovalidateMode;
+        if (mode == AutovalidateMode.always ||
+            (mode == AutovalidateMode.onUserInteraction && _userInteracted)) {
+          _applyValidation();
+        }
+        onChanged?.call(v);
+      },
+    );
+
+    _host
+      ..classes.add('ff-host')
+      ..children.clear()
+      ..append(_field.create());
+
+    controller._register(this);
+    return _host;
+  }
+
+  @override
+  Element get getElement => _host;
+
+  @override
+  bool validate() => _applyValidation();
+
+  @override
+  void save() => onSaved?.call(value);
+
+  @override
+  void reset() {
+    value = '';
+    _tec.text = '';
+    _field.setErrorText(null);
+  }
+
+  bool _applyValidation() {
+    final err = validator?.call(value);
+    _field.setErrorText(err); // pilote l’état visuel d’erreur du TextField
+    return err == null || err.isEmpty;
+  }
+}
 
 // ============================================================================
 // 5) TextAreaFormField – textarea décorée (label, helper, border)
