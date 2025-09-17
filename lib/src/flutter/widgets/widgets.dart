@@ -61,3 +61,4 @@ part 'toast.dart';
 part 'table_view.dart';
 part 'color_animation.dart';
 part 'size_animation.dart';
+part 'pdf_reader.dart';

@@ -23,4 +23,4 @@ export 'src/flutter/extensions/extensions.dart';
 export 'src/bootstrap/bootstrap.dart';
 export 'src/bootstrap/components/bs.components.dart' hide InputType;
 
-export 'src/themes/themes.dart';
+export 'src/themes/themes.dart'; 
