@@ -186,32 +186,7 @@ String _absSameOrigin(String pathOrUrl) {
   // Sinon, c'est relatif → on le résout contre Uri.base
   return Uri.base.resolve(pathOrUrl).toString();
 }
-  // String _composeUrl() {
-  //   if (backend == PdfBackend.pdfjs) {
-  //     // Nécessite pdfJsViewerUrl: '/assets/pdfjs/web/viewer.html'
-  //     final viewer = pdfJsViewerUrl ?? '/assets/pdfjs/web/viewer.html';
-  //     final fileParam = Uri.encodeComponent(src);
-  //     // Params PDF.js : https://mozilla.github.io/pdf.js/web/viewer.html
-  //     // download et print peuvent être masqués via options + CSS
-  //     final hash = '#page=$_page&zoom=${_zoom.toStringAsFixed(0)}';
-  //     final query = StringBuffer('file=$fileParam');
-  //     // Désactive les actions dans le viewer
-  //     if (preventDownload) {
-  //       // Certains builds custom exposent ces flags ; on double avec CSS côté viewer.
-  //       query.write('&download=false&disableDownload=true&print=false&disablePrint=true');
-  //     }
-  //     return '$viewer?$query$hash';
-  //   }
 
-  //   // Backend natif (viewer navigateur)
-  //   final hash = '#page=$_page&zoom=${_zoom.toStringAsFixed(0)}';
-  //   // NB: #toolbar=0 n’est pas standard en natif (utile surtout pour PDF.js)
-  //   if (src.contains('#')) {
-  //     final base = src.split('#').first;
-  //     return '$base$hash';
-  //   }
-  //   return '$src$hash';
-  // }
 /// Construit l'URL de l'iframe selon le backend choisi.
 String _composeUrl() {
   if (backend == PdfBackend.pdfjs) {
